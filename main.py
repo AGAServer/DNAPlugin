@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 import rasterio
 from rasterio.windows import from_bounds
@@ -7,6 +7,9 @@ from rasterio import features
 import geopandas as gpd
 from shapely.geometry import shape
 import json
+import tempfile
+import os
+import shutil
 
 app = FastAPI()
 
@@ -99,3 +102,28 @@ async def analyze_forest_change(req: AnalysisRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+# --- API XỬ LÝ FILE .TAB CHÈN THÊM VÀO ĐÂY ---
+@app.post("/convert-tab/")
+async def convert_tab(files: list[UploadFile] = File(...)):
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        tab_file_path = None
+        for file in files:
+            file_path = os.path.join(tmpdirname, file.filename)
+            with open(file_path, "wb") as f:
+                shutil.copyfileobj(file.file, f)
+            if file.filename.lower().endswith(".tab"):
+                tab_file_path = file_path
+        
+        if not tab_file_path:
+            return {"error": "Không tìm thấy file .tab trong danh sách tải lên"}
+        
+        try:
+            gdf = gpd.read_file(tab_file_path)
+            if gdf.crs and gdf.crs.to_epsg() != 4326:
+                gdf = gdf.to_crs(epsg=4326)
+            
+            geojson_data = gdf.to_json()
+            return {"geojson": json.loads(geojson_data)}
+        except Exception as e:
+            return {"error": str(e)}
