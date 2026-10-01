@@ -103,7 +103,7 @@ async def analyze_forest_change(req: AnalysisRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# --- API XỬ LÝ FILE .TAB CHÈN THÊM VÀO ĐÂY ---
+# --- API ĐỌC FILE MAPINFO (.TAB) ---
 @app.post("/convert-tab/")
 async def convert_tab(files: list[UploadFile] = File(...)):
     with tempfile.TemporaryDirectory() as tmpdirname:
