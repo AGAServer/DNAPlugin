@@ -4,3 +4,4 @@ rasterio
 numpy
 geopandas
 shapely
+python-multipart
