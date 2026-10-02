@@ -103,27 +103,34 @@ async def analyze_forest_change(req: AnalysisRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# --- API ĐỌC FILE MAPINFO (.TAB) ---
+# --- API ĐỌC FILE MAPINFO (.TAB) ĐÃ NÂNG CẤP CHỐNG LỖI LINUX ---
 @app.post("/convert-tab/")
 async def convert_tab(files: list[UploadFile] = File(...)):
     with tempfile.TemporaryDirectory() as tmpdirname:
         tab_file_path = None
+        
+        # Đổi tên toàn bộ 4 file về cùng 1 tên gốc 'mapdata' và đuôi chữ thường
         for file in files:
-            file_path = os.path.join(tmpdirname, file.filename)
+            ext = file.filename.split('.')[-1].lower()
+            file_path = os.path.join(tmpdirname, f"mapdata.{ext}")
+            
             with open(file_path, "wb") as f:
                 shutil.copyfileobj(file.file, f)
-            if file.filename.lower().endswith(".tab"):
+                
+            if ext == "tab":
                 tab_file_path = file_path
         
         if not tab_file_path:
             return {"error": "Không tìm thấy file .tab trong danh sách tải lên"}
         
         try:
+            # GeoPandas đọc file đã được chuẩn hóa tên
             gdf = gpd.read_file(tab_file_path)
+            
             if gdf.crs and gdf.crs.to_epsg() != 4326:
                 gdf = gdf.to_crs(epsg=4326)
             
             geojson_data = gdf.to_json()
             return {"geojson": json.loads(geojson_data)}
         except Exception as e:
-            return {"error": str(e)}
+            return {"error": f"Lỗi giải mã MapInfo: {str(e)}"}
