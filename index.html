@@ -7,7 +7,7 @@
     <!-- Tích hợp Tailwind CSS qua CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Tùy chỉnh màu sắc thương hiệu */
+        /* Tùy chỉnh màu sắc thương hiệu DNAPlugin */
         :root {
             --brand-green: #0F3823;
             --brand-gold: #FACC15;
@@ -47,9 +47,9 @@
                     <p>Ứng dụng thu thập các quyền sau để cung cấp chức năng lâm nghiệp cốt lõi:</p>
                     <ul class="list-disc pl-5 space-y-2">
                         <li><strong class="text-gray-800">Quyền Vị trí (Location):</strong> Sử dụng định vị GPS để xác định tọa độ, ghi nhận điểm mốc, đo đạc và vẽ tuyến tuần tra (Trekking).</li>
-                        <li><strong class="text-gray-800">Quyền Máy ảnh (Camera):</strong> Sử dụng để chụp ảnh hiện trường kèm tọa độ GPS. Hình ảnh chỉ lưu cục bộ trên máy.</li>
-                        <li><strong class="text-gray-800">Quyền Bộ nhớ (Storage):</strong> Đọc các tệp bản đồ ngoại tuyến (.tab, .shp, .mbtiles) và xuất dữ liệu do bạn chọn.</li>
-                        <li><strong class="text-gray-800">ID Thiết bị:</strong> Xác thực bản quyền công cụ, hoàn toàn không dùng để quảng cáo.</li>
+                        <li><strong class="text-gray-800">Quyền Máy ảnh (Camera):</strong> Sử dụng để chụp ảnh hiện trường kèm tọa độ GPS. Hình ảnh chỉ lưu cục bộ trên thiết bị.</li>
+                        <li><strong class="text-gray-800">Quyền Bộ nhớ (Storage):</strong> Cần thiết để đọc các tệp bản đồ ngoại tuyến (.tab, .shp, .mbtiles) và xuất dữ liệu thực địa.</li>
+                        <li><strong class="text-gray-800">ID Thiết bị:</strong> Xác thực bản quyền công cụ, hoàn toàn không sử dụng để theo dõi danh tính hay quảng cáo.</li>
                     </ul>
                 </div>
             </section>
@@ -60,9 +60,9 @@
             <section>
                 <div class="flex items-center gap-3 mb-4">
                     <div class="bg-[#14532D] text-white rounded-lg p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
-                    <h2 class="text-2xl font-bold text-[#0F3823]">2. Xử lý trên Máy chủ (API)</h2>
+                    <h2 class="text-2xl font-bold text-[#0F3823]">2. Xử lý dữ liệu trên Máy chủ (API)</h2>
                 </div>
-                <p class="pl-14 text-gray-600">Khi sử dụng tính năng phân tích nâng cao (đọc tệp .TAB hoặc tải ảnh vệ tinh), dữ liệu được mã hóa và gửi đến máy chủ của chúng tôi. Dữ liệu này chỉ được <strong>xử lý tức thời trên RAM</strong> và không bị lưu trữ vĩnh viễn.</p>
+                <p class="pl-14 text-gray-600">Khi sử dụng tính năng phân tích nâng cao (đọc tệp .TAB hoặc tải ảnh vệ tinh viễn thám), dữ liệu tệp được mã hóa và gửi đến máy chủ chuyên dụng của chúng tôi. Dữ liệu này chỉ được <strong>xử lý tức thời trên RAM</strong> để trả về kết quả và không bị lưu trữ vĩnh viễn dưới bất kỳ hình thức nào.</p>
             </section>
 
             <hr class="border-gray-200">
@@ -73,7 +73,7 @@
                     <div class="bg-[#14532D] text-white rounded-lg p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
                     <h2 class="text-2xl font-bold text-[#0F3823]">3. Cam kết Bảo mật</h2>
                 </div>
-                <p class="pl-14 text-gray-600">Chúng tôi <strong>KHÔNG</strong> bán, trao đổi hoặc chia sẻ dữ liệu vị trí, bản đồ hay hình ảnh khảo sát của bạn cho bất kỳ bên thứ ba nào. Mọi dữ liệu phục vụ công tác tuần tra đều thuộc quyền kiểm soát tối cao của bạn.</p>
+                <p class="pl-14 text-gray-600">Chúng tôi <strong>KHÔNG</strong> bán, trao đổi hoặc chia sẻ dữ liệu vị trí, bản đồ hay hình ảnh khảo sát của bạn cho bất kỳ bên thứ ba nào vì mục đích thương mại. Mọi dữ liệu phục vụ công tác tuần tra bảo vệ rừng đều thuộc quyền kiểm soát tối cao của bạn.</p>
             </section>
 
             <hr class="border-gray-200">
