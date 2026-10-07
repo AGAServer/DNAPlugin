@@ -39,12 +39,12 @@
             background-position: center center;
         }
 
-        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo */
+        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo (ĐÃ SỬA THÀNH HÌNH TRÒN 50%) */
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
             50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
         }
-        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 8px; }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
 
         /* Hiệu ứng phảng sáng hắt lên từ dưới điện thoại */
         .phone-glow {
@@ -79,9 +79,9 @@
     <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
             
-            <!-- LOGO CÓ HIỆU ỨNG PHẢNG SÁNG -->
-            <a href="index.html" class="flex items-center gap-2 font-black text-[#0F3823] text-xl tracking-tight">
-                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-10 h-10 object-contain rounded-md border border-green-400 logo-glow bg-white">
+            <!-- LOGO ĐÃ ĐƯỢC SỬA THÀNH HÌNH TRÒN (rounded-full) VÀ CHỈNH LẠI VIỀN -->
+            <a href="index.html" class="flex items-center gap-3 font-black text-[#0F3823] text-xl tracking-tight">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-10 h-10 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5">
                 DNAPlugin
             </a>
             
@@ -98,25 +98,24 @@
     </nav>
 
     <!-- Khu vực Banner chính (Hero Section) nền Viễn thám / Không gian số -->
-    <div class="gis-background text-white py-20 relative overflow-hidden">
+    <div class="gis-background text-white py-16 lg:py-20 relative overflow-hidden">
         <main class="max-w-7xl mx-auto px-4 lg:px-6 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
             
-            <!-- CỘT TRÁI: Text & 4 Chú dẫn bên trái -->
-            <div class="lg:w-1/3 flex flex-col space-y-8 z-20">
-                <!-- Nội dung chữ -->
+            <!-- CỘT TRÁI: Text giới thiệu (Chiếm 5/12 chiều rộng) -->
+            <div class="lg:w-5/12 flex flex-col space-y-8 z-20">
                 <div class="space-y-4 text-center lg:text-left">
                     <div class="inline-block px-4 py-1.5 rounded-full text-[11px] font-bold tracking-widest text-[#FACC15] bg-[#FACC15]/10 border border-[#FACC15]/30 shadow-[0_0_10px_rgba(250,204,21,0.2)]">
                         🛰️ CÔNG NGHỆ BẢN ĐỒ LÂM NGHIỆP
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
                         Đi hiện trường.<br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FACC15] to-[#34d399]">Đo đạc chuẩn xác.</span>
                     </h1>
-                    <p class="text-sm text-green-100 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                    <p class="text-sm md:text-base text-green-100 leading-relaxed max-w-lg mx-auto lg:mx-0">
                         DNAPlugin biến điện thoại của bạn thành bộ công cụ bản đồ thực địa chuyên nghiệp: GPS/VN-2000, phân tích ảnh vệ tinh và làm việc hoàn toàn ngoại tuyến.
                     </p>
                     
-                    <!-- Nút bấm (Đã thêm nút Tải Ứng Dụng) -->
+                    <!-- Nút bấm -->
                     <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
                         <a href="#" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition flex items-center gap-2 border border-emerald-400">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
@@ -127,38 +126,18 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- 4 Chú dẫn bên TRÁI -->
-                <div class="flex flex-col gap-3 mt-4 hidden lg:flex">
-                    <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="0">
-                        <div class="w-8 h-8 rounded bg-emerald-500/20 flex items-center justify-center text-emerald-400">1</div>
-                        <div><p class="text-sm font-bold text-white">Định vị VN-2000</p><p class="text-[11px] text-gray-300">Độ chính xác cao ±2m</p></div>
-                    </div>
-                    <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="1">
-                        <div class="w-8 h-8 rounded bg-red-500/20 flex items-center justify-center text-red-400 animate-pulse">2</div>
-                        <div><p class="text-sm font-bold text-white">Cảnh báo cháy rừng</p><p class="text-[11px] text-gray-300">Hệ thống NASA FIRMS</p></div>
-                    </div>
-                    <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="2">
-                        <div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center text-blue-400">3</div>
-                        <div><p class="text-sm font-bold text-white">Quản lý lớp (Layers)</p><p class="text-[11px] text-gray-300">Tắt/bật Shapefile, Tab</p></div>
-                    </div>
-                    <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="3">
-                        <div class="w-8 h-8 rounded bg-purple-500/20 flex items-center justify-center text-purple-400">4</div>
-                        <div><p class="text-sm font-bold text-white">Đo đạc diện tích</p><p class="text-[11px] text-gray-300">Tự động tính hecta</p></div>
-                    </div>
-                </div>
             </div>
 
-            <!-- CỘT GIỮA: Điện thoại (Xóa chữ, Thêm nền phản quang) -->
-            <div class="lg:w-1/3 flex justify-center relative py-10 z-10">
+            <!-- CỘT GIỮA: Điện thoại mô phỏng -->
+            <div class="lg:flex-1 flex justify-center relative py-5 lg:py-10 z-10">
                 <!-- Vòng tròn sáng mờ ảo phía sau điện thoại -->
                 <div class="absolute inset-0 bg-emerald-500/20 rounded-full blur-[100px]"></div>
 
                 <!-- Khung điện thoại -->
-                <div class="relative w-[280px] h-[580px] bg-gray-900 rounded-[3rem] border-[8px] border-gray-800 phone-glow overflow-hidden z-20">
+                <div class="relative w-[270px] h-[560px] lg:w-[280px] lg:h-[580px] bg-gray-900 rounded-[3rem] border-[8px] border-gray-800 phone-glow overflow-hidden z-20">
                     <div class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-2xl w-32 mx-auto z-30"></div>
                     
-                    <!-- Khung chứa 8 ảnh trượt (Hoàn toàn sạch bóng, không có text che khuất) -->
+                    <!-- Khung chứa 8 ảnh trượt -->
                     <div class="relative w-full h-full bg-[#0F3823]" id="phone-screen">
                         <img src="album/hinh1.jpg" alt="Chức năng 1" class="screen-image active" id="slide-0">
                         <img src="album/hinh2.jpg" alt="Chức năng 2" class="screen-image" id="slide-1">
@@ -172,22 +151,38 @@
                 </div>
             </div>
 
-            <!-- CỘT PHẢI: 4 Chú dẫn bên phải -->
-            <div class="lg:w-1/3 flex flex-col gap-3 z-20 hidden lg:flex mt-10 lg:mt-0">
-                <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="4">
-                    <div class="w-8 h-8 rounded bg-yellow-500/20 flex items-center justify-center text-yellow-400">5</div>
+            <!-- CỘT PHẢI: Toàn bộ 8 Chú dẫn (Chiếm 4/12 chiều rộng) -->
+            <div class="lg:w-4/12 flex flex-col gap-2.5 z-20 hidden lg:flex mt-10 lg:mt-0">
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="0">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">1</div>
+                    <div><p class="text-sm font-bold text-white">Định vị VN-2000</p><p class="text-[11px] text-gray-300">Độ chính xác cao ±2m</p></div>
+                </div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="1">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 font-bold animate-pulse">2</div>
+                    <div><p class="text-sm font-bold text-white">Cảnh báo cháy rừng</p><p class="text-[11px] text-gray-300">Hệ thống NASA FIRMS</p></div>
+                </div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="2">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">3</div>
+                    <div><p class="text-sm font-bold text-white">Quản lý lớp (Layers)</p><p class="text-[11px] text-gray-300">Tắt/bật Shapefile, Tab</p></div>
+                </div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="3">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">4</div>
+                    <div><p class="text-sm font-bold text-white">Đo đạc diện tích</p><p class="text-[11px] text-gray-300">Tự động tính hecta</p></div>
+                </div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="4">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 font-bold">5</div>
                     <div><p class="text-sm font-bold text-white">Ảnh vệ tinh Sentinel</p><p class="text-[11px] text-gray-300">Cập nhật liên tục</p></div>
                 </div>
-                <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="5">
-                    <div class="w-8 h-8 rounded bg-cyan-500/20 flex items-center justify-center text-cyan-400">6</div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="5">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold">6</div>
                     <div><p class="text-sm font-bold text-white">Chụp ảnh đính tọa độ</p><p class="text-[11px] text-gray-300">Lưu bằng chứng thực địa</p></div>
                 </div>
-                <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="6">
-                    <div class="w-8 h-8 rounded bg-orange-500/20 flex items-center justify-center text-orange-400">7</div>
-                    <div><p class="text-sm font-bold text-white">Đồng bộ Đám mây</p><p class="text-[11px] text-gray-300">Render.com API</p></div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="6">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold">7</div>
+                    <div><p class="text-sm font-bold text-white">Đồng bộ Đám mây</p><p class="text-[11px] text-gray-300">Tích hợp Render.com API</p></div>
                 </div>
-                <div class="glass-legend p-3 rounded-lg cursor-pointer flex items-center gap-3" data-slide="7">
-                    <div class="w-8 h-8 rounded bg-pink-500/20 flex items-center justify-center text-pink-400">8</div>
+                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="7">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold">8</div>
                     <div><p class="text-sm font-bold text-white">Hoạt động Ngoại tuyến</p><p class="text-[11px] text-gray-300">Không cần mạng trong rừng</p></div>
                 </div>
             </div>
@@ -294,11 +289,9 @@
 
             // Hàm chuyển đổi ảnh và bật sáng nút tương ứng
             function goToSlide(index) {
-                // Xóa trạng thái active của tất cả các nút và ảnh hiện tại
                 legends.forEach(l => l.classList.remove('active'));
                 slides.forEach(s => s.classList.remove('active'));
                 
-                // Thêm trạng thái active cho nút và ảnh được chọn
                 if(legends[index]) legends[index].classList.add('active');
                 if(slides[index]) slides[index].classList.add('active');
                 currentIndex = index;
@@ -307,21 +300,21 @@
             // Hàm tự động chạy qua 8 ảnh
             function startSlideShow() {
                 slideInterval = setInterval(() => {
-                    let nextIndex = (currentIndex + 1) % 8; // Chạy xoay vòng từ 0 đến 7
+                    let nextIndex = (currentIndex + 1) % 8;
                     goToSlide(nextIndex);
-                }, 3500); // Tốc độ đổi ảnh: 3.5 giây
+                }, 3500);
             }
 
-            // Gắn sự kiện Hover (di chuột) cho cả 8 nút
+            // Gắn sự kiện Hover
             legends.forEach((legend) => {
                 legend.addEventListener('mouseenter', function() {
-                    clearInterval(slideInterval); // Tạm dừng việc trượt tự động
+                    clearInterval(slideInterval);
                     const index = parseInt(this.getAttribute('data-slide'));
-                    goToSlide(index);             // Mở ngay ảnh tương ứng với nút
+                    goToSlide(index);
                 });
                 
                 legend.addEventListener('mouseleave', () => {
-                    startSlideShow();             // Rời chuột ra thì tự động trượt tiếp
+                    startSlideShow();
                 });
             });
 
