@@ -3,101 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chính sách Quyền riêng tư - DNAPlugin</title>
-    <!-- Tích hợp Tailwind CSS qua CDN -->
+    <title>DNAPlugin - Bản đồ số lâm nghiệp</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Tùy chỉnh màu sắc thương hiệu DNAPlugin */
-        :root {
-            --brand-green: #0F3823;
-            --brand-gold: #FACC15;
-            --brand-light-green: #14532D;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; }
+        .glass-panel { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Header / Banner -->
-    <header class="bg-[#0F3823] text-white py-12 shadow-md">
-        <div class="max-w-4xl mx-auto px-6 flex items-center gap-6">
-            <!-- Icon/Logo -->
-            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center p-2 border-4 border-[#FACC15]">
-                <svg class="w-12 h-12 text-[#0F3823]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <!-- PHẦN 1: LANDING PAGE GIỚI THIỆU APP (GIAO DIỆN GIỐNG LFIELD) -->
+    <div class="bg-gradient-to-br from-[#0F3823] to-[#14532D] text-white min-h-screen flex flex-col">
+        
+        <!-- Navbar -->
+        <nav class="max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center border-2 border-[#FACC15]">
+                    <svg class="w-6 h-6 text-[#0F3823]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <span class="text-xl font-bold tracking-wider">DNAPlugin</span>
             </div>
-            <div>
-                <h1 class="text-3xl font-extrabold tracking-tight text-[#FACC15]">CHÍNH SÁCH QUYỀN RIÊNG TƯ</h1>
-                <p class="mt-2 text-lg font-medium text-green-100">Ứng dụng DNAPlugin - Công cụ tiện ích kỹ thuật lâm nghiệp</p>
-                <p class="mt-1 text-sm text-green-200">Cập nhật lần cuối: 07/10/2026 | Tác giả: Đoàn Ngọc Ấn</p>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-green-100">
+                <a href="#gioi-thieu" class="hover:text-white transition">Tính năng</a>
+                <a href="#quyen-rieng-tu" class="hover:text-white transition">Quyền riêng tư</a>
+                <a href="https://zalo.me/0856521139" class="hover:text-white transition">Liên hệ</a>
             </div>
-        </div>
-    </header>
+            <button class="bg-[#FACC15] text-[#0F3823] px-5 py-2.5 rounded-full font-bold text-sm hover:bg-yellow-300 transition shadow-lg">
+                Tải Android (APK)
+            </button>
+        </nav>
 
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-6 py-10">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-8">
+        <!-- Hero Section -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 flex flex-col md:flex-row items-center justify-between gap-12 py-12 md:py-0">
+            <!-- Left Text -->
+            <div class="md:w-1/2 space-y-6 z-10">
+                <div class="inline-block glass-panel px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-[#FACC15] border border-green-700/50">
+                    🌿 CÔNG CỤ TIỆN ÍCH KỸ THUẬT LÂM NGHIỆP
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    Đi hiện trường.<br>
+                    <span class="text-[#FACC15]">Đo đạc chuẩn xác.</span>
+                </h1>
+                <p class="text-lg text-green-100 leading-relaxed max-w-lg">
+                    DNAPlugin biến chiếc điện thoại của bạn thành bộ công cụ bản đồ thực địa chuyên nghiệp: GPS/VN-2000, đo đạc diện tích, phân tích ảnh vệ tinh và làm việc hoàn toàn ngoại tuyến.
+                </p>
+                <div class="flex gap-4 pt-4">
+                    <a href="#" class="bg-[#FACC15] text-[#0F3823] px-8 py-3.5 rounded-full font-bold hover:bg-yellow-300 transition shadow-xl flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Tải app Android (Sắp ra mắt)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Image/Mockup -->
+            <div class="md:w-1/2 relative flex justify-center mt-10 md:mt-0">
+                <!-- Phone Mockup Container -->
+                <div class="relative w-[280px] h-[580px] bg-gray-900 rounded-[3rem] border-[8px] border-gray-800 shadow-2xl overflow-hidden flex flex-col">
+                    <!-- Notch -->
+                    <div class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-2xl w-32 mx-auto z-20"></div>
+                    <!-- Screen Map Area (CSS gradient simulating map) -->
+                    <div class="flex-1 bg-[#b4d3b2] relative">
+                        <!-- Simulate Map interface -->
+                        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(#14532D 1px, transparent 1px); background-size: 20px 20px;"></div>
+                        <!-- UI Elements inside phone -->
+                        <div class="absolute top-10 left-4 right-4 flex justify-between gap-2 z-10">
+                            <div class="bg-white/90 p-2 rounded-lg shadow w-full text-xs text-gray-800 font-bold">VN-2000 <br>X: 524791.8<br>Y: 1182721.9</div>
+                            <div class="bg-[#0F3823] text-white p-2 rounded-lg shadow flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-6 left-4 right-4 bg-white p-3 rounded-xl shadow-lg border border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-700">✓</div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-800">Đã thu điểm số 39</p>
+                                    <p class="text-[10px] text-gray-500">Sai số vệ tinh: ±2.1m</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decorative floating card -->
+                <div class="absolute -left-10 top-1/3 bg-white p-4 rounded-xl shadow-2xl border border-gray-100 animate-bounce" style="animation-duration: 3s;">
+                    <p class="text-xs font-bold text-gray-500 mb-1">Cảnh báo mất rừng</p>
+                    <p class="text-sm font-extrabold text-[#0F3823]">AI Sentinel-2 Đã xong</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- PHẦN 2: CHÍNH SÁCH QUYỀN RIÊNG TƯ (Dành cho Google Play) -->
+    <section id="quyen-rieng-tu" class="max-w-4xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-[#0F3823]">Chính Sách Quyền Riêng Tư</h2>
+            <p class="text-gray-500 mt-2">Dành cho việc phát hành ứng dụng trên Google Play Store</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 space-y-8">
+            <section>
+                <h3 class="text-xl font-bold text-[#14532D] border-l-4 border-[#FACC15] pl-3 mb-4">1. Thu thập và Sử dụng Dữ liệu</h3>
+                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                    <li><strong>Vị trí (Location):</strong> Định vị GPS để xác định tọa độ VN-2000, đo đạc và vẽ tuyến tuần tra.</li>
+                    <li><strong>Máy ảnh (Camera):</strong> Chụp ảnh hiện trường kèm tọa độ. Lưu cục bộ trên thiết bị.</li>
+                    <li><strong>Bộ nhớ (Storage):</strong> Đọc tệp bản đồ ngoại tuyến (.tab, .shp, .mbtiles) và xuất dữ liệu.</li>
+                    <li><strong>ID Thiết bị:</strong> Xác thực bản quyền công cụ, không dùng để quảng cáo.</li>
+                </ul>
+            </section>
             
-            <!-- Section 1 -->
             <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="bg-[#14532D] text-white rounded-lg p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
-                    <h2 class="text-2xl font-bold text-[#0F3823]">1. Thu thập và Sử dụng Dữ liệu</h2>
-                </div>
-                <div class="space-y-4 pl-14 text-gray-600">
-                    <p>Ứng dụng thu thập các quyền sau để cung cấp chức năng lâm nghiệp cốt lõi:</p>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li><strong class="text-gray-800">Quyền Vị trí (Location):</strong> Sử dụng định vị GPS để xác định tọa độ, ghi nhận điểm mốc, đo đạc và vẽ tuyến tuần tra (Trekking).</li>
-                        <li><strong class="text-gray-800">Quyền Máy ảnh (Camera):</strong> Sử dụng để chụp ảnh hiện trường kèm tọa độ GPS. Hình ảnh chỉ lưu cục bộ trên thiết bị.</li>
-                        <li><strong class="text-gray-800">Quyền Bộ nhớ (Storage):</strong> Cần thiết để đọc các tệp bản đồ ngoại tuyến (.tab, .shp, .mbtiles) và xuất dữ liệu thực địa.</li>
-                        <li><strong class="text-gray-800">ID Thiết bị:</strong> Xác thực bản quyền công cụ, hoàn toàn không sử dụng để theo dõi danh tính hay quảng cáo.</li>
-                    </ul>
-                </div>
+                <h3 class="text-xl font-bold text-[#14532D] border-l-4 border-[#FACC15] pl-3 mb-4">2. Xử lý trên Máy chủ (API)</h3>
+                <p class="text-gray-600 pl-4">Dữ liệu phân tích viễn thám (ảnh Sentinel) hoặc tệp .TAB được gửi mã hóa đến máy chủ chuyên dụng (Render). Dữ liệu chỉ được xử lý tức thời trên RAM và không bị lưu trữ vĩnh viễn.</p>
             </section>
 
-            <hr class="border-gray-200">
-
-            <!-- Section 2 -->
             <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="bg-[#14532D] text-white rounded-lg p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
-                    <h2 class="text-2xl font-bold text-[#0F3823]">2. Xử lý dữ liệu trên Máy chủ (API)</h2>
-                </div>
-                <p class="pl-14 text-gray-600">Khi sử dụng tính năng phân tích nâng cao (đọc tệp .TAB hoặc tải ảnh vệ tinh viễn thám), dữ liệu tệp được mã hóa và gửi đến máy chủ chuyên dụng của chúng tôi. Dữ liệu này chỉ được <strong>xử lý tức thời trên RAM</strong> để trả về kết quả và không bị lưu trữ vĩnh viễn dưới bất kỳ hình thức nào.</p>
-            </section>
-
-            <hr class="border-gray-200">
-
-            <!-- Section 3 -->
-            <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="bg-[#14532D] text-white rounded-lg p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
-                    <h2 class="text-2xl font-bold text-[#0F3823]">3. Cam kết Bảo mật</h2>
-                </div>
-                <p class="pl-14 text-gray-600">Chúng tôi <strong>KHÔNG</strong> bán, trao đổi hoặc chia sẻ dữ liệu vị trí, bản đồ hay hình ảnh khảo sát của bạn cho bất kỳ bên thứ ba nào vì mục đích thương mại. Mọi dữ liệu phục vụ công tác tuần tra bảo vệ rừng đều thuộc quyền kiểm soát tối cao của bạn.</p>
-            </section>
-
-            <hr class="border-gray-200">
-
-            <!-- Section 4 -->
-            <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="bg-[#14532D] text-white rounded-lg p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
-                    <h2 class="text-2xl font-bold text-[#0F3823]">4. Liên hệ Hỗ trợ</h2>
-                </div>
-                <div class="pl-14 text-gray-600 flex flex-col gap-2">
-                    <a href="https://zalo.me/0856521139" class="inline-flex items-center text-[#14532D] hover:underline font-semibold">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> Zalo: 085.652.1139
-                    </a>
-                    <a href="https://facebook.com/NgocAn.Digital" class="inline-flex items-center text-blue-600 hover:underline font-semibold">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> Facebook: Đoàn Ngọc Ấn
-                    </a>
-                </div>
+                <h3 class="text-xl font-bold text-[#14532D] border-l-4 border-[#FACC15] pl-3 mb-4">3. Cam kết Bảo mật</h3>
+                <p class="text-gray-600 pl-4">Chúng tôi KHÔNG bán hoặc chia sẻ dữ liệu vị trí, bản đồ hay hình ảnh khảo sát của bạn cho bên thứ ba. Mọi dữ liệu phục vụ tuần tra thuộc quyền kiểm soát của bạn.</p>
             </section>
         </div>
-    </main>
+    </section>
 
-    <footer class="text-center py-6 text-gray-500 text-sm">
-        &copy; 2026 DNAPlugin. Bảo lưu mọi quyền.
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm">
+        <p>&copy; 2026 DNAPlugin. Tác giả: Đoàn Ngọc Ấn. Zalo: 085.652.1139</p>
     </footer>
+
 </body>
 </html>
