@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Về tác giả - Đoàn Ngọc Ấn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background-color: #F8FAFC; font-family: 'Segoe UI', sans-serif; }</style>
+</head>
+<body>
+    <!-- Thanh Menu -->
+    <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10 text-[#2D5A40] font-bold text-sm md:text-base">
+            <a href="tinh-nang.html" class="hover:text-green-700">Tính năng</a>
+            <a href="hinh-anh.html" class="hover:text-green-700">Hình ảnh</a>
+            <a href="tac-gia.html" class="text-green-800 border-b-2 border-green-800 pb-1">Về tác giả</a>
+            <a href="#" class="opacity-40 cursor-not-allowed">Kích hoạt dịch vụ</a>
+            <a href="#" class="opacity-40 cursor-not-allowed">Liên hệ</a>
+        </div>
+    </nav>
+
+    <!-- Nội dung CV -->
+    <main class="max-w-4xl mx-auto py-12 px-6">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+            <div class="bg-gradient-to-r from-[#0F3823] to-[#14532D] p-8 text-white flex items-center gap-6">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#0F3823] text-4xl font-bold shadow-inner">
+                    ĐA
+                </div>
+                <div>
+                    <h1 class="text-3xl font-extrabold text-[#FACC15]">Đoàn Ngọc Ấn</h1>
+                    <p class="text-green-100 mt-2 text-lg">Kỹ sư / Nhà phát triển phần mềm GIS Lâm nghiệp</p>
+                </div>
+            </div>
+            
+            <div class="p-8 grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-[#0F3823] border-b-2 border-gray-100 pb-2 mb-4">Mục tiêu & Chuyên môn</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Chuyên phát triển các hệ thống bản đồ số và công cụ tiện ích kỹ thuật lâm nghiệp. Đam mê trong việc đưa các giải pháp viễn thám phức tạp (GDAL, QGIS) thành các ứng dụng thực địa dễ sử dụng trên thiết bị di động.
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-semibold">Flutter / Dart</span>
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold">Python / QGIS</span>
+                        <span class="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-sm font-semibold">C++ (GDAL/OGR)</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-[#0F3823] border-b-2 border-gray-100 pb-2 mb-4">Dự án tiêu biểu</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#FACC15] mt-1">★</span>
+                            <div>
+                                <strong class="text-gray-800 block">DNAPlugin (Mobile App)</strong>
+                                <span class="text-gray-500 text-sm">Ứng dụng GIS thực địa ngoại tuyến, đo đạc VN-2000 và tích hợp ảnh Sentinel.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#FACC15] mt-1">★</span>
+                            <div>
+                                <strong class="text-gray-800 block">DoanNgocAnPlugin (Desktop)</strong>
+                                <span class="text-gray-500 text-sm">Plugin trên QGIS chuyên xử lý thuật toán phân tích biến động rừng.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
