@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính năng - DNAPlugin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background-color: #F8FAFC; font-family: 'Segoe UI', sans-serif; }</style>
+</head>
+<body>
+    <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10 text-[#2D5A40] font-bold text-sm md:text-base">
+            <a href="tinh-nang.html" class="text-green-800 border-b-2 border-green-800 pb-1">Tính năng</a>
+            <a href="hinh-anh.html" class="hover:text-green-700">Hình ảnh</a>
+            <a href="tac-gia.html" class="hover:text-green-700">Về tác giả</a>
+            <a href="#" class="opacity-40 cursor-not-allowed">Kích hoạt dịch vụ</a>
+            <a href="#" class="opacity-40 cursor-not-allowed">Liên hệ</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-12 px-6">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-[#0F3823]">Hệ sinh thái Bản đồ số</h1>
+            <p class="text-gray-500 mt-3">Đồng bộ từ thực địa di động đến phân tích chuyên sâu trên máy tính</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Cột App Mobile -->
+            <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-[#14532D]">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-800 text-2xl">📱</div>
+                    <h2 class="text-2xl font-bold text-gray-800">DNAPlugin <span class="text-sm font-normal text-gray-500">(Mobile App)</span></h2>
+                </div>
+                <ul class="space-y-4 text-gray-600">
+                    <li class="flex items-start gap-2"><span>✅</span> <strong>Hoạt động Offline 100%:</strong> Tích hợp sức mạnh GDAL/C++ để đọc trực tiếp file MapInfo (.TAB) ngay trên điện thoại không cần mạng lưới.</li>
+                    <li class="flex items-start gap-2"><span>✅</span> <strong>Đo đạc VN-2000:</strong> Xác định tọa độ, vẽ đa giác, đo diện tích lô rừng với độ chính xác cao.</li>
+                    <li class="flex items-start gap-2"><span>✅</span> <strong>Công cụ Viễn thám mượt mà:</strong> Trạm tải ảnh Sentinel/Landsat với cơ chế vuốt quét vùng BBOX cực kỳ tối ưu (duy trì 60 FPS).</li>
+                    <li class="flex items-start gap-2"><span>✅</span> <strong>Cảnh báo thời gian thực:</strong> Tích hợp API đám mây (Render) để phân tích cháy rừng và mất rừng ngay tại hiện trường.</li>
+                </ul>
+            </div>
+
+            <!-- Cột Plugin Desktop -->
+            <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-[#FACC15]">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-700 text-2xl">💻</div>
+                    <h2 class="text-2xl font-bold text-gray-800">DoanNgocAnPlugin <span class="text-sm font-normal text-gray-500">(QGIS)</span></h2>
+                </div>
+                <ul class="space-y-4 text-gray-600">
+                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Phân tích thuật toán sâu:</strong> Khai thác tối đa sức mạnh của QGIS và Python (PyQt5) trên máy tính.</li>
+                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Chỉ số viễn thám:</strong> Tự động tính toán các ma trận Raster (NDVI, NDMI) từ các băng phổ vệ tinh.</li>
+                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Khoanh vẽ tự động:</strong> Chuyển đổi pixel biến động thành đa giác (Polygons), lọc nhiễu tự động để bám sát ranh giới lô rừng.</li>
+                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Tạo dữ liệu nguồn:</strong> Là công cụ đắc lực để xuất các lớp bản đồ chuẩn nạp vào ứng dụng di động DNAPlugin.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
