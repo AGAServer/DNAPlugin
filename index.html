@@ -19,6 +19,16 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-87.5%); }
         }
+
+        /* CSS cho hiệu ứng Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+            display: inline-flex;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -145,59 +155,29 @@
     </div>
 
     <!-- Dải ruy băng các định dạng tệp (Chạy ngang từ phải sang trái) -->
-    <div class="bg-gradient-to-r from-[#17968B] via-[#0D7A94] to-[#12589D] w-full py-3 overflow-hidden shadow-md relative z-40 border-y border-teal-800/50">
-        <!-- Vùng chứa các mục để tạo hiệu ứng cuộn vô cực -->
-        <div class="flex whitespace-nowrap animate-[marquee_25s_linear_infinite]">
-            <!-- Khối Nội dung 1 -->
-            <div class="flex items-center space-x-8 text-white font-mono text-sm tracking-widest font-semibold px-4">
-                <span>Shapefile</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MapInfo TAB/MIF</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>AutoCAD DXF/DWG</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MicroStation DGN</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>GeoPDF</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MBTiles</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>CSV • Excel</span>
-            </div>
-            <!-- Khối Nội dung 2 (Lặp lại Khối 1 để cuộn không bị ngắt quãng) -->
-            <div class="flex items-center space-x-8 text-white font-mono text-sm tracking-widest font-semibold px-4">
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>Shapefile</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MapInfo TAB/MIF</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>AutoCAD DXF/DWG</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MicroStation DGN</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>GeoPDF</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MBTiles</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>CSV • Excel</span>
-            </div>
-            <!-- Khối Nội dung 3 (Dự phòng cho màn hình siêu rộng) -->
-            <div class="flex items-center space-x-8 text-white font-mono text-sm tracking-widest font-semibold px-4">
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>Shapefile</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MapInfo TAB/MIF</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>AutoCAD DXF/DWG</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MicroStation DGN</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>GeoPDF</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>MBTiles</span>
-                <span class="text-yellow-400 text-xs">◆</span>
-                <span>CSV • Excel</span>
-            </div>
+    <div class="relative flex overflow-x-hidden bg-green-600 text-white py-3 border-y border-green-700 shadow-md z-40">
+        <div class="animate-marquee whitespace-nowrap flex items-center gap-6 font-medium text-sm md:text-base">
+            <!-- Chữ chạy lần 1 -->
+            <span class="flex items-center">
+                DNAPlugin - Công cụ tiện ích Kỹ thuật trên thiết bị Android
+                <span class="mx-6 text-green-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật trên Desktop
+                <span class="mx-6 text-green-300">✦</span>
+            </span>
+            <!-- Chữ chạy lần 2 (để tạo hiệu ứng vòng lặp liên tục) -->
+            <span class="flex items-center">
+                DNAPlugin - Công cụ tiện ích Kỹ thuật trên thiết bị Android
+                <span class="mx-6 text-green-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật trên Desktop
+                <span class="mx-6 text-green-300">✦</span>
+            </span>
+             <!-- Chữ chạy lần 3 (đảm bảo không bị đứt đoạn trên màn hình rộng) -->
+            <span class="flex items-center">
+                DNAPlugin - Công cụ tiện ích Kỹ thuật trên thiết bị Android
+                <span class="mx-6 text-green-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật trên Desktop
+                <span class="mx-6 text-green-300">✦</span>
+            </span>
         </div>
     </div>
     
