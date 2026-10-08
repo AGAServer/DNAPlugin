@@ -3,10 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hình ảnh - DNAPlugin</title>
+    <title>Hình ảnh - Hệ sinh thái DNAPlugin</title>
+    <!-- Tích hợp Tailwind CSS qua CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #1a1a1a; font-family: 'Segoe UI', sans-serif; color: white; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; background-color: #F8FAFC; }
+        
+        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
+        }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
+
+        /* Nền không gian số GIS / Viễn thám */
+        .gis-background {
+            background-color: #081b12;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+        }
+        
         /* Ẩn thanh cuộn nhưng vẫn cho phép cuộn */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -17,83 +37,174 @@
         .snap-item { scroll-snap-align: start; }
     </style>
 </head>
-<body>
-    <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10 text-[#2D5A40] font-bold text-sm md:text-base">
-            <a href="index.html" class="hover:text-green-700">Trang chủ</a>
-            <a href="tinh-nang.html" class="hover:text-green-700">Tính năng</a>
-            <a href="hinh-anh.html" class="text-green-800 border-b-2 border-green-800 pb-1">Hình ảnh</a>
-            <a href="tac-gia.html" class="hover:text-green-700">Về tác giả</a>
-            <a href="#" class="opacity-40 cursor-not-allowed">Kích hoạt dịch vụ</a>
-            <a href="#" class="opacity-40 cursor-not-allowed">Liên hệ</a>
+<body class="gis-background min-h-screen">
+
+    <!-- Thanh Menu Điều hướng -->
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
+            </a>
+            
+            <!-- Các liên kết điều hướng -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
+                <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
+                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
+                <a href="hinh-anh.html" class="text-green-800 border-b-2 border-green-800 pb-1 hidden sm:block">Hình ảnh</a>
+                <a href="tac-gia.html" class="hover:text-green-700 transition-colors hidden md:block">Về tác giả</a>
+                
+                <!-- Nút Tải File APK nổi bật trên thanh Menu -->
+                <a href="#" class="bg-[#FACC15] text-[#0F3823] px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Tải File APK
+                </a>
+            </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-10 px-4 grid lg:grid-cols-12 gap-10 items-center min-h-[80vh]">
+    <!-- Content Thư Viện Hình Ảnh -->
+    <main class="max-w-[1400px] mx-auto py-12 px-4 lg:px-6 grid lg:grid-cols-12 gap-12 items-center min-h-[85vh]">
         
         <!-- CỘT TRÁI: DNAPLUGIN (CUỘN DỌC TRONG KHUNG ĐIỆN THOẠI) -->
         <div class="lg:col-span-4 flex flex-col items-center">
-            <h2 class="text-2xl font-bold text-[#FACC15] mb-6 text-center">App Điện Thoại<br><span class="text-sm font-normal text-gray-400">(Cuộn dọc)</span></h2>
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-extrabold text-[#FACC15] drop-shadow-md">DNAPlugin (App)</h2>
+                <p class="text-sm font-medium text-emerald-300 mt-1 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                    Vuốt dọc để xem (12 ảnh)
+                </p>
+            </div>
             
             <!-- Khung giả lập Smartphone -->
-            <div class="relative w-[280px] h-[580px] bg-black rounded-[3rem] border-[8px] border-gray-800 shadow-2xl overflow-hidden">
+            <div class="relative w-[280px] h-[580px] bg-gray-900 rounded-[3rem] border-[8px] border-gray-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col">
                 <!-- Notch (Tai thỏ) -->
-                <div class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-xl w-32 mx-auto z-20"></div>
+                <div class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-2xl w-32 mx-auto z-20"></div>
                 
-                <!-- Khu vực cuộn ảnh dọc -->
-                <div class="w-full h-full overflow-y-auto snap-y-container no-scrollbar bg-gray-900">
-                    <!-- Ảnh 1 -->
-                    <div class="w-full h-full snap-item flex items-center justify-center bg-gray-800 border-b border-gray-700">
-                        <span class="text-gray-400 p-4 text-center">Chèn ảnh chụp màn hình App dọc số 1 vào đây</span>
-                        <!-- Thay thế bằng: <img src="anh-app-1.jpg" class="w-full h-full object-cover"> -->
+                <!-- Khu vực cuộn ảnh dọc Snap -->
+                <div class="w-full h-full overflow-y-auto snap-y-container no-scrollbar bg-[#0F3823]">
+                    
+                    <!-- 4 Hình giới thiệu cài đặt -->
+                    <div class="w-full h-full snap-item relative">
+                        <img src="TC_logo1.png" alt="DNAPlugin Logo App" class="w-full h-full object-cover">
                     </div>
-                    <!-- Ảnh 2 -->
-                    <div class="w-full h-full snap-item flex items-center justify-center bg-gray-700 border-b border-gray-600">
-                        <span class="text-gray-300 p-4 text-center">Chèn ảnh App dọc số 2</span>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="TC_intro.png" alt="Giới thiệu App" class="w-full h-full object-cover bg-gray-800">
                     </div>
-                    <!-- Ảnh 3 -->
-                    <div class="w-full h-full snap-item flex items-center justify-center bg-gray-800">
-                        <span class="text-gray-400 p-4 text-center">Chèn ảnh App dọc số 3</span>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="TC_menu3.png" alt="Menu Hệ thống" class="w-full h-full object-cover bg-gray-800">
                     </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="TC_caidat.png" alt="Cài đặt hệ thống" class="w-full h-full object-cover bg-gray-800">
+                    </div>
+
+                    <!-- 8 Hình trang chủ bổ sung -->
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh1.jpg" alt="Trang chủ 1" class="w-full h-full object-cover bg-green-900">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh2.jpg" alt="Trang chủ 2" class="w-full h-full object-cover bg-green-800">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh3.jpg" alt="Trang chủ 3" class="w-full h-full object-cover bg-emerald-900">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh4.jpg" alt="Trang chủ 4" class="w-full h-full object-cover bg-emerald-800">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh5.jpg" alt="Trang chủ 5" class="w-full h-full object-cover bg-teal-900">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh6.jpg" alt="Trang chủ 6" class="w-full h-full object-cover bg-teal-800">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh7.jpg" alt="Trang chủ 7" class="w-full h-full object-cover bg-green-700">
+                    </div>
+                    <div class="w-full h-full snap-item relative">
+                        <img src="album/hinh8.jpg" alt="Trang chủ 8" class="w-full h-full object-cover bg-emerald-700">
+                    </div>
+
                 </div>
             </div>
         </div>
 
         <!-- CỘT PHẢI: QGIS PLUGIN (LƯỚT NGANG TRONG KHUNG MÁY TÍNH) -->
         <div class="lg:col-span-8 flex flex-col items-center lg:items-start w-full mt-10 lg:mt-0">
-            <h2 class="text-2xl font-bold text-[#FACC15] mb-6 text-center w-full">DoanNgocAnPlugin (QGIS)<br><span class="text-sm font-normal text-gray-400">(Vuốt ngang)</span></h2>
+            <div class="text-center lg:text-left w-full mb-6">
+                <h2 class="text-3xl font-extrabold text-[#FACC15] drop-shadow-md">DoanNgocAnPlugin (Desktop QGIS)</h2>
+                <p class="text-sm font-medium text-emerald-300 mt-1 flex items-center justify-center lg:justify-start gap-2">
+                    Vuốt ngang (hoặc dùng Touchpad) để xem chi tiết (8 ảnh)
+                    <svg class="w-4 h-4 animate-bounce" style="animation-direction: alternate; animation-name: bounce-x;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </p>
+            </div>
             
             <!-- Khung giả lập Màn hình Laptop/Desktop -->
-            <div class="relative w-full max-w-[800px] aspect-video bg-black rounded-lg border-4 border-gray-700 shadow-2xl overflow-hidden mx-auto">
-                <!-- Thanh tác vụ giả lập -->
-                <div class="absolute bottom-0 w-full h-6 bg-gray-800 z-20 border-t border-gray-600 flex items-center px-2 gap-2">
-                    <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="relative w-full max-w-[900px] aspect-[16/10] md:aspect-video bg-gray-900 rounded-lg md:rounded-t-2xl border-4 md:border-[12px] border-gray-800 shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden mx-auto lg:mx-0">
+                
+                <!-- Thanh viền trên Camera Web (Chỉ hiện trên desktop) -->
+                <div class="hidden md:block absolute top-0 inset-x-0 h-4 bg-gray-800 w-full z-20 flex justify-center items-center">
+                    <div class="w-1.5 h-1.5 rounded-full bg-gray-950"></div>
                 </div>
 
-                <!-- Khu vực cuộn ảnh ngang -->
-                <div class="w-full h-full overflow-x-auto snap-x-container no-scrollbar flex flex-row pb-6">
-                    <!-- Slide 1 -->
-                    <div class="w-full h-full flex-shrink-0 snap-item flex items-center justify-center bg-gray-800 border-r border-gray-700">
-                        <span class="text-gray-400 p-4 text-center">Chèn ảnh giao diện phần mềm QGIS số 1 vào đây<br>(Nên dùng ảnh tỷ lệ ngang 16:9)</span>
-                        <!-- Thay thế bằng: <img src="anh-qgis-1.jpg" class="w-full h-full object-contain"> -->
+                <!-- Khu vực cuộn ảnh ngang Snap -->
+                <div class="w-full h-full overflow-x-auto snap-x-container no-scrollbar flex flex-row relative z-10 bg-[#0a150e]">
+                    
+                    <!-- 8 Ảnh Plugin Desktop -->
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_Tinhnang1.png" alt="Tính năng Desktop 1" class="max-w-full max-h-full object-contain shadow-lg rounded">
                     </div>
-                    <!-- Slide 2 -->
-                    <div class="w-full h-full flex-shrink-0 snap-item flex items-center justify-center bg-gray-700 border-r border-gray-600">
-                        <span class="text-gray-300 p-4 text-center">Chèn ảnh phần mềm QGIS số 2</span>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang2.png" alt="Tính năng Desktop 2" class="max-w-full max-h-full object-contain shadow-lg rounded">
                     </div>
-                    <!-- Slide 3 -->
-                    <div class="w-full h-full flex-shrink-0 snap-item flex items-center justify-center bg-gray-800">
-                        <span class="text-gray-400 p-4 text-center">Chèn ảnh phần mềm QGIS số 3</span>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang3.png" alt="Tính năng Desktop 3" class="max-w-full max-h-full object-contain shadow-lg rounded">
                     </div>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang4.png" alt="Tính năng Desktop 4" class="max-w-full max-h-full object-contain shadow-lg rounded">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang5.png" alt="Tính năng Desktop 5" class="max-w-full max-h-full object-contain shadow-lg rounded">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang6.png" alt="Tính năng Desktop 6" class="max-w-full max-h-full object-contain shadow-lg rounded">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang7.png" alt="Tính năng Desktop 7" class="max-w-full max-h-full object-contain shadow-lg rounded">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
+                        <img src="TC_tinhnang8.png" alt="Tính năng Desktop 8" class="max-w-full max-h-full object-contain shadow-lg rounded">
+                    </div>
+
+                </div>
+
+                <!-- Thanh tác vụ giả lập Windows dưới cùng -->
+                <div class="absolute bottom-0 w-full h-8 bg-gray-950/80 backdrop-blur-sm z-20 border-t border-gray-700 flex items-center px-4 gap-3">
+                    <div class="w-4 h-4 rounded-sm bg-blue-500/80"></div>
+                    <div class="w-4 h-4 rounded-sm bg-yellow-500/80"></div>
+                    <div class="w-4 h-4 rounded-sm bg-green-500/80"></div>
+                    <div class="flex-1"></div>
+                    <div class="text-[10px] text-gray-400 font-mono tracking-wider">QGIS 3.28+</div>
                 </div>
             </div>
             
-            <!-- Chân đế màn hình -->
-            <div class="w-32 h-6 bg-gray-600 mx-auto rounded-b-md shadow-lg"></div>
-            <div class="w-48 h-2 bg-gray-500 mx-auto rounded-t-sm shadow-xl"></div>
+            <!-- Chân đế màn hình Laptop (Chỉ hiện thị trên màn lớn) -->
+            <div class="hidden md:block w-32 h-6 bg-gradient-to-b from-gray-700 to-gray-800 mx-auto lg:mx-0 lg:ml-auto lg:mr-auto rounded-b-md shadow-2xl relative z-0"></div>
+            <div class="hidden md:block w-56 h-2.5 bg-gray-600 mx-auto lg:mx-0 lg:ml-auto lg:mr-auto rounded-t-sm shadow-[0_10px_20px_rgba(0,0,0,0.5)]"></div>
             
         </div>
     </main>
+    
+    <!-- CSS Tùy chỉnh thêm Animation cho icon mũi tên -->
+    <style>
+        @keyframes bounce-x {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(25%); }
+        }
+    </style>
 </body>
 </html>
