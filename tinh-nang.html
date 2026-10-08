@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tính năng - Hệ sinh thái DNAPlugin</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="DNAPlugin.png">
     <!-- Tích hợp Tailwind CSS qua CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -55,10 +56,13 @@
                 <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden sm:block">Hình ảnh</a>
                 <a href="tac-gia.html" class="hover:text-green-700 transition-colors hidden md:block">Về tác giả</a>
                 
-                <!-- Nút Tải File APK -->
-                <a href="https://gis.vn/DNAPlugin" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] text-[#0F3823] px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    Tải File APK
+                <!-- Nút Tải File APK (Kèm Version động) -->
+                <a href="https://gis.vn/DNAPlugin" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] text-[#0F3823] px-4 py-1.5 rounded-lg hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2 group">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <div class="flex flex-col items-start leading-tight">
+                        <span class="font-bold text-sm">Tải File APK</span>
+                        <span id="apk-version" class="text-[10px] font-semibold text-green-900/70 group-hover:text-green-900 transition-colors">Đang kiểm tra...</span>
+                    </div>
                 </a>
             </div>
         </div>
@@ -229,5 +233,25 @@
         <p>Hỗ trợ kỹ thuật: Zalo 085.652.1139</p>
     </footer>
 
+    <!-- SCRIPT TỰ ĐỘNG LẤY PHIÊN BẢN APK TỪ GITHUB -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const versionSpan = document.getElementById('apk-version');
+            if (versionSpan) {
+                fetch('https://api.github.com/repos/AGAServer/DNAPlugin/releases/latest')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.tag_name) {
+                            versionSpan.textContent = 'Phiên bản ' + data.tag_name;
+                        } else {
+                            versionSpan.textContent = 'Bản mới nhất';
+                        }
+                    })
+                    .catch(error => {
+                        versionSpan.textContent = 'Bản mới nhất';
+                    });
+            }
+        });
+    </script>
 </body>
 </html>
