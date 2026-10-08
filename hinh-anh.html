@@ -77,7 +77,7 @@
                 <h2 class="text-3xl font-extrabold text-[#FACC15] drop-shadow-md">DNAPlugin (App)</h2>
                 <p class="text-sm font-medium text-emerald-300 mt-1 flex items-center justify-center gap-2">
                     <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
-                    Vuốt dọc để xem (12 ảnh)
+                    Tự động cuộn dọc (12 ảnh)
                 </p>
             </div>
             
@@ -86,8 +86,8 @@
                 <!-- Notch (Tai thỏ) -->
                 <div class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-2xl w-32 mx-auto z-20"></div>
                 
-                <!-- Khu vực cuộn ảnh dọc Snap -->
-                <div class="w-full h-full overflow-y-auto snap-y-container no-scrollbar bg-[#0F3823]">
+                <!-- Khu vực cuộn ảnh dọc Snap (THÊM ID mobile-slider) -->
+                <div id="mobile-slider" class="w-full h-full overflow-y-auto snap-y-container no-scrollbar bg-[#0F3823]">
                     
                     <!-- 4 Hình giới thiệu cài đặt -->
                     <div class="w-full h-full snap-item relative">
@@ -138,7 +138,7 @@
             <div class="text-center lg:text-left w-full mb-6">
                 <h2 class="text-3xl font-extrabold text-[#FACC15] drop-shadow-md">DoanNgocAnPlugin (Desktop QGIS)</h2>
                 <p class="text-sm font-medium text-emerald-300 mt-1 flex items-center justify-center lg:justify-start gap-2">
-                    Vuốt ngang (hoặc dùng Touchpad) để xem chi tiết (8 ảnh)
+                    Tự động cuộn ngang (8 ảnh)
                     <svg class="w-4 h-4 animate-bounce" style="animation-direction: alternate; animation-name: bounce-x;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </p>
             </div>
@@ -151,8 +151,8 @@
                     <div class="w-1.5 h-1.5 rounded-full bg-gray-950"></div>
                 </div>
 
-                <!-- Khu vực cuộn ảnh ngang Snap -->
-                <div class="w-full h-full overflow-x-auto snap-x-container no-scrollbar flex flex-row relative z-10 bg-[#0a150e]">
+                <!-- Khu vực cuộn ảnh ngang Snap (THÊM ID pc-slider) -->
+                <div id="pc-slider" class="w-full h-full overflow-x-auto snap-x-container no-scrollbar flex flex-row relative z-10 bg-[#0a150e]">
                     
                     <!-- 8 Ảnh Plugin Desktop -->
                     <div class="w-full h-full flex-shrink-0 snap-item relative p-1 flex items-center justify-center">
@@ -192,7 +192,7 @@
                 </div>
             </div>
             
-            <!-- Chân đế màn hình Laptop (Chỉ hiện thị trên màn lớn) -->
+            <!-- Chân đế màn hình Laptop -->
             <div class="hidden md:block w-32 h-6 bg-gradient-to-b from-gray-700 to-gray-800 mx-auto lg:mx-0 lg:ml-auto lg:mr-auto rounded-b-md shadow-2xl relative z-0"></div>
             <div class="hidden md:block w-56 h-2.5 bg-gray-600 mx-auto lg:mx-0 lg:ml-auto lg:mr-auto rounded-t-sm shadow-[0_10px_20px_rgba(0,0,0,0.5)]"></div>
             
@@ -206,5 +206,58 @@
             50% { transform: translateX(25%); }
         }
     </style>
+
+    <!-- Khối Javascript điều khiển tính năng tự động cuộn (Auto-Slide) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Hàm thiết lập tự động trượt cho từng khung
+            function setupAutoSlide(sliderId, isVertical, intervalTime) {
+                const slider = document.getElementById(sliderId);
+                if (!slider) return;
+                
+                let currentIndex = 0;
+                const items = slider.querySelectorAll('.snap-item');
+                const itemCount = items.length;
+                let isHovered = false;
+
+                // Tạm dừng khi người dùng thao tác (hover bằng chuột hoặc vuốt cảm ứng)
+                slider.addEventListener('mouseenter', () => isHovered = true);
+                slider.addEventListener('mouseleave', () => isHovered = false);
+                slider.addEventListener('touchstart', () => isHovered = true, {passive: true});
+                slider.addEventListener('touchend', () => isHovered = false, {passive: true});
+
+                // Vòng lặp chuyển ảnh
+                setInterval(() => {
+                    if (isHovered) return; // Nếu đang tương tác thì không tự cuộn
+                    
+                    currentIndex++;
+                    
+                    // Nếu đã chạy đến ảnh cuối cùng, quay lại ảnh đầu tiên
+                    if (currentIndex >= itemCount) {
+                        currentIndex = 0;
+                    }
+                    
+                    if (isVertical) {
+                        // Cuộn dọc cho Mobile
+                        slider.scrollTo({
+                            top: currentIndex * slider.clientHeight,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Cuộn ngang cho Desktop
+                        slider.scrollTo({
+                            left: currentIndex * slider.clientWidth,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, intervalTime);
+            }
+
+            // Khởi chạy: Điện thoại chuyển ảnh sau 3 giây, Máy tính chuyển sau 4 giây
+            setupAutoSlide('mobile-slider', true, 3000);
+            setupAutoSlide('pc-slider', false, 4000);
+        });
+    </script>
 </body>
 </html>
