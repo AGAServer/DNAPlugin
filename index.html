@@ -39,7 +39,7 @@
             background-position: center center;
         }
 
-        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo (ĐÃ SỬA THÀNH HÌNH TRÒN 50%) */
+        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo */
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
             50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
@@ -76,54 +76,77 @@
 <body class="text-gray-800">
 
     <!-- Thanh Menu Điều hướng -->
-    <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
             
-            <!-- LOGO ĐÃ ĐƯỢC SỬA THÀNH HÌNH TRÒN (rounded-full) VÀ CHỈNH LẠI VIỀN -->
-            <a href="index.html" class="flex items-center gap-3 font-black text-[#0F3823] text-xl tracking-tight">
-                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-10 h-10 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5">
-                DNAPlugin
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
             </a>
             
-            <!-- Các liên kết điều hướng -->
-            <div class="flex flex-wrap justify-center gap-6 md:gap-10 text-[#2D5A40] font-bold text-sm md:text-base">
+            <!-- Các liên kết điều hướng & Nút Tải APK -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
                 <a href="index.html" class="text-green-800 border-b-2 border-green-800 pb-1">Trang chủ</a>
-                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors">Tính năng</a>
-                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors">Hình ảnh</a>
-                <a href="tac-gia.html" class="hover:text-green-700 transition-colors">Về tác giả</a>
-                <a href="#" class="opacity-40 cursor-not-allowed">Kích hoạt dịch vụ</a>
-                <a href="#" class="opacity-40 cursor-not-allowed">Liên hệ</a>
+                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
+                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden sm:block">Hình ảnh</a>
+                <a href="tac-gia.html" class="hover:text-green-700 transition-colors hidden md:block">Về tác giả</a>
+                
+                <!-- Nút Tải File APK nổi bật trên thanh Menu -->
+                <a href="#" class="bg-[#FACC15] text-[#0F3823] px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Tải File APK
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Khu vực Banner chính (Hero Section) nền Viễn thám / Không gian số -->
-    <div class="gis-background text-white py-16 lg:py-20 relative overflow-hidden">
-        <main class="max-w-7xl mx-auto px-4 lg:px-6 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+    <div class="gis-background text-white py-12 lg:py-20 relative overflow-hidden">
+        <main class="max-w-[1400px] mx-auto px-4 lg:px-6 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
             
             <!-- CỘT TRÁI: Text giới thiệu (Chiếm 5/12 chiều rộng) -->
-            <div class="lg:w-5/12 flex flex-col space-y-8 z-20">
+            <div class="lg:w-5/12 flex flex-col space-y-6 z-20">
                 <div class="space-y-4 text-center lg:text-left">
                     <div class="inline-block px-4 py-1.5 rounded-full text-[11px] font-bold tracking-widest text-[#FACC15] bg-[#FACC15]/10 border border-[#FACC15]/30 shadow-[0_0_10px_rgba(250,204,21,0.2)]">
                         🛰️ CÔNG NGHỆ BẢN ĐỒ SỐ LÂM NGHIỆP
                     </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                        Sử dụng không cần mạng<br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FACC15] to-[#34d399]">Khi đi hiện trường trong rừng.</span>
+                    
+                    <!-- TIÊU ĐỀ: Đã căn chỉnh cân đối (line break hợp lý) -->
+                    <h1 class="text-4xl md:text-5xl lg:text-[46px] xl:text-[52px] font-extrabold leading-[1.1] drop-shadow-lg">
+                        <span class="block mb-2">Sử dụng không cần mạng</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FACC15] to-[#34d399] block">khi đi hiện trường trong rừng.</span>
                     </h1>
-                    <p class="text-sm md:text-base text-green-100 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                        DNAPlugin biến điện thoại của bạn thành bộ công cụ bản đồ thực địa chuyên nghiệp.<br>Với nhiều tính năng được thiết lậo như: Đọc bản đồ - GPS/VN-2000, phân tích ảnh vệ tinh, phân tích biến động diện tích đất Lâm nghiệp, đo đạc, làm việc ngoại tuyến và nhiều tình năng khác.
+                    
+                    <p class="text-sm md:text-base text-green-100 leading-relaxed max-w-lg mx-auto lg:mx-0 pt-2">
+                        DNAPlugin biến thiết bị của bạn thành bộ công cụ bản đồ thực địa chuyên nghiệp. Với nhiều tính năng được thiết lập như: Đọc bản đồ - GPS/VN-2000, phân tích ảnh vệ tinh, phân tích biến động diện tích đất Lâm nghiệp, đo đạc, làm việc ngoại tuyến và nhiều tính năng khác.
                     </p>
                     
-                    <!-- Nút bấm -->
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
-                        <a href="#" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition flex items-center gap-2 border border-emerald-400">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Tải Ứng Dụng
+                    <!-- Nhóm Nút Bấm Đã Thay Đổi -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4">
+                        
+                        <!-- Nút Windows -->
+                        <a href="#" class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-5 py-3 rounded-xl font-bold hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] transition flex items-center gap-2 border border-blue-400">
+                            <!-- Icon Windows -->
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
+                            Cài đặt trên Windows
                         </a>
-                        <a href="#quyen-rieng-tu" class="bg-gray-800/80 backdrop-blur-md text-[#FACC15] px-6 py-3 rounded-xl font-bold hover:bg-gray-700 border border-gray-600 transition flex items-center gap-2">
+                        
+                        <!-- Nút Mobile -->
+                        <a href="#" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-5 py-3 rounded-xl font-bold hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] transition flex items-center gap-2 border border-emerald-400">
+                            <!-- Icon Mobile -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            Cài đặt trên điện thoại
+                        </a>
+
+                        <!-- Nút Chính sách (Giữ nguyên form dáng gọn gàng) -->
+                        <a href="#quyen-rieng-tu" class="bg-gray-800/80 backdrop-blur-md text-[#FACC15] px-5 py-3 rounded-xl font-bold hover:bg-gray-700 border border-gray-600 transition flex items-center gap-2">
                             Chính sách Google Play
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -134,7 +157,7 @@
                 <div class="absolute inset-0 bg-emerald-500/20 rounded-full blur-[100px]"></div>
 
                 <!-- Khung điện thoại -->
-                <div class="relative w-[270px] h-[560px] lg:w-[280px] lg:h-[580px] bg-gray-900 rounded-[3rem] border-[8px] border-gray-800 phone-glow overflow-hidden z-20">
+                <div class="relative w-[270px] h-[560px] lg:w-[280px] lg:h-[580px] bg-gray-900 rounded-[3rem] border-[8px] border-gray-800 phone-glow overflow-hidden z-20 shrink-0">
                     <div class="absolute top-0 inset-x-0 h-6 bg-gray-800 rounded-b-2xl w-32 mx-auto z-30"></div>
                     
                     <!-- Khung chứa 8 ảnh trượt -->
@@ -152,38 +175,38 @@
             </div>
 
             <!-- CỘT PHẢI: Toàn bộ 8 Chú dẫn (Chiếm 4/12 chiều rộng) -->
-            <div class="lg:w-4/12 flex flex-col gap-2.5 z-20 hidden lg:flex mt-10 lg:mt-0">
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="0">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">1</div>
-                    <div><p class="text-sm font-bold text-white">Định vị VN-2000</p><p class="text-[11px] text-gray-300">Độ chính xác theo tiêu chuẩn GPS cầm tay.</p></div>
+            <div class="lg:w-4/12 flex flex-col gap-2 z-20 hidden lg:flex mt-10 lg:mt-0">
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="0">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-sm">1</div>
+                    <div><p class="text-[13px] font-bold text-white">Định vị VN-2000</p><p class="text-[10px] text-gray-300">Độ chính xác theo tiêu chuẩn GPS cầm tay.</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="1">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 font-bold animate-pulse">2</div>
-                    <div><p class="text-sm font-bold text-white">Cảnh báo biến động diện tích rừng</p><p class="text-[11px] text-gray-300">Hệ thống phân tích so sánh ảnh Sentinel-2.</p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="1">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm animate-pulse">2</div>
+                    <div><p class="text-[13px] font-bold text-white">Cảnh báo biến động diện tích rừng</p><p class="text-[10px] text-gray-300">Hệ thống phân tích so sánh ảnh Sentinel-2.</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="2">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">3</div>
-                    <div><p class="text-sm font-bold text-white">Mô hình 3D địa hình</p><p class="text-[11px] text-gray-300">Cho phép người dùng hình dung độ dốc, địa hình khi đi thực địa. </p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="2">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">3</div>
+                    <div><p class="text-[13px] font-bold text-white">Mô hình 3D địa hình</p><p class="text-[10px] text-gray-300">Cho phép người dùng hình dung độ dốc, địa hình khi đi thực địa.</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="3">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">4</div>
-                    <div><p class="text-sm font-bold text-white">Đo đạc diện tích và lưu vị trí</p><p class="text-[11px] text-gray-300">Tự động tính hecta kèm theo tọa độ.</p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="3">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-sm">4</div>
+                    <div><p class="text-[13px] font-bold text-white">Đo đạc diện tích và lưu vị trí</p><p class="text-[10px] text-gray-300">Tự động tính hecta kèm theo tọa độ.</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="4">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 font-bold">5</div>
-                    <div><p class="text-sm font-bold text-white">Ảnh vệ tinh Sentinel-2</p><p class="text-[11px] text-gray-300">Cập nhật liên tục theo ngày tháng.</p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="4">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 font-bold text-sm">5</div>
+                    <div><p class="text-[13px] font-bold text-white">Ảnh vệ tinh Sentinel-2</p><p class="text-[10px] text-gray-300">Cập nhật liên tục theo ngày tháng.</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="5">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold">6</div>
-                    <div><p class="text-sm font-bold text-white">Chụp ảnh đính tọa độ kèm theo</p><p class="text-[11px] text-gray-300">Lưu bằng chứng thực địa.</p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="5">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold text-sm">6</div>
+                    <div><p class="text-[13px] font-bold text-white">Chụp ảnh đính tọa độ kèm theo</p><p class="text-[10px] text-gray-300">Lưu bằng chứng thực địa.</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="6">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold">7</div>
-                    <div><p class="text-sm font-bold text-white">Thêm đa dạng lớp dữ liệu đầu vào</p><p class="text-[11px] text-gray-300">Tích hợp đọc nhiều định dạng dữ liệu: Tab, Shp, Kml, Mbt, Gpx, Geojson, Tif, Dng,...</p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="6">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-sm">7</div>
+                    <div><p class="text-[13px] font-bold text-white">Thêm đa dạng lớp dữ liệu đầu vào</p><p class="text-[10px] text-gray-300">Đọc nhiều định dạng: Tab, Shp, Kml, Mbt, Gpx, Geojson, Tif, Dgn,...</p></div>
                 </div>
-                <div class="glass-legend p-2.5 rounded-lg cursor-pointer flex items-center gap-3" data-slide="7">
-                    <div class="w-8 h-8 shrink-0 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold">8</div>
-                    <div><p class="text-sm font-bold text-white">Hoạt động Ngoại tuyến</p><p class="text-[11px] text-gray-300">Sử dụng không cần mạng khi đi trong rừng.</p></div>
+                <div class="glass-legend p-2 rounded-lg cursor-pointer flex items-center gap-3" data-slide="7">
+                    <div class="w-7 h-7 shrink-0 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">8</div>
+                    <div><p class="text-[13px] font-bold text-white">Hoạt động Ngoại tuyến</p><p class="text-[10px] text-gray-300">Sử dụng không cần mạng khi đi trong rừng.</p></div>
                 </div>
             </div>
 
@@ -200,13 +223,13 @@
                 <span class="mx-6 text-green-300">✦</span>
             </span>
             <span class="flex items-center">
-                DNAPlugin - Công cụ tiện ích Kỹ thuật trên Lâm nghiệp thiết bị Android
+                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
                 <span class="mx-6 text-green-300">✦</span>
                 DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
                 <span class="mx-6 text-green-300">✦</span>
             </span>
             <span class="flex items-center">
-                DNAPlugin - Công cụ tiện ích Kỹ thuật trên Lâm nghiệp thiết bị Android
+                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
                 <span class="mx-6 text-green-300">✦</span>
                 DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
                 <span class="mx-6 text-green-300">✦</span>
@@ -279,7 +302,7 @@
         <p>Hỗ trợ kỹ thuật: Zalo 085.652.1139</p>
     </footer>
 
-    <!-- Khối Javascript điều khiển tương tác (Chạy Slide tự động & Di chuột vào nút) -->
+    <!-- Khối Javascript điều khiển tương tác -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const legends = document.querySelectorAll('.glass-legend');
@@ -287,7 +310,6 @@
             let currentIndex = 0;
             let slideInterval;
 
-            // Hàm chuyển đổi ảnh và bật sáng nút tương ứng
             function goToSlide(index) {
                 legends.forEach(l => l.classList.remove('active'));
                 slides.forEach(s => s.classList.remove('active'));
@@ -297,7 +319,6 @@
                 currentIndex = index;
             }
 
-            // Hàm tự động chạy qua 8 ảnh
             function startSlideShow() {
                 slideInterval = setInterval(() => {
                     let nextIndex = (currentIndex + 1) % 8;
@@ -305,7 +326,6 @@
                 }, 3500);
             }
 
-            // Gắn sự kiện Hover
             legends.forEach((legend) => {
                 legend.addEventListener('mouseenter', function() {
                     clearInterval(slideInterval);
@@ -318,7 +338,6 @@
                 });
             });
 
-            // Khởi chạy kích hoạt mặc định ảnh đầu tiên
             goToSlide(0);
             startSlideShow();
         });
