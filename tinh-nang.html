@@ -3,57 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tính năng - DNAPlugin</title>
+    <title>Tính năng - Hệ sinh thái DNAPlugin</title>
+    <!-- Tích hợp Tailwind CSS qua CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { background-color: #F8FAFC; font-family: 'Segoe UI', sans-serif; }</style>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; background-color: #F8FAFC; }
+        
+        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
+        }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
+
+        /* Nền không gian số GIS / Viễn thám cho Banner */
+        .gis-background {
+            background-color: #081b12;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+        }
+
+        /* Card Hover Effect */
+        .feature-card { transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+    </style>
 </head>
-<body>
-    <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10 text-[#2D5A40] font-bold text-sm md:text-base">
-            <a href="index.html" class="hover:text-green-700">Trang chủ</a>
-            <a href="tinh-nang.html" class="text-green-800 border-b-2 border-green-800 pb-1">Tính năng</a>
-            <a href="hinh-anh.html" class="hover:text-green-700">Hình ảnh</a>
-            <a href="tac-gia.html" class="hover:text-green-700">Về tác giả</a>
-            <a href="#" class="opacity-40 cursor-not-allowed">Kích hoạt dịch vụ</a>
-            <a href="#" class="opacity-40 cursor-not-allowed">Liên hệ</a>
+<body class="text-gray-800">
+
+    <!-- Thanh Menu Điều hướng (Đồng bộ với trang chủ) -->
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
+            </a>
+            
+            <!-- Các liên kết điều hướng (Đang active ở Tính năng) -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
+                <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
+                <a href="tinh-nang.html" class="text-green-800 border-b-2 border-green-800 pb-1">Tính năng</a>
+                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden sm:block">Hình ảnh</a>
+                <a href="tac-gia.html" class="hover:text-green-700 transition-colors hidden md:block">Về tác giả</a>
+                
+                <!-- Nút Tải File APK -->
+                <a href="#" class="bg-[#FACC15] text-[#0F3823] px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Tải File APK
+                </a>
+            </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-12 px-6">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-extrabold text-[#0F3823]">Hệ sinh thái Bản đồ số</h1>
-            <p class="text-gray-500 mt-3">Đồng bộ từ thực địa di động đến phân tích chuyên sâu trên máy tính</p>
+    <!-- Banner Trang Tính Năng -->
+    <header class="gis-background py-16 text-center border-b border-green-900">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-md">
+                Hệ Sinh Thái <span class="text-[#FACC15]">Bản Đồ Số</span>
+            </h1>
+            <p class="text-lg text-green-100">
+                Sự kết hợp hoàn hảo giữa công cụ thực địa trên Smartphone và sức mạnh phân tích chuyên sâu trên hệ thống Desktop QGIS.
+            </p>
         </div>
+    </header>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            <!-- Cột App Mobile -->
-            <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-[#14532D]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-800 text-2xl">📱</div>
-                    <h2 class="text-2xl font-bold text-gray-800">DNAPlugin <span class="text-sm font-normal text-gray-500">(Mobile App)</span></h2>
+    <!-- PHẦN 1: TÍNH NĂNG MOBILE APP -->
+    <section class="py-20 bg-white">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-700 text-3xl shadow-sm border border-green-200">📱</div>
+                <div>
+                    <h2 class="text-3xl font-extrabold text-[#0F3823]">DNAPlugin Mobile App</h2>
+                    <p class="text-gray-500 font-medium mt-1">Đồng hành cùng kiểm lâm và kỹ sư trên mọi nẻo đường thực địa (Offline 100%).</p>
                 </div>
-                <ul class="space-y-4 text-gray-600">
-                    <li class="flex items-start gap-2"><span>✅</span> <strong>Hoạt động Offline 100%:</strong> Tích hợp sức mạnh GDAL/C++ để đọc trực tiếp file MapInfo (.TAB) ngay trên điện thoại không cần mạng lưới.</li>
-                    <li class="flex items-start gap-2"><span>✅</span> <strong>Đo đạc VN-2000:</strong> Xác định tọa độ, vẽ đa giác, đo diện tích lô rừng với độ chính xác cao.</li>
-                    <li class="flex items-start gap-2"><span>✅</span> <strong>Công cụ Viễn thám mượt mà:</strong> Trạm tải ảnh Sentinel/Landsat với cơ chế vuốt quét vùng BBOX cực kỳ tối ưu (duy trì 60 FPS).</li>
-                    <li class="flex items-start gap-2"><span>✅</span> <strong>Cảnh báo thời gian thực:</strong> Tích hợp API đám mây (Render) để phân tích cháy rừng và mất rừng ngay tại hiện trường.</li>
-                </ul>
             </div>
 
-            <!-- Cột Plugin Desktop -->
-            <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-[#FACC15]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-700 text-2xl">💻</div>
-                    <h2 class="text-2xl font-bold text-gray-800">DoanNgocAnPlugin <span class="text-sm font-normal text-gray-500">(QGIS)</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Nhóm: Hỗ trợ Dữ liệu -->
+                <div class="feature-card bg-gray-50 border border-gray-100 p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">📂</div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Đọc 15+ Định dạng Bản đồ</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Đọc trực tiếp không cần mạng lưới các file: MapInfo (.TAB), Shapefile (.SHP), MicroStation (.DGN), AutoCAD (.DXF/DWG), MBTiles, KML/KMZ, GeoJSON, GPX và PDF Overlay.</p>
                 </div>
-                <ul class="space-y-4 text-gray-600">
-                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Phân tích thuật toán sâu:</strong> Khai thác tối đa sức mạnh của QGIS và Python (PyQt5) trên máy tính.</li>
-                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Chỉ số viễn thám:</strong> Tự động tính toán các ma trận Raster (NDVI, NDMI) từ các băng phổ vệ tinh.</li>
-                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Khoanh vẽ tự động:</strong> Chuyển đổi pixel biến động thành đa giác (Polygons), lọc nhiễu tự động để bám sát ranh giới lô rừng.</li>
-                    <li class="flex items-start gap-2"><span>⚡</span> <strong>Tạo dữ liệu nguồn:</strong> Là công cụ đắc lực để xuất các lớp bản đồ chuẩn nạp vào ứng dụng di động DNAPlugin.</li>
-                </ul>
+
+                <!-- Nhóm: GNSS & Tọa độ -->
+                <div class="feature-card bg-gray-50 border border-gray-100 p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4">🛰️</div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Định vị GNSS & VN-2000</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Bộ lọc tín hiệu GPS (Forestry GPS Filter), quỹ đạo vệ tinh Garmin Skyplot, Radar Scanner và tự động chuyển đổi sang hệ tọa độ VN-2000 nội bộ.</p>
+                </div>
+
+                <!-- Nhóm: 3D & Địa hình -->
+                <div class="feature-card bg-gray-50 border border-gray-100 p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center mb-4">⛰️</div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Mô hình Địa hình 3D</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Tích hợp Google 3D Terrain, tự động vẽ đường đồng mức (Contour Overlay) giúp hình dung độ dốc và lập kế hoạch di chuyển trong rừng.</p>
+                </div>
+
+                <!-- Nhóm: Viễn thám & Cảnh báo -->
+                <div class="feature-card bg-gray-50 border border-gray-100 p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center mb-4">🚨</div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Vệ tinh & Cảnh báo</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Trạm tải ảnh vệ tinh Sentinel, tích hợp thuật toán phân tích cảnh báo Mất rừng và Điểm nóng Cháy rừng theo thời gian thực.</p>
+                </div>
+                
+                <!-- Nhóm: Đo đạc -->
+                <div class="feature-card bg-gray-50 border border-gray-100 p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4">📐</div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Đo đạc & Tracklog</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Vẽ vùng (Polygon), đo diện tích Lô rừng, tạo điểm Waypoint, theo dõi tuyến đường tuần tra (Tracklog route) và xuất dữ liệu.</p>
+                </div>
+
+                <!-- Nhóm: Máy ảnh -->
+                <div class="feature-card bg-gray-50 border border-gray-100 p-6 rounded-2xl">
+                    <div class="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center mb-4">📸</div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Camera Thực địa</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Chụp ảnh hiện trường, tự động đính kèm thông số tọa độ địa lý, hướng chụp và thời gian vào metadata của ảnh (Survey Photos).</p>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- PHẦN 2: TÍNH NĂNG DESKTOP QGIS -->
+    <section class="py-20 bg-[#f4f8f5] border-t border-green-100">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-yellow-600 text-3xl shadow-sm border border-yellow-200">💻</div>
+                <div>
+                    <h2 class="text-3xl font-extrabold text-[#0F3823]">DoanNgocAnPlugin (Desktop QGIS)</h2>
+                    <p class="text-gray-500 font-medium mt-1">Tích hợp tự động hóa, phân tích chuyên sâu và xuất bản đồ thành quả.</p>
+                </div>
+            </div>
+
+            <!-- List tính năng Desktop -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Group 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-green-600 feature-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span class="text-green-600">1.</span> Thiết Lập & Biên Tập Tự Động
+                    </h3>
+                    <ul class="space-y-3 text-gray-600 text-sm">
+                        <li class="flex items-start gap-2"><span>✅</span> Tự động tô màu bản đồ theo Loại đất, Loại rừng (LDLR).</li>
+                        <li class="flex items-start gap-2"><span>✅</span> Tạo nhãn Lô, điền tên lô tự động, nhãn Tiểu khu - Khoảnh chuyên nghiệp.</li>
+                        <li class="flex items-start gap-2"><span>✅</span> Chuyển đổi hệ tọa độ VN-2000 hàng loạt và gộp lô theo trạng thái nhanh chóng.</li>
+                        <li class="flex items-start gap-2"><span>✅</span> Kiểm tra và chuẩn hóa dữ liệu đầu vào. Tạo đường bình độ, ranh giới hành chính.</li>
+                    </ul>
+                </div>
+
+                <!-- Group 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-blue-500 feature-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span class="text-blue-500">2.</span> Công Cụ Đo Vẽ & Số Hóa
+                    </h3>
+                    <ul class="space-y-3 text-gray-600 text-sm">
+                        <li class="flex items-start gap-2"><span>✏️</span> Thêm dữ liệu, tạo vùng đa giác và kiểm tra bản đồ trực tiếp từ tọa độ nhập vào.</li>
+                        <li class="flex items-start gap-2"><span>✏️</span> Tạo ranh giới tổng hợp và tính toán diện tích chính xác cao.</li>
+                        <li class="flex items-start gap-2"><span>✏️</span> Công cụ hỗ trợ vẽ nhanh mạng lưới giao thông lâm nghiệp và dữ liệu thủy văn.</li>
+                    </ul>
+                </div>
+
+                <!-- Group 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-amber-500 feature-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span class="text-amber-500">3.</span> Xử Lý Dữ Liệu Vệ Tinh (Viễn Thám)
+                    </h3>
+                    <ul class="space-y-3 text-gray-600 text-sm">
+                        <li class="flex items-start gap-2"><span>🛰️</span> Tải trực tiếp ảnh vệ tinh Sentinel-2 ngay trong không gian làm việc của QGIS.</li>
+                        <li class="flex items-start gap-2"><span>🛰️</span> Kiểm tra, đánh giá các khu vực bị tác động (mất rừng, sạt lở, khai thác trái phép).</li>
+                        <li class="flex items-start gap-2"><span>🛰️</span> Phân tích và phát cảnh báo cháy rừng kịp thời dựa trên dữ liệu ảnh vệ tinh.</li>
+                    </ul>
+                </div>
+
+                <!-- Group 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-purple-500 feature-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span class="text-purple-500">4.</span> Tiện Ích UAV & Flycam
+                    </h3>
+                    <ul class="space-y-3 text-gray-600 text-sm">
+                        <li class="flex items-start gap-2"><span>🚁</span> <strong>Đếm cây từ ảnh Flycam:</strong> Tính năng đột phá ứng dụng công nghệ Drone/UAV/AI vào việc rà soát và đếm mật độ cây.</li>
+                        <li class="flex items-start gap-2"><span>🚁</span> Đồng bộ thuộc tính dữ liệu và cung cấp "Siêu trạm" chuyển đổi dữ liệu thông minh.</li>
+                        <li class="flex items-start gap-2"><span>🚁</span> Tích hợp trực tiếp bản đồ nền Google Maps/Earth dễ dàng thao tác định vị.</li>
+                    </ul>
+                </div>
+
+                <!-- Group 5 (Kéo dài toàn chiều rộng) -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-red-500 feature-card lg:col-span-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span class="text-red-500">5.</span> Xuất Dữ Liệu & Tạo Bản Đồ Thành Quả
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                        <div>
+                            <p class="font-bold text-gray-700 mb-2">Trích xuất Báo cáo:</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2"><span>📊</span> Tổng hợp nhanh số liệu thực địa.</li>
+                                <li class="flex items-start gap-2"><span>📊</span> Trích xuất dữ liệu tự động ra Bảng thống kê (Biểu mẫu) hoặc file Excel.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-700 mb-2">In ấn Thành quả:</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2"><span>🖨️</span> Khép kín quy trình làm việc từ A-Z.</li>
+                                <li class="flex items-start gap-2"><span>🖨️</span> <strong>Tạo bản đồ thành quả:</strong> Module tự động hóa hoàn toàn khâu thiết kế Layout, căn chỉnh tỷ lệ để in ấn bản đồ giấy chuẩn quy định.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Chân trang -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm border-t border-gray-800">
+        <p class="font-semibold text-gray-300 mb-1">&copy; 2026 DNAPlugin. Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
+        <p>Hỗ trợ kỹ thuật: Zalo 085.652.1139</p>
+    </footer>
+
 </body>
 </html>
