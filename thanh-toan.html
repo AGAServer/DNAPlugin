@@ -24,6 +24,9 @@
             background-size: 100% 100%, 40px 40px, 40px 40px;
             background-position: center center;
         }
+
+        /* Ẩn các class hỗ trợ JS */
+        .hidden-step { display: none !important; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -63,7 +66,7 @@
 
     <main class="max-w-6xl mx-auto py-12 px-4 lg:px-6 grid lg:grid-cols-12 gap-10">
         
-        <!-- Cột Trái: Thông tin Gói PRO -->
+        <!-- Cột Trái: Thông tin Gói PRO (Giữ nguyên) -->
         <div class="lg:col-span-7 space-y-8">
             <div class="bg-white rounded-2xl shadow-sm border border-green-100 p-8 relative overflow-hidden">
                 <!-- Ruy băng khuyến mãi -->
@@ -127,28 +130,28 @@
                         <div class="w-8 h-8 shrink-0 bg-white rounded-full flex items-center justify-center font-bold text-[#D35400] shadow-sm">1</div>
                         <div>
                             <p class="font-bold text-gray-800">Lấy Mã Thiết Bị (Device ID)</p>
-                            <p class="text-sm text-gray-600">Mở ứng dụng DNAPlugin > Bấm vào chức năng PRO bất kỳ > Copy Mã thiết bị (Gồm 8 ký tự, VD: 1A2B3C4D).</p>
+                            <p class="text-sm text-gray-600">Mở ứng dụng DNAPlugin > Bấm vào chức năng PRO bất kỳ > Chép Mã thiết bị để nhập vào ô bên cạnh.</p>
                         </div>
                     </li>
                     <li class="flex gap-4">
                         <div class="w-8 h-8 shrink-0 bg-white rounded-full flex items-center justify-center font-bold text-[#D35400] shadow-sm">2</div>
                         <div>
-                            <p class="font-bold text-gray-800">Thanh toán chuyển khoản</p>
-                            <p class="text-sm text-gray-600">Quét mã QR bên cạnh hoặc chuyển khoản thủ công. <strong>Bắt buộc nhập Mã Thiết Bị vào nội dung chuyển khoản.</strong></p>
+                            <p class="font-bold text-gray-800">Quét mã Thanh toán</p>
+                            <p class="text-sm text-gray-600">Hệ thống sẽ tự động tạo mã QR có sẵn số tiền và mã thiết bị của bạn. Chỉ cần mở App Ngân hàng quét và chuyển khoản.</p>
                         </div>
                     </li>
                     <li class="flex gap-4">
                         <div class="w-8 h-8 shrink-0 bg-white rounded-full flex items-center justify-center font-bold text-[#D35400] shadow-sm">3</div>
                         <div>
-                            <p class="font-bold text-gray-800">Kiểm tra trên App</p>
-                            <p class="text-sm text-gray-600">Sau 1-2 phút, quay lại App DNAPlugin và bấm nút "Đã thanh toán - Kiểm tra kích hoạt".</p>
+                            <p class="font-bold text-gray-800">Hoàn tất Kích hoạt</p>
+                            <p class="text-sm text-gray-600">Bấm nút "Kiểm tra kích hoạt" hoặc mở App trên điện thoại chọn "Kiểm tra" để cấp quyền PRO tự động.</p>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Cột Phải: Form Thanh toán -->
+        <!-- Cột Phải: Form Thanh toán & Xử lý Động -->
         <div class="lg:col-span-5">
             <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden sticky top-24">
                 <div class="bg-[#1B4D3E] p-6 text-center text-white relative">
@@ -157,39 +160,80 @@
                     <div class="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#1B4D3E] rotate-45"></div>
                 </div>
                 
-                <div class="p-8 pt-10 text-center">
-                    <p class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wider">Quét mã để thanh toán tự động</p>
+                <div class="p-8 pt-10 text-center min-h-[400px]">
                     
-                    <!-- Khung ảnh QR Động -->
-                    <div class="p-2 border-2 border-dashed border-green-300 rounded-2xl inline-block mb-6 relative">
-                        <!-- Sử dụng link vietqr.io (Lưu ý: nội dung đang để trống phần mã thiết bị để người dùng quét app tự điền) -->
-                        <img src="https://img.vietqr.io/image/MB-1000108018888-compact2.png?amount=250000&addInfo=DNAPlugin%20[MA_THIET_BI]&accountName=DOAN%20NGOC%20AN" alt="QR Thanh toán" class="w-48 h-48 object-contain">
+                    <!-- BƯỚC 1: NHẬP THÔNG TIN -->
+                    <div id="step-input-data" class="space-y-5">
+                        <p class="font-bold text-[#1B4D3E] text-lg uppercase tracking-wider mb-2">Nhập Thông Tin Kích Hoạt</p>
+                        
+                        <div class="text-left">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Mã thiết bị của bạn <span class="text-red-500">*</span></label>
+                            <input type="text" id="input-device-id" placeholder="Gồm 8 ký tự (VD: A1B2C3D4)" maxlength="8" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none uppercase font-mono tracking-widest transition-all">
+                            <p id="error-msg" class="text-red-500 text-xs mt-1 hidden">Vui lòng nhập Mã thiết bị hợp lệ!</p>
+                        </div>
+
+                        <div class="text-left">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Họ và Tên <span class="text-gray-400 font-normal">(Tùy chọn)</span></label>
+                            <input type="text" id="input-user-name" placeholder="Để hệ thống lưu hồ sơ hỗ trợ..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all">
+                        </div>
+
+                        <button id="btn-generate-qr" class="w-full bg-[#FACC15] hover:bg-yellow-500 text-[#0F3823] font-extrabold py-3.5 rounded-xl shadow-md transition-all mt-4">
+                            TIẾP TỤC & TẠO MÃ QR
+                        </button>
                     </div>
 
-                    <!-- Thông tin chuyển khoản thủ công -->
-                    <div class="bg-gray-50 rounded-xl p-4 text-left space-y-3 border border-gray-100">
-                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                            <span class="text-xs text-gray-500">Ngân hàng</span>
-                            <span class="font-bold text-sm text-[#1B4D3E]">MBBank</span>
+                    <!-- BƯỚC 2: HIỂN THỊ MÃ QR & KIỂM TRA -->
+                    <div id="step-show-qr" class="hidden-step space-y-4">
+                        <div class="bg-[#FFF8E1] text-[#D35400] text-sm font-bold py-2 px-4 rounded-lg mb-2">
+                            Mã thiết bị: <span id="display-hwid" class="font-black text-xl tracking-widest ml-1"></span>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                            <span class="text-xs text-gray-500">Số tài khoản</span>
-                            <span class="font-bold text-sm text-[#1B4D3E]">1000108018888</span>
+                        
+                        <!-- Khung ảnh QR -->
+                        <div class="p-2 border-2 border-dashed border-green-300 rounded-2xl inline-block bg-white relative">
+                            <img id="qr-image" src="" alt="QR Thanh toán" class="w-48 h-48 object-contain">
+                            <!-- Overlay tải ảnh -->
+                            <div id="loading-qr" class="absolute inset-0 bg-white/80 flex flex-col items-center justify-center rounded-xl">
+                                <div class="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                                <span class="text-xs font-bold text-green-700 mt-2">Đang tạo mã...</span>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
-                            <span class="text-xs text-gray-500">Chủ tài khoản</span>
-                            <span class="font-bold text-sm text-[#1B4D3E]">DOAN NGOC AN</span>
+
+                        <div class="bg-gray-50 rounded-xl p-4 text-left space-y-3 border border-gray-100">
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                <span class="text-xs text-gray-500">Ngân hàng</span>
+                                <span class="font-bold text-sm text-[#1B4D3E]">MBBank</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                <span class="text-xs text-gray-500">Số tài khoản</span>
+                                <span class="font-bold text-sm text-[#1B4D3E]">1000108018888</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-500">Nội dung CK</span>
+                                <span id="display-content" class="font-bold text-sm text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100"></span>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-gray-500">Nội dung CK</span>
-                            <span class="font-bold text-sm text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100">DNAPlugin [Mã_Thiết_Bị]</span>
-                        </div>
+                        
+                        <!-- Nút Tải QR -->
+                        <button id="btn-download-qr" class="w-full border-2 border-[#1E3A8A] text-[#1E3A8A] font-bold py-2.5 rounded-xl hover:bg-blue-50 transition-colors flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            TẢI ẢNH MÃ QR
+                        </button>
+
+                        <!-- Nút Kiểm tra API -->
+                        <button id="btn-check-api" class="w-full bg-[#27AE60] hover:bg-green-600 text-white font-extrabold py-3.5 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>ĐÃ THANH TOÁN - KIỂM TRA</span>
+                        </button>
+                        
+                        <!-- Quay lại sửa mã -->
+                        <button id="btn-back" class="text-xs text-gray-500 hover:text-green-700 underline mt-2">
+                            Nhập sai mã? Quay lại sửa
+                        </button>
+
+                        <!-- Vùng hiển thị thông báo -->
+                        <div id="api-message" class="text-sm font-bold mt-2 hidden-step px-3 py-2 rounded-lg"></div>
                     </div>
                     
-                    <div class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500">
-                        <span>Cần hỗ trợ? Liên hệ Zalo:</span>
-                        <a href="https://zalo.me/0856521139" target="_blank" class="font-bold text-blue-600 hover:text-blue-800">085.652.1139</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -200,5 +244,152 @@
         <p class="font-semibold text-gray-300 mb-1">&copy; 2026 DNAPlugin. Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
     </footer>
 
+    <!-- JAVASCRIPT XỬ LÝ LOGIC THANH TOÁN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cấu hình tham số hệ thống
+            const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQWnUbyGRsjPhaTQjfQkHl2bVKOxJp37MG-Sl6IeJzV-F_2f-3qAlmSuiJE--Sw2l/exec";
+            const BANK_ID = "MB";
+            const ACC_NO = "1000108018888";
+            const ACC_NAME = "DOAN NGOC AN";
+            const AMOUNT = "250000";
+
+            // Các phần tử DOM
+            const stepInput = document.getElementById('step-input-data');
+            const stepQR = document.getElementById('step-show-qr');
+            
+            const inputDeviceId = document.getElementById('input-device-id');
+            const inputUserName = document.getElementById('input-user-name');
+            const errorMsg = document.getElementById('error-msg');
+            
+            const btnGenerate = document.getElementById('btn-generate-qr');
+            const btnBack = document.getElementById('btn-back');
+            const btnDownload = document.getElementById('btn-download-qr');
+            const btnCheck = document.getElementById('btn-check-api');
+            const apiMessage = document.getElementById('api-message');
+            
+            const qrImage = document.getElementById('qr-image');
+            const loadingQr = document.getElementById('loading-qr');
+            const displayHwid = document.getElementById('display-hwid');
+            const displayContent = document.getElementById('display-content');
+
+            // Biến lưu trữ tạm thời
+            let currentDeviceId = "";
+            let currentUserName = "";
+            let currentQrUrl = "";
+
+            // 1. Nút Tạo QR (Chuyển Bước)
+            btnGenerate.addEventListener('click', () => {
+                const hwid = inputDeviceId.value.trim().toUpperCase();
+                
+                if (hwid.length === 0) {
+                    errorMsg.classList.remove('hidden');
+                    return;
+                }
+                
+                errorMsg.classList.add('hidden');
+                currentDeviceId = hwid;
+                currentUserName = inputUserName.value.trim() || "Web User";
+
+                // Cập nhật giao diện
+                displayHwid.textContent = currentDeviceId;
+                const transferContent = `DNAPlugin ${currentDeviceId}`;
+                displayContent.textContent = transferContent;
+
+                // Tạo URL QR VietQR
+                const encodedInfo = encodeURIComponent(transferContent);
+                const encodedName = encodeURIComponent(ACC_NAME);
+                currentQrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACC_NO}-compact2.png?amount=${AMOUNT}&addInfo=${encodedInfo}&accountName=${encodedName}`;
+                
+                // Nạp ảnh QR
+                loadingQr.classList.remove('hidden');
+                qrImage.src = currentQrUrl;
+                qrImage.onload = () => loadingQr.classList.add('hidden');
+                qrImage.onerror = () => {
+                    loadingQr.innerHTML = '<span class="text-red-500 text-xs">Lỗi tải ảnh</span>';
+                };
+
+                // Đổi hiển thị
+                stepInput.classList.add('hidden-step');
+                stepQR.classList.remove('hidden-step');
+                apiMessage.classList.add('hidden-step'); // Xóa thông báo cũ
+            });
+
+            // 2. Nút Quay lại
+            btnBack.addEventListener('click', () => {
+                stepQR.classList.add('hidden-step');
+                stepInput.classList.remove('hidden-step');
+            });
+
+            // 3. Nút Tải Ảnh QR
+            btnDownload.addEventListener('click', async () => {
+                const originalText = btnDownload.innerHTML;
+                btnDownload.innerHTML = "ĐANG TẢI...";
+                btnDownload.disabled = true;
+
+                try {
+                    const response = await fetch(currentQrUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = `QR_DNAPlugin_${currentDeviceId}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    window.URL.revokeObjectURL(url);
+                } catch (error) {
+                    alert("Trình duyệt chặn tải ảnh trực tiếp. Vui lòng nhấn giữ hoặc chuột phải vào mã QR để lưu.");
+                } finally {
+                    btnDownload.innerHTML = originalText;
+                    btnDownload.disabled = false;
+                }
+            });
+
+            // 4. Nút Kiểm tra Giao dịch qua Google Apps Script
+            btnCheck.addEventListener('click', async () => {
+                const originalContent = btnCheck.innerHTML;
+                btnCheck.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> ĐANG KIỂM TRA MÁY CHỦ...`;
+                btnCheck.disabled = true;
+                
+                apiMessage.classList.add('hidden-step');
+                apiMessage.className = "text-sm font-bold mt-3 px-3 py-2 rounded-lg"; // Reset class
+
+                try {
+                    const url = `${GOOGLE_APP_SCRIPT_URL}?hwid=${currentDeviceId}&name=${encodeURIComponent(currentUserName)}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    apiMessage.classList.remove('hidden-step');
+                    
+                    if (data.status === 'active') {
+                        // Thành công
+                        apiMessage.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
+                        apiMessage.innerHTML = "🎉 THÀNH CÔNG! Hệ thống đã xác nhận thanh toán. Hãy mở lại App trên điện thoại để sử dụng bản PRO.";
+                        btnCheck.classList.add('hidden-step'); // Ẩn nút kiểm tra đi vì đã xong
+                    } else {
+                        // Chưa có giao dịch hoặc pending
+                        apiMessage.classList.add('bg-orange-100', 'text-orange-800', 'border', 'border-orange-300');
+                        apiMessage.innerHTML = "⏳ Chưa nhận được giao dịch. Hệ thống thường mất 1-3 phút để đồng bộ dữ liệu ngân hàng, vui lòng thử lại sau!";
+                    }
+                } catch (error) {
+                    // Lỗi mạng hoặc CORS
+                    apiMessage.classList.remove('hidden-step');
+                    apiMessage.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-300');
+                    apiMessage.innerHTML = "⚠️ Không thể kết nối tới máy chủ kích hoạt. Vui lòng kiểm tra kết nối mạng hoặc liên hệ Zalo 085.652.1139.";
+                } finally {
+                    btnCheck.innerHTML = originalContent;
+                    btnCheck.disabled = false;
+                }
+            });
+
+            // Bắt sự kiện ấn Enter khi nhập mã
+            inputDeviceId.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') btnGenerate.click();
+            });
+        });
+    </script>
 </body>
 </html>
