@@ -211,6 +211,33 @@
         }
     </style>
 
+        <!-- Chân trang -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm border-t border-gray-800">
+        <p class="font-semibold text-gray-300 mb-1">&copy; 2026 DNAPlugin. <br>Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
+        <p>Hỗ trợ kỹ thuật: Zalo 085.652.1139</p>
+    </footer>
+
+    <!-- SCRIPT TỰ ĐỘNG LẤY PHIÊN BẢN APK TỪ GITHUB -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const versionSpan = document.getElementById('apk-version');
+            if (versionSpan) {
+                fetch('https://api.github.com/repos/AGAServer/DNAPlugin/releases/latest')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.tag_name) {
+                            versionSpan.textContent = 'Phiên bản ' + data.tag_name;
+                        } else {
+                            versionSpan.textContent = 'Bản mới nhất';
+                        }
+                    })
+                    .catch(error => {
+                        versionSpan.textContent = 'Bản mới nhất';
+                    });
+            }
+        });
+    </script>
+
     <!-- Khối Javascript điều khiển tính năng tự động cuộn (Auto-Slide) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
