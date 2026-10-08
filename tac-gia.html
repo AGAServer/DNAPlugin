@@ -4,69 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Về tác giả - Đoàn Ngọc Ấn</title>
+    <!-- Tích hợp Tailwind CSS qua CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { background-color: #F8FAFC; font-family: 'Segoe UI', sans-serif; }</style>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; background-color: #F8FAFC; }
+        
+        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
+        }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
+
+        /* Nền không gian số GIS / Viễn thám */
+        .gis-background {
+            background-color: #081b12;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+        }
+    </style>
 </head>
-<body>
-    <!-- Thanh Menu -->
-    <nav class="bg-[#E2F1E8] py-4 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10 text-[#2D5A40] font-bold text-sm md:text-base">
-            <a href="index.html" class="hover:text-green-700">Trang chủ</a>
-            <a href="tinh-nang.html" class="hover:text-green-700">Tính năng</a>
-            <a href="hinh-anh.html" class="hover:text-green-700">Hình ảnh</a>
-            <a href="tac-gia.html" class="text-green-800 border-b-2 border-green-800 pb-1">Về tác giả</a>
-            <a href="#" class="opacity-40 cursor-not-allowed">Kích hoạt dịch vụ</a>
-            <a href="#" class="opacity-40 cursor-not-allowed">Liên hệ</a>
+<body class="text-gray-800">
+
+    <!-- Thanh Menu Điều hướng (Đồng bộ) -->
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
+            </a>
+            
+            <!-- Các liên kết điều hướng -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
+                <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
+                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
+                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden sm:block">Hình ảnh</a>
+                <a href="tac-gia.html" class="text-green-800 border-b-2 border-green-800 pb-1 hidden md:block">Về tác giả</a>
+                
+                <!-- Nút Tải File APK -->
+                <a href="#" class="bg-[#FACC15] text-[#0F3823] px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Tải File APK
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Nội dung CV -->
-    <main class="max-w-4xl mx-auto py-12 px-6">
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
-            <div class="bg-gradient-to-r from-[#0F3823] to-[#14532D] p-8 text-white flex items-center gap-6">
-                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#0F3823] text-4xl font-bold shadow-inner">
-                    ĐA
-                </div>
-                <div>
-                    <h1 class="text-3xl font-extrabold text-[#FACC15]">Đoàn Ngọc Ấn</h1>
-                    <p class="text-green-100 mt-2 text-lg">Kỹ sư / Nhà phát triển phần mềm GIS Lâm nghiệp</p>
-                </div>
-            </div>
+    <!-- Nội dung CV / Profile -->
+    <main class="max-w-5xl mx-auto py-12 px-4 lg:px-6 min-h-[80vh]">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             
-            <div class="p-8 grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-[#0F3823] border-b-2 border-gray-100 pb-2 mb-4">Mục tiêu & Chuyên môn</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Chuyên phát triển các hệ thống bản đồ số và công cụ tiện ích kỹ thuật lâm nghiệp. Đam mê trong việc đưa các giải pháp viễn thám phức tạp (GDAL, QGIS) thành các ứng dụng thực địa dễ sử dụng trên thiết bị di động.
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-semibold">Flutter / Dart</span>
-                        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold">Python / QGIS</span>
-                        <span class="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-sm font-semibold">C++ (GDAL/OGR)</span>
+            <!-- Header Card với nền GIS -->
+            <div class="gis-background p-8 md:p-12 text-white flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+                <!-- Vòng sáng trang trí -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px]"></div>
+                
+                <!-- Ảnh đại diện Tác giả (tacgia.png) -->
+                <div class="relative w-40 h-40 md:w-48 md:h-48 shrink-0 z-10">
+                    <img src="tacgia.png" alt="Tác giả Đoàn Ngọc Ấn" class="w-full h-full object-cover rounded-full border-4 border-white/20 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                    <div class="absolute bottom-2 right-2 bg-[#FACC15] text-[#0F3823] w-10 h-10 rounded-full flex items-center justify-center border-2 border-white shadow-lg" title="Đã xác minh">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                     </div>
                 </div>
                 
-                <div>
-                    <h3 class="text-xl font-bold text-[#0F3823] border-b-2 border-gray-100 pb-2 mb-4">Dự án tiêu biểu</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <span class="text-[#FACC15] mt-1">★</span>
-                            <div>
-                                <strong class="text-gray-800 block">DNAPlugin (Mobile App)</strong>
-                                <span class="text-gray-500 text-sm">Ứng dụng GIS thực địa ngoại tuyến, đo đạc VN-2000 và tích hợp ảnh Sentinel.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-[#FACC15] mt-1">★</span>
-                            <div>
-                                <strong class="text-gray-800 block">DoanNgocAnPlugin (Desktop)</strong>
-                                <span class="text-gray-500 text-sm">Plugin trên QGIS chuyên xử lý thuật toán phân tích biến động rừng.</span>
-                            </div>
-                        </li>
-                    </ul>
+                <!-- Thông tin ngắn gọn -->
+                <div class="text-center md:text-left z-10">
+                    <div class="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-[#FACC15] bg-white/10 border border-white/20 mb-3 uppercase">
+                        Nhà phát triển / Founder
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-md">Đoàn Ngọc Ấn</h1>
+                    <p class="text-green-300 mt-2 text-lg md:text-xl font-medium">Kỹ sư Lâm sinh / Cán bộ Quản lý Bảo vệ rừng</p>
+                    <p class="text-gray-300 text-sm mt-2 flex items-center justify-center md:justify-start gap-2">
+                        <svg class="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Ban quản lý rừng Lịch sử, Văn hóa, Môi trường Hồ Lắk, tỉnh Đắk Lắk
+                    </p>
                 </div>
+            </div>
+            
+            <!-- Phần chi tiết -->
+            <div class="p-8 md:p-12 grid md:grid-cols-12 gap-12 bg-white">
+                
+                <!-- Cột trái: Tiểu sử & Kỹ năng -->
+                <div class="md:col-span-7 space-y-10">
+                    
+                    <!-- Tiểu sử -->
+                    <section>
+                        <h3 class="text-xl font-extrabold text-[#0F3823] border-b-2 border-green-100 pb-3 mb-5 flex items-center gap-2">
+                            <span class="text-2xl">🌲</span> Câu chuyện thực địa
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed text-justify">
+                            Là một Kỹ sư Lâm sinh trực tiếp làm công tác quản lý và bảo vệ rừng tại khu vực Hồ Lắk, tôi thấu hiểu sâu sắc những khó khăn, vất vả của lực lượng kiểm lâm và anh em kỹ thuật khi băng rừng đo đạc thực địa trong điều kiện không có sóng điện thoại, thiết bị hạn chế.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed text-justify mt-3">
+                            Chính từ thực tiễn gian nan đó đã thôi thúc tôi tự học hỏi, nghiên cứu lập trình để viết nên hệ sinh thái <strong>DNAPlugin</strong>. Mục tiêu cốt lõi của tôi là mang những thuật toán bản đồ số phức tạp (GDAL, QGIS, Viễn thám) đóng gói thành các tiện ích đơn giản, tự động hóa, giúp đồng nghiệp tối ưu hóa năng suất và quản lý tài nguyên rừng một cách chuẩn xác, khoa học nhất.
+                        </p>
+                    </section>
+
+                    <!-- Kỹ năng -->
+                    <section>
+                        <h3 class="text-xl font-extrabold text-[#0F3823] border-b-2 border-green-100 pb-3 mb-5 flex items-center gap-2">
+                            <span class="text-2xl">⚙️</span> Ngôn ngữ & Kỹ năng
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-blue-50 text-blue-700 rounded-xl text-sm font-bold border border-blue-100 shadow-sm">Flutter / Dart (Mobile)</span>
+                            <span class="px-4 py-2 bg-yellow-50 text-yellow-700 rounded-xl text-sm font-bold border border-yellow-100 shadow-sm">Python (QGIS Plugin)</span>
+                            <span class="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-bold border border-emerald-100 shadow-sm">C++ / C (GDAL/OGR)</span>
+                            <span class="px-4 py-2 bg-purple-50 text-purple-700 rounded-xl text-sm font-bold border border-purple-100 shadow-sm">UAV / Drone Mapping</span>
+                            <span class="px-4 py-2 bg-gray-50 text-gray-700 rounded-xl text-sm font-bold border border-gray-200 shadow-sm">Geospatial Analysis</span>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Cột phải: Dự án & Liên hệ -->
+                <div class="md:col-span-5 space-y-10">
+                    
+                    <!-- Dự án -->
+                    <section>
+                        <h3 class="text-xl font-extrabold text-[#0F3823] border-b-2 border-green-100 pb-3 mb-5 flex items-center gap-2">
+                            <span class="text-2xl">🚀</span> Hệ sinh thái dự án
+                        </h3>
+                        <div class="space-y-5">
+                            <div class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-[#E2F1E8] hover:border-green-300 transition-colors">
+                                <strong class="text-gray-800 text-lg flex items-center gap-2">
+                                    <span class="text-[#FACC15]">📱</span> DNAPlugin (Mobile)
+                                </strong>
+                                <p class="text-gray-500 text-sm mt-2 leading-relaxed group-hover:text-green-800">
+                                    Ứng dụng GIS thực địa ngoại tuyến 100%, hỗ trợ định vị VN-2000, đo đạc diện tích, tích hợp dữ liệu viễn thám Sentinel và cảnh báo mất rừng.
+                                </p>
+                            </div>
+                            
+                            <div class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-[#E2F1E8] hover:border-green-300 transition-colors">
+                                <strong class="text-gray-800 text-lg flex items-center gap-2">
+                                    <span class="text-[#FACC15]">💻</span> DoanNgocAnPlugin
+                                </strong>
+                                <p class="text-gray-500 text-sm mt-2 leading-relaxed group-hover:text-green-800">
+                                    Phần mềm mã nguồn mở (Plugin) trên QGIS chuyên xử lý tự động hóa hồ sơ lâm nghiệp, phân tích biến động rừng và thiết kế bản đồ in ấn.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Liên hệ -->
+                    <section>
+                        <div class="bg-gradient-to-br from-[#0F3823] to-[#14532D] p-6 rounded-2xl text-white shadow-lg">
+                            <h3 class="text-lg font-bold text-[#FACC15] mb-4">Thông tin liên hệ</h3>
+                            <ul class="space-y-3 text-sm text-green-100">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">📍</div>
+                                    <span>Lắk, Đắk Lắk, Việt Nam</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">📞</div>
+                                    <span>Zalo Hỗ trợ: <strong>085.652.1139</strong></span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">✉️</div>
+                                    <span>Email: doanngocan@example.com</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
             </div>
         </div>
     </main>
+
+    <!-- Chân trang -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm border-t border-gray-800 mt-10">
+        <p class="font-semibold text-gray-300 mb-1">&copy; 2026 DNAPlugin. Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
+        <p>Phát triển bởi người làm lâm nghiệp, dành cho người làm lâm nghiệp.</p>
+    </footer>
+
 </body>
 </html>
