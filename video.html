@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Hướng Dẫn - Hệ sinh thái DNAPlugin</title>
+    <link rel="icon" type="image/png" href="DNAPlugin.png">
+    <!-- Tích hợp Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; background-color: #F8FAFC; }
+        
+        /* Hiệu ứng phảng sáng nhấp nháy mượt mà cho Logo */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
+        }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
+
+        /* Nền không gian số GIS / Viễn thám cho Banner */
+        .gis-background {
+            background-color: #081b12;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+        }
+
+        /* Hover Effect cho Playlist */
+        .video-card { transition: all 0.3s ease; cursor: pointer; }
+        .video-card:hover { transform: translateX(5px); border-color: #34d399; background-color: #f0fdf4; }
+        .video-card.active { border-color: #059669; background-color: #ecfdf5; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Thanh Menu Điều hướng (Đồng bộ) -->
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
+            </a>
+            
+            <!-- Các liên kết điều hướng -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
+                <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
+                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
+                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden sm:block">Hình ảnh</a>
+                <a href="video.html" class="text-green-800 border-b-2 border-green-800 pb-1">Video</a>
+                <a href="tac-gia.html" class="hover:text-green-700 transition-colors hidden md:block">Về tác giả</a>
+                
+                <!-- Nút Tải File APK -->
+                <a href="https://gis.vn/DNAPlugin" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] text-[#0F3823] px-4 py-1.5 rounded-lg hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2 group">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <div class="flex flex-col items-start leading-tight">
+                        <span class="font-bold text-sm">Tải File APK</span>
+                        <span id="apk-version" class="text-[10px] font-semibold text-green-900/70 group-hover:text-green-900 transition-colors">Đang kiểm tra...</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Trang Video -->
+    <header class="gis-background py-12 text-center border-b border-green-900 shadow-md">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3 drop-shadow-md">
+                Video <span class="text-[#FACC15]">Hướng Dẫn Sử Dụng</span>
+            </h1>
+            <p class="text-base text-green-100">
+                Theo dõi các video thao tác thực tế trên điện thoại (DNAPlugin Mobile) và máy tính (DoanNgocAnPlugin QGIS) để nắm vững công cụ.
+            </p>
+        </div>
+    </header>
+
+    <!-- Nội dung chính (Video Player + Playlist) -->
+    <main class="max-w-[1400px] mx-auto py-10 px-4 lg:px-6 grid lg:grid-cols-12 gap-8 flex-grow w-full">
+        
+        <!-- Cột trái: Trình phát Video Chính (Chiếm 8 cột) -->
+        <div class="lg:col-span-8 flex flex-col">
+            <div class="bg-gray-900 rounded-2xl shadow-xl overflow-hidden border border-gray-800 relative w-full aspect-video flex items-center justify-center">
+                
+                <!-- VÙNG HIỂN THỊ VIDEO (Sẽ được JS thay đổi iframe src) -->
+                <!-- Mặc định load video Youtube hướng dẫn chung. BẠN HÃY THAY MÃ VIDEO GỐC VÀO CHỖ src="https://www.youtube.com/embed/MÃ_VIDEO_CỦA_BẠN" -->
+                <iframe id="main-video-player" class="w-full h-full absolute inset-0" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" 
+                        title="Video Player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+                
+            </div>
+            
+            <div class="bg-white mt-6 p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h2 id="main-video-title" class="text-2xl font-bold text-[#0F3823] mb-2">Giới thiệu tổng quan hệ sinh thái DNAPlugin</h2>
+                <p id="main-video-desc" class="text-gray-600">Video giới thiệu các tính năng cơ bản, cách tải và cài đặt ứng dụng trên cả nền tảng thiết bị di động (Android) và phần mềm Desktop (QGIS).</p>
+                <div class="mt-4 flex gap-3">
+                    <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-200">#HuongDanCoBan</span>
+                    <span class="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-bold rounded-full border border-yellow-200">#DNAPlugin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Danh sách Video (Chiếm 4 cột) -->
+        <div class="lg:col-span-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-col h-[600px]">
+            <h3 class="text-lg font-bold text-[#0F3823] border-b border-gray-100 pb-3 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/></svg>
+                Danh sách Phát (Playlist)
+            </h3>
+            
+            <!-- Vùng cuộn danh sách -->
+            <div class="overflow-y-auto pr-2 space-y-3 flex-grow">
+                
+                <!-- Video 1 (Active) -->
+                <!-- Thuộc tính data-url chứa link nhúng youtube (dạng /embed/mã_video) -->
+                <div class="video-card active flex items-start gap-4 p-3 rounded-xl border border-gray-200 bg-gray-50" 
+                     data-url="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"
+                     data-title="Giới thiệu tổng quan hệ sinh thái DNAPlugin"
+                     data-desc="Video giới thiệu các tính năng cơ bản, cách tải và cài đặt ứng dụng trên cả nền tảng thiết bị di động (Android) và phần mềm Desktop (QGIS).">
+                    <div class="relative w-28 h-16 shrink-0 bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
+                        <!-- NÊN THAY SRC CỦA ẢNH THUMBNAIL BẰNG ẢNH THỰC TẾ -->
+                        <img src="TC_intro.png" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-800 line-clamp-2">Giới thiệu tổng quan hệ sinh thái DNAPlugin</span>
+                        <span class="text-[11px] text-gray-500 mt-1">Cơ bản • 5:20</span>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-card flex items-start gap-4 p-3 rounded-xl border border-gray-200 bg-gray-50" 
+                     data-url="https://www.youtube.com/embed/tgbNymZ7vqY?rel=0"
+                     data-title="Hướng dẫn đo đạc & tính diện tích trên Điện thoại"
+                     data-desc="Chi tiết cách thao tác định vị VN-2000, tạo đa giác (Polygon), tính toán hecta và lưu dữ liệu offline giữa rừng.">
+                    <div class="relative w-28 h-16 shrink-0 bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
+                        <img src="dodac.jpg" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-800 line-clamp-2">Đo đạc diện tích thực địa bằng App</span>
+                        <span class="text-[11px] text-gray-500 mt-1">Mobile • 8:15</span>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="video-card flex items-start gap-4 p-3 rounded-xl border border-gray-200 bg-gray-50" 
+                     data-url="https://www.youtube.com/embed/K4TOrB7at0Y?rel=0"
+                     data-title="Phân tích biến động rừng bằng Viễn thám"
+                     data-desc="Thao tác nâng cao sử dụng ảnh Sentinel-2 để phân tích và khoanh vẽ khu vực sạt lở, mất rừng ngay trên giao diện Mobile.">
+                    <div class="relative w-28 h-16 shrink-0 bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
+                        <img src="sentinel2.jpg" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-800 line-clamp-2">Phân tích biến động diện tích bằng Sentinel-2</span>
+                        <span class="text-[11px] text-gray-500 mt-1">Viễn thám • 12:40</span>
+                    </div>
+                </div>
+                
+                <!-- Video 4 -->
+                <div class="video-card flex items-start gap-4 p-3 rounded-xl border border-gray-200 bg-gray-50" 
+                     data-url="https://www.youtube.com/embed/LXb3EKWsInQ?rel=0"
+                     data-title="Đồng bộ Dữ liệu từ Mobile lên QGIS Desktop"
+                     data-desc="Cách xuất file công việc (TAB/SHP) từ điện thoại và sử dụng DoanNgocAnPlugin trên máy tính để tự động hóa biên tập bản đồ thành quả.">
+                    <div class="relative w-28 h-16 shrink-0 bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center">
+                        <img src="PC_Tinhnang1.png" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-800 line-clamp-2">Tự động hóa biên tập bản đồ trên QGIS</span>
+                        <span class="text-[11px] text-gray-500 mt-1">Desktop • 15:00</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Chân trang -->
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-sm border-t border-gray-800 mt-auto">
+        <p class="font-semibold text-gray-300">&copy; 2026 DNAPlugin. Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
+    </footer>
+
+    <!-- SCRIPT TỰ ĐỘNG LẤY PHIÊN BẢN APK TỪ GITHUB -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const versionSpan = document.getElementById('apk-version');
+            if (versionSpan) {
+                fetch('https://api.github.com/repos/AGAServer/DNAPlugin/releases/latest')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.tag_name) {
+                            versionSpan.textContent = 'Phiên bản ' + data.tag_name;
+                        } else {
+                            versionSpan.textContent = 'Bản mới nhất';
+                        }
+                    })
+                    .catch(error => {
+                        versionSpan.textContent = 'Bản mới nhất';
+                    });
+            }
+        });
+    </script>
+
+    <!-- SCRIPT ĐIỀU KHIỂN VIDEO PLAYLIST -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const player = document.getElementById('main-video-player');
+            const titleEl = document.getElementById('main-video-title');
+            const descEl = document.getElementById('main-video-desc');
+            const cards = document.querySelectorAll('.video-card');
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Xóa class active của tất cả thẻ
+                    cards.forEach(c => c.classList.remove('active'));
+                    // Thêm class active cho thẻ được click
+                    card.classList.add('active');
+
+                    // Lấy dữ liệu từ thẻ data-*
+                    const url = card.getAttribute('data-url');
+                    const title = card.getAttribute('data-title');
+                    const desc = card.getAttribute('data-desc');
+
+                    // Thay đổi nội dung khung chính
+                    player.src = url;
+                    titleEl.textContent = title;
+                    descEl.textContent = desc;
+
+                    // Tự động cuộn lên vị trí video trên điện thoại
+                    if (window.innerWidth < 1024) {
+                        player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
