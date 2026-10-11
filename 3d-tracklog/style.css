@@ -1,0 +1,76 @@
+html, body, #cesiumContainer {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+/* Ẩn các công cụ mặc định của Cesium để màn hình sạch sẽ quay video */
+.cesium-viewer-toolbar, 
+.cesium-viewer-animationContainer, 
+.cesium-viewer-bottom, 
+.cesium-viewer-timelineContainer {
+    display: none !important;
+}
+
+/* Watermark hiển thị góc dưới bên phải */
+#watermark {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    background: rgba(15, 56, 35, 0.7);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #FACC15;
+    pointer-events: none; /* Không cản trở thao tác vuốt bản đồ */
+}
+
+#wm-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+#wm-text {
+    color: #FACC15;
+    font-family: sans-serif;
+    line-height: 1.2;
+}
+
+#wm-text strong {
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+#wm-text span {
+    font-size: 12px;
+}
+
+/* Khung điều khiển */
+#controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+#controls button {
+    background: #16A34A;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
