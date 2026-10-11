@@ -1,5 +1,5 @@
 // 1. DÁN MÃ TOKEN API CỦA ANH VÀO GIỮA 2 DẤU NHÁY ĐƠN DƯỚI ĐÂY:
-Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6Il9hMVpDdk1kYWpHMVZaNGoiLCJqdGkiOiJlMDA4ZWMwZS1hZWQ0LTQzNmItOTllYS00NGZkYTE1YTgwMDQiLCJpZCI6NTIwNTUwLCJzdWIiOiJETkFQbHVnaW4iLCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoiRE5BUGx1Z2luIiwiaWF0IjoxNzkxNzMwMjkzfQ.OKqAc6xLlWHzm4-pJrH33cdrukkM0EAfcUajPLsyjME';
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6Ik5zNEo3dW5MYk1hY0xoTWoiLCJqdGkiOiI3M2ZmZTQ2Ny05OWZjLTQ4MWUtOTJhNi1lNmYyYTYyYmM3ZWIiLCJpZCI6NTIwNTUwLCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3OTE3MzAwMDN9.lKIJRCIJVD4NZ_KGVcW1649ngnyPqrVUuU6vl3HdLVY';
 
 // 2. Khởi tạo Bản đồ (Đã dùng cú pháp mới nhất để chống lỗi đen màn hình)
 const viewer = new Cesium.Viewer('cesiumContainer', {
