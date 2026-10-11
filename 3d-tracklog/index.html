@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DNAPlugin - 3D Tracklog Simulation</title>
+    
+    <!-- CesiumJS CDN -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container chứa bản đồ 3D -->
+    <div id="cesiumContainer"></div>
+
+    <!-- Watermark Logo & Website (Hiển thị đè lên bản đồ để quay video) -->
+    <div id="watermark">
+        <img src="assets/logo.png" alt="DNAPlugin Logo" id="wm-logo">
+        <div id="wm-text">
+            <strong>DNAPlugin</strong><br>
+            <span>dnaplugin.id.vn</span>
+        </div>
+    </div>
+
+    <!-- Nút điều khiển mô phỏng (Có thể ẩn đi khi quay video) -->
+    <div id="controls">
+        <button id="btnPlayPause">Tạm dừng</button>
+        <span id="speedDisplay">Tốc độ: 1x</span>
+    </div>
+
+    <!-- Script xử lý chính -->
+    <script src="app.js"></script>
+</body>
+</html>
