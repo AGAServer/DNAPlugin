@@ -1,7 +1,7 @@
-// 1. DÁN MÃ TOKEN API CỦA ANH VÀO GIỮA 2 DẤU NHÁY ĐƠN DƯỚI ĐÂY:
+// 1. DÁN MÃ TOKEN DEFAULT CỦA ANH VÀO ĐÂY:
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6Ik5zNEo3dW5MYk1hY0xoTWoiLCJqdGkiOiI3M2ZmZTQ2Ny05OWZjLTQ4MWUtOTJhNi1lNmYyYTYyYmM3ZWIiLCJpZCI6NTIwNTUwLCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3OTE3MzAwMDN9.lKIJRCIJVD4NZ_KGVcW1649ngnyPqrVUuU6vl3HdLVY';
 
-// 2. Khởi tạo Bản đồ (Đã dùng cú pháp mới nhất để chống lỗi đen màn hình)
+// 2. Khởi tạo Bản đồ 
 const viewer = new Cesium.Viewer('cesiumContainer', {
     terrain: Cesium.Terrain.fromWorldTerrain(), // Bật địa hình 3D đồi núi
     baseLayerPicker: false,
@@ -13,9 +13,15 @@ const viewer = new Cesium.Viewer('cesiumContainer', {
     infoBox: false,
 });
 
-// Bật hiệu ứng đổ bóng chân thực
-viewer.scene.globe.enableLighting = true;
+// ⛔ ĐÃ TẮT HIỆU ỨNG ĐỔ BÓNG ĐÊM ĐỂ TRÁI ĐẤT LUÔN SÁNG RÕ
+viewer.scene.globe.enableLighting = false; 
 viewer.scene.globe.depthTestAgainstTerrain = true;
+
+// 🚀 TỰ ĐỘNG BAY TỪ VŨ TRỤ VỀ ĐẮK LẮK KHI VỪA MỞ WEB
+viewer.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(108.1754, 12.4246, 15000), // Tọa độ Đắk Lắk, cao 15km
+    duration: 4.0 // Hiệu ứng bay kéo dài 4 giây
+});
 
 let simulationEntity = null;
 
@@ -62,7 +68,7 @@ window.startSimulation = function(geoJsonData) {
     const startTime = Cesium.JulianDate.now();
     let stopTime = startTime;
 
-    const speedMps = 5; // Tốc độ giả lập
+    const speedMps = 15; // Tốc độ giả lập bay 15 mét/giây
     let accumulatedTime = 0;
 
     for (let i = 0; i < coordinates.length; i++) {
