@@ -349,16 +349,24 @@
         </div>
     </section>
 
-    <!-- Chân trang -->
-    <footer class="bg-gray-900 text-gray-400 py-6 border-t border-gray-800 mt-auto z-10 relative">
-        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+    <<!-- Chân trang -->
+    <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 mt-auto z-10 relative">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             
-            <!-- Phần bản quyền (Bên trái) -->
-            <div class="text-center md:text-left text-sm">
-                <p class="font-semibold text-gray-300 mb-1">&copy; 2026 DNAPlugin.</p>
+            <!-- 1. BẢN QUYỀN (Bên trái) -->
+            <div class="text-center md:text-left text-sm flex flex-col justify-center">
+                <p class="font-bold text-gray-300 mb-1 text-base">&copy; 2026 DNAPlugin.</p>
                 <p>Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
-                <p class="mt-1">Hỗ trợ kỹ thuật: Zalo 085.652.1139</p>
+                <p class="mt-1">Hỗ trợ kỹ thuật: Zalo <strong class="text-white">085.652.1139</strong></p>
             </div>
+
+            <!-- 2. WEBSITE (Ở giữa) -->
+            <div class="text-center flex flex-col justify-center items-center">
+                <a href="https://www.dnaplugin.id.vn" target="_blank" class="inline-block text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#FACC15] hover:scale-110 transition-transform duration-300 drop-shadow-md">
+                    www.dnaplugin.id.vn
+                </a>
+                <div class="w-16 h-1 bg-green-600 rounded-full mt-2 opacity-50"></div>
+            </div>>
 
             <!-- Bộ đếm lượt truy cập (Bên phải) -->
             <div class="flex flex-col items-center md:items-end bg-gray-800/50 p-3 rounded-xl border border-gray-700/50">
