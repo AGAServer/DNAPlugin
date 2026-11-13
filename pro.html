@@ -155,8 +155,13 @@
         <div class="lg:col-span-5">
             <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden sticky top-24">
                 <div class="bg-[#1B4D3E] p-6 text-center text-white relative">
-                    <h3 class="text-2xl font-black text-[#FACC15]">552.000 VNĐ</h3>
-                    <p class="text-sm text-green-200 mt-1 line-through">Gốc: 690.000 VNĐ</p>
+                    <h3 id="header-price-text" class="text-2xl font-black text-[#FACC15]">552.000 VNĐ</h3>
+                    <p id="header-old-price" class="text-sm text-green-200 mt-1 line-through">Gốc: 690.000 VNĐ</p>
+                    <div id="discount-badge" class="hidden mt-2">
+                        <span class="bg-yellow-400 text-[#0F3823] text-xs font-extrabold px-3 py-1 rounded-full shadow">
+                            🎁 Đã giảm 22.000đ (Mã giới thiệu PRO)
+                        </span>
+                    </div>
                     <p class="text-xs font-bold text-white mt-3 bg-green-700/50 inline-block px-4 py-1.5 rounded-full border border-green-600/50 shadow-sm">✨ Mở khóa toàn bộ tính năng có trong app</p>
                     <div class="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#1B4D3E] rotate-45"></div>
                 </div>
@@ -164,18 +169,32 @@
                 <div class="p-8 pt-10 text-center min-h-[400px]">
                     
                     <!-- BƯỚC 1: NHẬP THÔNG TIN -->
-                    <div id="step-input-data" class="space-y-5">
+                    <div id="step-input-data" class="space-y-4">
                         <p class="font-bold text-[#1B4D3E] text-lg uppercase tracking-wider mb-2">Nhập Thông Tin Kích Hoạt</p>
                         
                         <div class="text-left">
                             <label class="block text-sm font-bold text-gray-700 mb-1">Mã thiết bị của bạn <span class="text-red-500">*</span></label>
                             <input type="text" id="input-device-id" placeholder="Gồm 8 ký tự (VD: A1B2C3D4)" maxlength="8" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none uppercase font-mono tracking-widest transition-all">
-                            <p id="error-msg" class="text-red-500 text-xs mt-1 hidden">Vui lòng nhập Mã thiết bị hợp lệ!</p>
+                            <p id="error-msg" class="text-red-500 text-xs mt-1 hidden">Vui lòng nhập Mã thiết bị hợp lệ (8 ký tự)!</p>
                         </div>
 
                         <div class="text-left">
                             <label class="block text-sm font-bold text-gray-700 mb-1">Họ và Tên <span class="text-gray-400 font-normal">(Tùy chọn)</span></label>
                             <input type="text" id="input-user-name" placeholder="Để hệ thống lưu hồ sơ hỗ trợ..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all">
+                        </div>
+
+                        <!-- Ô NHẬP MÃ GIỚI THIỆU GIẢM 22K -->
+                        <div class="text-left bg-green-50/70 p-3.5 rounded-xl border border-green-200">
+                            <label class="block text-xs font-extrabold text-[#1B4D3E] mb-1.5">
+                                🎁 Mã giới thiệu giảm 22.000đ <span class="text-gray-500 font-normal">(Mã thiết bị PRO người giới thiệu)</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <input type="text" id="input-ref-code" placeholder="Nhập mã ID 8 ký tự..." maxlength="8" class="flex-1 px-3 py-2.5 rounded-lg border border-gray-300 focus:border-green-600 outline-none uppercase font-mono tracking-wider text-sm bg-white">
+                                <button type="button" id="btn-apply-ref" class="bg-[#1B4D3E] hover:bg-green-800 text-white font-bold px-4 py-2.5 rounded-lg text-xs shrink-0 transition-all">
+                                    ÁP DỤNG
+                                </button>
+                            </div>
+                            <p id="ref-status-msg" class="text-xs mt-1.5 hidden font-semibold"></p>
                         </div>
 
                         <button id="btn-generate-qr" class="w-full bg-[#FACC15] hover:bg-yellow-500 text-[#0F3823] font-extrabold py-3.5 rounded-xl shadow-md transition-all mt-4">
@@ -207,6 +226,10 @@
                             <div class="flex justify-between items-center border-b border-gray-200 pb-2">
                                 <span class="text-xs text-gray-500">Số tài khoản</span>
                                 <span class="font-bold text-sm text-[#1B4D3E]">1000108018888</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                <span class="text-xs text-gray-500">Số tiền thanh toán</span>
+                                <span id="display-amount" class="font-black text-sm text-green-700">552.000 VNĐ</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-xs text-gray-500">Nội dung CK</span>
@@ -245,15 +268,15 @@
         <p class="font-semibold text-gray-300 mb-1">&copy; 2026 DNAPlugin. <br>Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
     </footer>
 
-    <!-- JAVASCRIPT XỬ LÝ LOGIC THANH TOÁN -->
+    <!-- JAVASCRIPT XỬ LÝ LOGIC THANH TOÁN & MÃ GIỚI THIỆU -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Cấu hình tham số hệ thống
             const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQWnUbyGRsjPhaTQjfQkHl2bVKOxJp37MG-Sl6IeJzV-F_2f-3qAlmSuiJE--Sw2l/exec";
             const BANK_ID = "MB";
             const ACC_NO = "1000108018888";
             const ACC_NAME = "DOAN NGOC AN";
-            const AMOUNT = "552000";
+            const BASE_AMOUNT = 552000;
+            const DISCOUNT_AMOUNT = 530000;
 
             // Các phần tử DOM
             const stepInput = document.getElementById('step-input-data');
@@ -261,8 +284,16 @@
             
             const inputDeviceId = document.getElementById('input-device-id');
             const inputUserName = document.getElementById('input-user-name');
+            const inputRefCode = document.getElementById('input-ref-code');
+            const btnApplyRef = document.getElementById('btn-apply-ref');
+            const refStatusMsg = document.getElementById('ref-status-msg');
             const errorMsg = document.getElementById('error-msg');
             
+            const headerPriceText = document.getElementById('header-price-text');
+            const headerOldPrice = document.getElementById('header-old-price');
+            const discountBadge = document.getElementById('discount-badge');
+            const displayAmount = document.getElementById('display-amount');
+
             const btnGenerate = document.getElementById('btn-generate-qr');
             const btnBack = document.getElementById('btn-back');
             const btnDownload = document.getElementById('btn-download-qr');
@@ -274,33 +305,143 @@
             const displayHwid = document.getElementById('display-hwid');
             const displayContent = document.getElementById('display-content');
 
-            // Biến lưu trữ tạm thời
+            // Biến lưu trữ trạng thái
             let currentDeviceId = "";
             let currentUserName = "";
             let currentQrUrl = "";
+            let verifiedRefCode = "";
+            let activeAmount = BASE_AMOUNT;
+
+            // Cập nhật hiển thị giá trên Header
+            function updatePriceUI(isDiscounted, refId = "") {
+                if (isDiscounted) {
+                    activeAmount = DISCOUNT_AMOUNT;
+                    verifiedRefCode = refId;
+                    headerPriceText.textContent = "530.000 VNĐ";
+                    headerOldPrice.textContent = "Giá niêm yết: 552.000 VNĐ (Gốc: 690.000 VNĐ)";
+                    discountBadge.classList.remove('hidden');
+                    displayAmount.textContent = "530.000 VNĐ (Đã giảm 22.000đ)";
+                } else {
+                    activeAmount = BASE_AMOUNT;
+                    verifiedRefCode = "";
+                    headerPriceText.textContent = "552.000 VNĐ";
+                    headerOldPrice.textContent = "Gốc: 690.000 VNĐ";
+                    discountBadge.classList.add('hidden');
+                    displayAmount.textContent = "552.000 VNĐ";
+                }
+            }
+
+            // Khi sửa ô mã giới thiệu thì reset trạng thái xác thực cũ
+            inputRefCode.addEventListener('input', () => {
+                const rawRef = inputRefCode.value.trim().toUpperCase();
+                if (rawRef !== verifiedRefCode) {
+                    updatePriceUI(false);
+                    refStatusMsg.classList.add('hidden');
+                }
+            });
+
+            // Hàm kiểm tra mã giới thiệu trên Google Sheet (phải là máy đã kích hoạt PRO)
+            async function verifyReferralCode(refCode, buyerHwid) {
+                if (!refCode) {
+                    updatePriceUI(false);
+                    refStatusMsg.classList.add('hidden');
+                    return true;
+                }
+                if (refCode.length !== 8 || !/^[A-Z0-9]{8}$/.test(refCode)) {
+                    updatePriceUI(false);
+                    refStatusMsg.textContent = "❌ Mã giới thiệu phải gồm đúng 8 ký tự chữ hoặc số!";
+                    refStatusMsg.className = "text-xs mt-1.5 font-bold text-red-600";
+                    return false;
+                }
+                if (buyerHwid && refCode === buyerHwid) {
+                    updatePriceUI(false);
+                    refStatusMsg.textContent = "⚠️ Không thể dùng Mã thiết bị của chính bạn làm mã giới thiệu!";
+                    refStatusMsg.className = "text-xs mt-1.5 font-bold text-red-600";
+                    return false;
+                }
+
+                btnApplyRef.disabled = true;
+                btnApplyRef.textContent = "ĐANG KIỂM TRA...";
+                refStatusMsg.textContent = "⏳ Đang kiểm tra mã thiết bị giới thiệu trên hệ thống PRO...";
+                refStatusMsg.className = "text-xs mt-1.5 font-semibold text-blue-700";
+
+                try {
+                    const url = `${GOOGLE_APP_SCRIPT_URL}?action=check_ref&hwid=${encodeURIComponent(refCode)}`;
+                    const resp = await fetch(url);
+                    const data = await resp.json();
+
+                    if (data && (data.ref_valid === true || data.pro_status === 'active' || data.status === 'active')) {
+                        updatePriceUI(true, refCode);
+                        const ownerHint = data.referrer_name ? ` (${data.referrer_name})` : "";
+                        refStatusMsg.textContent = `✅ Hợp lệ! Mã giới thiệu PRO${ownerHint} - Đã giảm 22.000đ còn 530.000đ.`;
+                        refStatusMsg.className = "text-xs mt-1.5 font-bold text-green-700";
+                        return true;
+                    } else {
+                        updatePriceUI(false);
+                        refStatusMsg.textContent = "❌ Mã thiết bị này chưa kích hoạt gói PRO nên không thể dùng làm mã giảm giá!";
+                        refStatusMsg.className = "text-xs mt-1.5 font-bold text-red-600";
+                        return false;
+                    }
+                } catch (e) {
+                    updatePriceUI(false);
+                    refStatusMsg.textContent = "⚠️ Không thể kết nối máy chủ để kiểm tra mã giới thiệu. Vui lòng thử lại!";
+                    refStatusMsg.className = "text-xs mt-1.5 font-bold text-red-600";
+                    return false;
+                } finally {
+                    btnApplyRef.disabled = false;
+                    btnApplyRef.textContent = "ÁP DỤNG";
+                }
+            }
+
+            // Bấm nút ÁP DỤNG mã giới thiệu
+            btnApplyRef.addEventListener('click', async () => {
+                const refCode = inputRefCode.value.trim().toUpperCase();
+                const buyerHwid = inputDeviceId.value.trim().toUpperCase();
+                if (!refCode) {
+                    refStatusMsg.textContent = "ℹ️ Vui lòng nhập Mã thiết bị PRO của người giới thiệu (8 ký tự).";
+                    refStatusMsg.className = "text-xs mt-1.5 font-semibold text-orange-600";
+                    return;
+                }
+                await verifyReferralCode(refCode, buyerHwid);
+            });
 
             // 1. Nút Tạo QR (Chuyển Bước)
-            btnGenerate.addEventListener('click', () => {
+            btnGenerate.addEventListener('click', async () => {
                 const hwid = inputDeviceId.value.trim().toUpperCase();
                 
-                if (hwid.length === 0) {
+                if (hwid.length !== 8 || !/^[A-Z0-9]{8}$/.test(hwid)) {
                     errorMsg.classList.remove('hidden');
                     return;
                 }
-                
                 errorMsg.classList.add('hidden');
+
+                // Nếu người dùng có nhập mã giới thiệu nhưng chưa bấm "Áp dụng" (hoặc đổi mã máy trùng mã giới thiệu)
+                const rawRef = inputRefCode.value.trim().toUpperCase();
+                if (rawRef.length > 0) {
+                    if (rawRef === hwid || rawRef !== verifiedRefCode) {
+                        const ok = await verifyReferralCode(rawRef, hwid);
+                        if (!ok) return; // Dừng lại nếu mã giới thiệu không hợp lệ
+                    }
+                } else {
+                    updatePriceUI(false);
+                }
+
                 currentDeviceId = hwid;
                 currentUserName = inputUserName.value.trim() || "Web User";
 
-                // Cập nhật giao diện
+                // Nội dung chuyển khoản:
+                // - Không mã GT: DNAPlugin <8_KY_TU_MUA>
+                // - Có mã GT hợp lệ: DNAPlugin <8_KY_TU_MUA> GT<8_KY_TU_REF>
                 displayHwid.textContent = currentDeviceId;
-                const transferContent = `DNAPlugin ${currentDeviceId}`;
+                const transferContent = verifiedRefCode
+                    ? `DNAPlugin ${currentDeviceId} GT${verifiedRefCode}`
+                    : `DNAPlugin ${currentDeviceId}`;
                 displayContent.textContent = transferContent;
 
-                // Tạo URL QR VietQR
+                // Tạo URL QR VietQR với số tiền tương ứng (530000 hoặc 552000)
                 const encodedInfo = encodeURIComponent(transferContent);
                 const encodedName = encodeURIComponent(ACC_NAME);
-                currentQrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACC_NO}-compact2.png?amount=${AMOUNT}&addInfo=${encodedInfo}&accountName=${encodedName}`;
+                currentQrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACC_NO}-compact2.png?amount=${activeAmount}&addInfo=${encodedInfo}&accountName=${encodedName}`;
                 
                 // Nạp ảnh QR
                 loadingQr.classList.remove('hidden');
@@ -313,7 +454,8 @@
                 // Đổi hiển thị
                 stepInput.classList.add('hidden-step');
                 stepQR.classList.remove('hidden-step');
-                apiMessage.classList.add('hidden-step'); // Xóa thông báo cũ
+                apiMessage.classList.add('hidden-step');
+                btnCheck.classList.remove('hidden-step');
             });
 
             // 2. Nút Quay lại
@@ -356,27 +498,24 @@
                 btnCheck.disabled = true;
                 
                 apiMessage.classList.add('hidden-step');
-                apiMessage.className = "text-sm font-bold mt-3 px-3 py-2 rounded-lg"; // Reset class
+                apiMessage.className = "text-sm font-bold mt-3 px-3 py-2 rounded-lg";
 
                 try {
-                    const url = `${GOOGLE_APP_SCRIPT_URL}?hwid=${currentDeviceId}&name=${encodeURIComponent(currentUserName)}`;
+                    const url = `${GOOGLE_APP_SCRIPT_URL}?hwid=${currentDeviceId}&name=${encodeURIComponent(currentUserName)}&action=check_pro`;
                     const response = await fetch(url);
                     const data = await response.json();
                     
                     apiMessage.classList.remove('hidden-step');
                     
-                    if (data.status === 'active') {
-                        // Thành công
+                    if (data.status === 'active' || data.pro_status === 'active') {
                         apiMessage.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
                         apiMessage.innerHTML = "🎉 THÀNH CÔNG! Hệ thống đã xác nhận thanh toán. Hãy mở lại App trên điện thoại để sử dụng bản PRO.";
-                        btnCheck.classList.add('hidden-step'); // Ẩn nút kiểm tra đi vì đã xong
+                        btnCheck.classList.add('hidden-step');
                     } else {
-                        // Chưa có giao dịch hoặc pending
                         apiMessage.classList.add('bg-orange-100', 'text-orange-800', 'border', 'border-orange-300');
                         apiMessage.innerHTML = "⏳ Chưa nhận được giao dịch. Hệ thống thường mất 1-3 phút để đồng bộ dữ liệu ngân hàng, vui lòng thử lại sau!";
                     }
                 } catch (error) {
-                    // Lỗi mạng hoặc CORS
                     apiMessage.classList.remove('hidden-step');
                     apiMessage.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-300');
                     apiMessage.innerHTML = "⚠️ Không thể kết nối tới máy chủ kích hoạt. Vui lòng kiểm tra kết nối mạng hoặc liên hệ Zalo 085.652.1139.";
@@ -386,7 +525,6 @@
                 }
             });
 
-            // Bắt sự kiện ấn Enter khi nhập mã
             inputDeviceId.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') btnGenerate.click();
             });
