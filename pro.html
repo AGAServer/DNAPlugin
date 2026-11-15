@@ -66,7 +66,7 @@
 
     <main class="max-w-6xl mx-auto py-12 px-4 lg:px-6 grid lg:grid-cols-12 gap-10">
         
-        <!-- Cột Trái: Thông tin Gói PRO (Giữ nguyên) -->
+        <!-- Cột Trái: Thông tin Gói PRO -->
         <div class="lg:col-span-7 space-y-8">
             <div class="bg-white rounded-2xl shadow-sm border border-green-100 p-8 relative overflow-hidden">
                 <!-- Ruy băng khuyến mãi -->
@@ -159,7 +159,7 @@
                     <p id="header-old-price" class="text-sm text-green-200 mt-1 line-through">Gốc: 690.000 VNĐ</p>
                     <div id="discount-badge" class="hidden mt-2">
                         <span class="bg-yellow-400 text-[#0F3823] text-xs font-extrabold px-3 py-1 rounded-full shadow">
-                            🎁 Đã giảm 22.000đ (Mã giới thiệu PRO)
+                            🎁 Đã giảm 22.000đ (Áp dụng mã giới thiệu)
                         </span>
                     </div>
                     <p class="text-xs font-bold text-white mt-3 bg-green-700/50 inline-block px-4 py-1.5 rounded-full border border-green-600/50 shadow-sm">✨ Mở khóa toàn bộ tính năng có trong app</p>
@@ -183,10 +183,10 @@
                             <input type="text" id="input-user-name" placeholder="Để hệ thống lưu hồ sơ hỗ trợ..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all">
                         </div>
 
-                        <!-- Ô NHẬP MÃ GIỚI THIỆU GIẢM 22K -->
+                        <!-- Ô NHẬP MÃ GIỚI THIỆU (ÁP DỤNG CHO MỌI THIẾT BỊ TRÊN HỆ THỐNG) -->
                         <div class="text-left bg-green-50/70 p-3.5 rounded-xl border border-green-200">
                             <label class="block text-xs font-extrabold text-[#1B4D3E] mb-1.5">
-                                🎁 Mã giới thiệu giảm 22.000đ <span class="text-gray-500 font-normal">(Mã thiết bị PRO người giới thiệu)</span>
+                                🎁 Mã giới thiệu nhận ưu đãi <span class="text-gray-500 font-normal">(Mã thiết bị của người giới thiệu)</span>
                             </label>
                             <div class="flex gap-2">
                                 <input type="text" id="input-ref-code" placeholder="Nhập mã ID 8 ký tự..." maxlength="8" class="flex-1 px-3 py-2.5 rounded-lg border border-gray-300 focus:border-green-600 outline-none uppercase font-mono tracking-wider text-sm bg-white">
@@ -340,7 +340,7 @@
                 }
             });
 
-            // Hàm kiểm tra mã giới thiệu trên Google Sheet (phải là máy đã kích hoạt PRO)
+            // Hàm kiểm tra mã giới thiệu trên Google Sheet (Áp dụng cho mọi thiết bị hợp lệ trên hệ thống)
             async function verifyReferralCode(refCode, buyerHwid) {
                 if (!refCode) {
                     updatePriceUI(false);
@@ -362,7 +362,7 @@
 
                 btnApplyRef.disabled = true;
                 btnApplyRef.textContent = "ĐANG KIỂM TRA...";
-                refStatusMsg.textContent = "⏳ Đang kiểm tra mã thiết bị giới thiệu trên hệ thống PRO...";
+                refStatusMsg.textContent = "⏳ Đang kiểm tra mã thiết bị giới thiệu trên hệ thống...";
                 refStatusMsg.className = "text-xs mt-1.5 font-semibold text-blue-700";
 
                 try {
@@ -370,15 +370,15 @@
                     const resp = await fetch(url);
                     const data = await resp.json();
 
-                    if (data && (data.ref_valid === true || data.pro_status === 'active' || data.status === 'active')) {
+                    if (data && (data.ref_valid === true || data.status === 'active')) {
                         updatePriceUI(true, refCode);
                         const ownerHint = data.referrer_name ? ` (${data.referrer_name})` : "";
-                        refStatusMsg.textContent = `✅ Hợp lệ! Mã giới thiệu PRO${ownerHint} - Đã giảm 22.000đ còn 530.000đ.`;
+                        refStatusMsg.textContent = `✅ Hợp lệ! Mã giới thiệu${ownerHint} - Đã áp dụng ưu đãi còn 530.000đ.`;
                         refStatusMsg.className = "text-xs mt-1.5 font-bold text-green-700";
                         return true;
                     } else {
                         updatePriceUI(false);
-                        refStatusMsg.textContent = "❌ Mã thiết bị này chưa kích hoạt gói PRO nên không thể dùng làm mã giảm giá!";
+                        refStatusMsg.textContent = "❌ Không tìm thấy Mã thiết bị giới thiệu này trên hệ thống ứng dụng!";
                         refStatusMsg.className = "text-xs mt-1.5 font-bold text-red-600";
                         return false;
                     }
@@ -398,7 +398,7 @@
                 const refCode = inputRefCode.value.trim().toUpperCase();
                 const buyerHwid = inputDeviceId.value.trim().toUpperCase();
                 if (!refCode) {
-                    refStatusMsg.textContent = "ℹ️ Vui lòng nhập Mã thiết bị PRO của người giới thiệu (8 ký tự).";
+                    refStatusMsg.textContent = "ℹ️ Vui lòng nhập Mã thiết bị của người giới thiệu (8 ký tự).";
                     refStatusMsg.className = "text-xs mt-1.5 font-semibold text-orange-600";
                     return;
                 }
