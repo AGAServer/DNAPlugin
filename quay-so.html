@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LP46BZQQPX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LP46BZQQPX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quay Số Trúng Thưởng | DNAPlugin - Công cụ Kỹ thuật Lâm nghiệp</title>
+    <link rel="icon" type="image/png" href="DNAPlugin.png">
+    <!-- Tích hợp Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; background-color: #F8FAFC; }
+        
+        /* Hiệu ứng bo tròn đặc trưng */
+        .leaf-radius { border-radius: 13px 5px 13px 5px; }
+
+        /* Hiệu ứng kính mờ */
+        .glass-panel { 
+            background: rgba(15, 56, 35, 0.72); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        /* Nền không gian số GIS / Viễn thám */
+        .gis-background {
+            background-color: #081b12;
+            background-image: 
+                radial-gradient(circle at 50% 40%, rgba(16, 185, 129, 0.18) 0%, transparent 65%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+        }
+
+        /* Hiệu ứng phát sáng nhấp nháy mượt mà cho Logo */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 22px rgba(52, 211, 153, 0.85); }
+        }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
+
+        /* Hiệu ứng ánh kim cho sân khấu quay số */
+        .stage-glow {
+            box-shadow: 0 20px 60px -10px rgba(16, 185, 129, 0.28),
+                        0 0 25px rgba(250, 204, 21, 0.22);
+        }
+
+        /* CSS cho dải ruy-băng chạy chữ */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 60s linear infinite;
+            display: inline-flex;
+        }
+
+        /* Hiệu ứng xuất hiện thẻ người trúng giải */
+        @keyframes winnerPop {
+            0% { transform: scale(0.88) translateY(10px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .winner-card-anim {
+            animation: winnerPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Tùy chỉnh thanh cuộn danh sách người chơi */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 8px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #15803D; border-radius: 8px; }
+    </style>
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Thanh Menu Điều hướng (Đồng bộ chuẩn index.html) -->
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
+            </a>
+            
+            <!-- Các liên kết điều hướng & Nút Tải APK -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
+                <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
+                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
+                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden sm:block">Hình ảnh</a>
+                <a href="video.html" class="hover:text-green-700 transition-colors hidden md:block">Video</a>
+                <a href="tac-gia.html" class="hover:text-green-700 transition-colors hidden md:block">Về tác giả</a>
+                <a href="pro.html" class="hover:text-green-700 transition-colors hidden sm:block">Kích hoạt dịch vụ</a>
+                <a href="quay-so.html" class="text-green-800 border-b-2 border-green-800 pb-1 flex items-center gap-1">
+                    <span>🎁 Sự kiện Quay số</span>
+                </a>
+                
+                <!-- Nút Tải File APK (Kèm Version động) -->
+                <a href="https://play.google.com/store/apps/details?id=com.DNAPlugin.dnaplugin.app" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] text-[#0F3823] px-4 py-1.5 rounded-lg hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2 group">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <div class="flex flex-col items-start leading-tight">
+                        <span class="font-bold text-sm">Tải App DNAPlugin</span>
+                        <span id="apk-version" class="text-[10px] font-semibold text-green-900/70 group-hover:text-green-900 transition-colors">Đang kiểm tra...</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Sự Kiện (Hero Header) -->
+    <header class="gis-background text-white py-10 lg:py-12 relative overflow-hidden border-b border-green-900">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-5 text-center md:text-left flex-col md:flex-row">
+                <div class="relative shrink-0">
+                    <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-20 h-20 md:w-24 md:h-24 object-contain rounded-full border-4 border-[#FACC15] logo-glow bg-white p-1">
+                    <span class="absolute -bottom-1 -right-1 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white shadow">
+                        PRO
+                    </span>
+                </div>
+                <div>
+                    <div class="inline-block px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest text-[#FACC15] bg-[#FACC15]/10 border border-[#FACC15]/30 mb-2">
+                        SỰ KIỆN TRI ÂN CỘNG ĐỒNG LÂM NGHIỆP • 25 NGÀY
+                    </div>
+                    <h1 class="text-2xl md:text-4xl font-extrabold leading-tight drop-shadow-lg">
+                        Vòng Quay May Mắn <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FACC15] to-[#34d399]">Tặng 02 Key DNAPlugin PRO</span>
+                    </h1>
+                    <p class="text-xs md:text-sm text-green-100 mt-1.5 max-w-2xl">
+                        Quay số ngẫu nhiên công khai dành cho các thành viên Like, Chia sẻ bài viết, Tag 03 đồng nghiệp và Bình luận hình ảnh Mã thiết bị.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Nút bật/tắt nhanh bảng công cụ quét bình luận -->
+            <div class="shrink-0 flex flex-col items-center md:items-end gap-2">
+                <button id="btn-toggle-scanner" class="glass-panel hover:border-[#FACC15] text-[#FACC15] font-bold text-xs md:text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span>Ẩn / Hiện Khung Quét Facebook</span>
+                </button>
+                <span class="text-[11px] text-green-300 font-medium">Thuật toán ngẫu nhiên mật mã học (Web Crypto)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dải ruy băng chạy chữ đặc trưng -->
+    <div class="relative flex overflow-x-hidden bg-green-600 text-white py-2.5 border-y border-green-700 shadow-md z-30">
+        <div class="animate-marquee whitespace-nowrap flex items-center gap-6 font-medium text-xs md:text-sm">
+            <span class="flex items-center">
+                🎁 Sự kiện Tặng 02 Key kích hoạt DNAPlugin PRO vĩnh viễn theo máy
+                <span class="mx-6 text-yellow-300">✦</span>
+                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
+                <span class="mx-6 text-yellow-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
+                <span class="mx-6 text-yellow-300">✦</span>
+            </span>
+            <span class="flex items-center">
+                🎁 Sự kiện Tặng 02 Key kích hoạt DNAPlugin PRO vĩnh viễn theo máy
+                <span class="mx-6 text-yellow-300">✦</span>
+                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
+                <span class="mx-6 text-yellow-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
+                <span class="mx-6 text-yellow-300">✦</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- KHU VỰC CHÍNH: QUÉT BÌNH LUẬN & SÂN KHẤU QUAY SỐ -->
+    <main class="max-w-[1400px] w-full mx-auto px-4 lg:px-6 py-10 grid lg:grid-cols-12 gap-8 flex-1">
+
+        <!-- CỘT TRÁI (5/12): CÔNG CỤ QUÉT BÌNH LUẬN FACEBOOK & DANH SÁCH NGƯỜI CHƠI -->
+        <div class="lg:col-span-5 space-y-6">
+
+            <!-- Khung 1: Công cụ Quét Bình Luận Facebook -->
+            <div id="scanner-panel" class="bg-white rounded-2xl shadow-sm border border-green-200 overflow-hidden">
+                <div class="bg-[#0F3823] px-5 py-3.5 flex items-center justify-between border-b border-green-800">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-7 h-7 rounded-lg bg-[#FACC15] text-[#0F3823] font-black text-xs flex items-center justify-center">1</span>
+                        <h2 class="font-extrabold text-white text-sm uppercase tracking-wider">
+                            Quét Bình Luận Có Ảnh Từ Facebook
+                        </h2>
+                    </div>
+                    <span class="text-[11px] bg-green-800 text-[#FACC15] px-2.5 py-0.5 rounded-full font-bold border border-green-600">
+                        Tự động lọc ảnh
+                    </span>
+                </div>
+
+                <div class="p-5 space-y-4">
+                    <!-- Hướng dẫn 3 bước -->
+                    <div class="bg-[#F0FDF4] border border-green-200 rounded-xl p-3.5 text-xs text-gray-700 space-y-1.5 leading-relaxed">
+                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Hướng dẫn lấy danh sách trong 15 giây:</p>
+                        <p><b>Bước 1:</b> Mở bài viết sự kiện trên Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết <b>"Xem thêm bình luận"</b>.</p>
+                        <p><b>Bước 2:</b> Bấm nút <b>"1. Chép Lệnh Quét"</b> bên dưới $\rightarrow$ qua tab Facebook nhấn <b>F12</b> (chọn tab <b>Console</b>), cuộn xuống cuối dấu <code>&gt;</code>, dán lệnh vào và nhấn <b>Enter</b> <i>(nếu trình duyệt hỏi thì gõ <code>allow pasting</code> rồi Enter)</i>.</p>
+                        <p><b>Bước 3:</b> Quay lại trang này và bấm <b>"2. Dán Dữ Liệu Quét"</b> để nạp toàn bộ tên kèm ảnh chụp Mã thiết bị!</p>
+                    </div>
+
+                    <!-- Tùy chọn điều kiện lọc -->
+                    <div class="flex flex-wrap items-center gap-4 text-xs font-bold text-[#0F3823] bg-gray-50 px-3.5 py-2.5 rounded-xl border border-gray-200">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="chk-require-image" checked class="accent-green-700 w-4 h-4 rounded">
+                            <span>Bắt buộc có ảnh Mã thiết bị</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="chk-require-tags" class="accent-green-700 w-4 h-4 rounded">
+                            <span>Bắt buộc tag đủ 3 đồng nghiệp</span>
+                        </label>
+                    </div>
+
+                    <!-- 2 Nút thao tác chính -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="btn-copy-script" class="bg-[#FACC15] hover:bg-yellow-400 text-[#0F3823] font-black text-xs py-3 px-3 rounded-xl shadow-sm border border-yellow-500 transition-all flex items-center justify-center gap-1.5">
+                            📋 1. CHÉP LỆNH QUÉT
+                        </button>
+                        <button id="btn-paste-json" class="bg-[#15803D] hover:bg-green-700 text-white font-black text-xs py-3 px-3 rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5">
+                            📥 2. DÁN DỮ LIỆU QUÉT
+                        </button>
+                    </div>
+
+                    <!-- Ô dán dữ liệu hoặc nhập tên thủ công -->
+                    <div class="pt-1 border-t border-gray-100">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="text-xs font-bold text-gray-600">
+                                Dữ liệu JSON hoặc nhập danh sách tên (mỗi dòng 1 người):
+                            </label>
+                            <button id="btn-sample-data" class="text-[11px] font-bold text-green-700 hover:underline">
+                                + Nạp dữ liệu thử nghiệm
+                            </button>
+                        </div>
+                        <textarea id="raw-input-box" rows="3" placeholder="Dán dữ liệu từ lệnh quét Facebook (Ctrl+V) hoặc gõ mỗi dòng 1 tên tài khoản..." class="w-full bg-gray-50 border border-gray-300 rounded-xl p-2.5 text-xs text-gray-800 focus:border-green-600 focus:bg-white outline-none transition-all"></textarea>
+                        <button id="btn-load-manual" class="mt-2 w-full bg-[#E2F1E8] hover:bg-green-200 text-[#0F3823] text-xs font-extrabold py-2.5 rounded-xl border border-green-300 transition-all">
+                            ✔️ CẬP NHẬT VÀO DANH SÁCH QUAY SỐ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Khung 2: Danh sách người chơi hợp lệ -->
+            <div class="bg-white rounded-2xl shadow-sm border border-green-200 overflow-hidden">
+                <div class="bg-[#E2F1E8] px-5 py-3.5 flex items-center justify-between border-b border-green-200">
+                    <div>
+                        <h3 class="font-extrabold text-[#0F3823] text-sm uppercase">
+                            Danh Sách Hợp Lệ Tham Gia
+                        </h3>
+                        <p class="text-[11px] text-green-800 font-medium">
+                            Đã tự động lọc trùng tài khoản (mỗi người 1 vé)
+                        </p>
+                    </div>
+                    <span id="participant-count-badge" class="bg-[#0F3823] text-[#FACC15] font-black text-sm px-3.5 py-1 rounded-full shadow-sm">
+                        0 người
+                    </span>
+                </div>
+
+                <div class="p-4">
+                    <!-- Ô tìm kiếm nhanh tên người chơi -->
+                    <div class="mb-3">
+                        <input type="text" id="search-participant" placeholder="🔍 Tìm nhanh tên tài khoản trong danh sách..." class="w-full px-3.5 py-2 text-xs rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-green-600 outline-none">
+                    </div>
+
+                    <div id="participant-list" class="custom-scroll max-h-[380px] overflow-y-auto space-y-2 pr-1">
+                        <div class="text-center py-10 text-xs text-gray-400 italic">
+                            Chưa có dữ liệu người tham gia. Hãy quét bình luận từ bài viết Facebook hoặc bấm "+ Nạp dữ liệu thử nghiệm" để kiểm tra vòng quay.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CỘT PHẢI (7/12): SÂN KHẤU QUAY SỐ TRÚNG THƯỞNG 02 KEY PRO -->
+        <div class="lg:col-span-7 flex flex-col">
+            <div class="gis-background rounded-3xl border-2 border-[#FACC15] p-6 md:p-8 stage-glow text-white relative overflow-hidden flex-1 flex flex-col justify-between">
+                
+                <!-- Canvas bắn pháo giấy khi có người trúng giải -->
+                <canvas id="confetti-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-20"></canvas>
+
+                <!-- Đầu sân khấu: Logo & Tiêu đề -->
+                <div class="relative z-10 text-center">
+                    <div class="inline-flex items-center gap-2.5 bg-[#0F3823]/90 border border-green-500/40 px-4 py-1.5 rounded-full mb-3 shadow">
+                        <img src="DNAPlugin.png" alt="Logo" class="w-5 h-5 rounded-full bg-white p-0.5">
+                        <span class="text-[11px] font-extrabold text-[#FACC15] tracking-wider uppercase">
+                            DNAPLUGIN PRO • KẾT QUẢ NGẪU NHIÊN MINH BẠCH
+                        </span>
+                    </div>
+                    <h2 class="text-2xl md:text-4xl font-black uppercase tracking-wide drop-shadow">
+                        SÂN KHẤU QUAY SỐ <span class="text-[#FACC15]">02 GIẢI PRO</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-green-200 mt-1">
+                        Mỗi giải 01 Key kích hoạt DNAPlugin PRO vĩnh viễn theo Mã thiết bị trong ảnh bình luận
+                    </p>
+                </div>
+
+                <!-- Bảng điện tử nhảy tên người chơi -->
+                <div class="relative z-10 my-6 bg-[#05120C]/90 border-2 border-emerald-500/60 rounded-2xl p-6 md:p-8 min-h-[165px] flex flex-col items-center justify-center shadow-inner">
+                    <span id="rolling-status" class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 mb-2">
+                        SẴN SÀNG QUAY SỐ
+                    </span>
+                    <div id="rolling-name" class="text-2xl md:text-4xl font-black text-[#FACC15] tracking-wide text-center break-words max-w-full drop-shadow">
+                        --- 🌲 DNAPlugin PRO 🌲 ---
+                    </div>
+                    <span id="rolling-sub" class="text-[11px] text-green-300/80 mt-2 font-medium">
+                        Nhấn nút "Bắt đầu quay" bên dưới để tìm ra chủ nhân giải thưởng
+                    </span>
+                </div>
+
+                <!-- Nút điều khiển quay số -->
+                <div class="relative z-10 flex flex-wrap justify-center gap-4 my-2">
+                    <button id="btn-spin" class="bg-gradient-to-r from-[#FACC15] to-amber-400 hover:from-yellow-300 hover:to-amber-300 text-[#0F3823] font-black text-base md:text-lg px-8 md:px-10 py-4 rounded-2xl shadow-[0_0_25px_rgba(250,204,21,0.45)] border-2 border-white/60 transform active:scale-95 transition-all flex items-center gap-2.5">
+                        <span>🎲 BẮT ĐẦU QUAY GIẢI PRO</span>
+                    </button>
+                    <button id="btn-reset-winners" class="bg-[#0F3823] hover:bg-green-900 text-green-200 font-bold text-xs px-5 py-4 rounded-2xl border border-green-700 transition-all">
+                        🔄 Đặt lại kết quả
+                    </button>
+                </div>
+
+                <!-- Khu vực hiển thị 02 Người Trúng Giải -->
+                <div class="relative z-10 mt-6 pt-5 border-t border-green-800/80">
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span class="text-lg">🏆</span>
+                        <h3 class="text-xs md:text-sm font-black uppercase tracking-wider text-[#FACC15] text-center">
+                            DANH SÁCH 02 TÀI KHOẢN TRÚNG KEY DNAPLUGIN PRO VĨNH VIỄN
+                        </h3>
+                        <span class="text-lg">🏆</span>
+                    </div>
+
+                    <div id="winners-container" class="grid sm:grid-cols-2 gap-4">
+                        <!-- Ô Giải #1 -->
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                            <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #1</span>
+                            <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
+                        </div>
+                        <!-- Ô Giải #2 -->
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                            <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #2</span>
+                            <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Hộp thoại (Modal) phóng to ảnh chụp Mã thiết bị của người bình luận -->
+    <div id="img-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm" onclick="closeImageModal()">
+        <div class="bg-white border-4 border-[#FACC15] rounded-2xl p-5 max-w-lg w-full text-center shadow-2xl relative" onclick="event.stopPropagation();">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-3">
+                <div class="flex items-center gap-2 text-left">
+                    <img src="DNAPlugin.png" alt="Logo" class="w-7 h-7 rounded-full border border-green-600">
+                    <div>
+                        <p class="text-[11px] font-bold text-green-700 uppercase">Ảnh chụp Mã thiết bị bình luận</p>
+                        <p id="modal-user-name" class="font-black text-[#0F3823] text-base leading-tight"></p>
+                    </div>
+                </div>
+                <button onclick="closeImageModal()" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-600 font-bold">✕</button>
+            </div>
+            <div class="bg-gray-900 rounded-xl p-2 flex items-center justify-center">
+                <img id="modal-img-src" src="" alt="Ảnh bình luận Mã thiết bị" class="max-h-[65vh] mx-auto rounded-lg object-contain">
+            </div>
+            <div class="mt-4 flex justify-end gap-2">
+                <a id="modal-open-newtab" href="#" target="_blank" rel="noopener noreferrer" class="bg-[#E2F1E8] hover:bg-green-200 text-[#0F3823] font-bold text-xs px-4 py-2.5 rounded-xl">
+                    🔗 Mở ảnh gốc sắc nét
+                </a>
+                <button onclick="closeImageModal()" class="bg-[#0F3823] hover:bg-green-900 text-[#FACC15] font-bold text-xs px-6 py-2.5 rounded-xl">
+                    Đóng lại
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chân trang (Đồng bộ chuẩn index.html kèm Thống kê truy cập) -->
+    <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 mt-auto z-10 relative">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            
+            <!-- 1. BẢN QUYỀN & LIÊN HỆ (Bên trái) -->
+            <div class="text-center md:text-left text-sm flex flex-col justify-center">
+                <div class="mb-3">
+                    <p class="font-bold text-gray-300 mb-1 text-base">&copy; 2026 DNAPlugin.</p>
+                    <p>Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
+                </div>
+                
+                <div class="space-y-1.5 pt-3 border-t border-gray-800">
+                    <p>Hỗ trợ kỹ thuật: Zalo <strong class="text-white">085.652.1139</strong></p>
+                    <p>Email: <a href="mailto:ngocan.holak@gmail.com" class="text-white hover:text-[#FACC15] transition-colors no-underline">ngocan.holak@gmail.com</a></p>
+                    <p>Group Zalo: <a href="https://zalo.me/g/tqpvylgqn23umbnzdles" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#FACC15] transition-colors no-underline">DNAPlugin - DoanNgocAnPlugin</a></p>
+                    <p>Group Facebook: <a href="https://www.facebook.com/groups/197030321506227" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#FACC15] transition-colors no-underline">Ứng dụng Công nghệ trong lĩnh vực Lâm nghiệp</a></p>
+                </div>
+            </div>
+
+            <!-- 2. WEBSITE (Ở giữa) -->
+            <div class="text-center flex flex-col justify-center items-center">
+                <a href="https://www.dnaplugin.id.vn" target="_blank" class="inline-block text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#FACC15] hover:scale-110 transition-transform duration-300 drop-shadow-md">
+                    www.dnaplugin.id.vn
+                </a>
+                <div class="w-16 h-1 bg-green-600 rounded-full mt-2 opacity-50"></div>
+            </div>
+
+            <!-- 3. THỐNG KÊ TRUY CẬP TỪ API (Bên phải) -->
+            <div class="flex justify-center md:justify-end">
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg w-full max-w-[280px]">
+                    <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-3 flex items-center justify-between border-b border-gray-700 pb-2">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            Thống Kê Truy Cập
+                        </span>
+                        <span class="flex h-2.5 w-2.5 relative" title="Hệ thống đang hoạt động">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                        </span>
+                    </h4>
+                    
+                    <div class="grid grid-cols-2 gap-y-3 gap-x-4 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Đang Online:</span>
+                            <span class="font-bold text-green-400" id="stat-online">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Hôm nay:</span>
+                            <span class="font-bold text-white" id="stat-today">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Tuần này:</span>
+                            <span class="font-bold text-white" id="stat-week">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Tháng này:</span>
+                            <span class="font-bold text-white" id="stat-month">--</span>
+                        </div>
+                        <div class="col-span-2 flex justify-between items-center bg-gray-900 px-3 py-2 rounded-lg border border-gray-700 mt-1">
+                            <span class="text-xs font-bold text-gray-400">TỔNG TRUY CẬP:</span>
+                            <span id="stat-loading" class="w-4 h-4 border-2 border-[#FACC15] border-t-transparent rounded-full animate-spin"></span>
+                            <span class="font-black text-[#FACC15] text-base tracking-wider hidden" id="stat-total">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- SCRIPT 1: GỌI API LẤY SỐ LƯỢT TRUY CẬP THỰC TẾ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const API_URL = "https://script.google.com/macros/s/AKfycbzS9CSXfayjRdu0V193p6AOMYWgbbufE6agax7VZBbjsHUbRFfPu5nH_41RGMUehA8M/exec"; 
+
+            const statOnline = document.getElementById('stat-online');
+            const statToday = document.getElementById('stat-today');
+            const statWeek = document.getElementById('stat-week');
+            const statMonth = document.getElementById('stat-month');
+            const statTotal = document.getElementById('stat-total');
+            const statLoading = document.getElementById('stat-loading');
+
+            let action = "get"; 
+            if (!sessionStorage.getItem("dna_counted")) {
+                action = "add";
+                sessionStorage.setItem("dna_counted", "true");
+            }
+
+            fetch(`${API_URL}?action=${action}`)
+                .then(response => response.json())
+                .then(data => {
+                    statOnline.textContent = data.online;
+                    statToday.textContent = data.today.toLocaleString('vi-VN');
+                    statWeek.textContent = data.week.toLocaleString('vi-VN');
+                    statMonth.textContent = data.month.toLocaleString('vi-VN');
+                    statTotal.textContent = data.total.toLocaleString('vi-VN');
+                    statLoading.classList.add('hidden');
+                    statTotal.classList.remove('hidden');
+                })
+                .catch(() => {
+                    statOnline.textContent = "-";
+                    statToday.textContent = "-";
+                    statWeek.textContent = "-";
+                    statMonth.textContent = "-";
+                    statLoading.classList.add('hidden');
+                    statTotal.classList.remove('hidden');
+                    statTotal.textContent = "Lỗi tải";
+                });
+        });
+    </script>
+
+    <!-- SCRIPT 2: TỰ ĐỘNG LẤY PHIÊN BẢN APK TỪ GITHUB -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const versionSpan = document.getElementById('apk-version');
+            if (versionSpan) {
+                fetch('https://api.github.com/repos/AGAServer/DNAPlugin/releases/latest')
+                    .then(response => response.json())
+                    .then(data => {
+                        versionSpan.textContent = data.tag_name ? ('Phiên bản ' + data.tag_name) : 'Bản mới nhất';
+                    })
+                    .catch(() => {
+                        versionSpan.textContent = 'Bản mới nhất';
+                    });
+            }
+        });
+    </script>
+
+    <!-- SCRIPT 3: XỬ LÝ QUÉT BÌNH LUẬN FACEBOOK & VÒNG QUAY 02 GIẢI PRO -->
+    <script>
+        let participants = [];
+        let winners = [];
+        let isSpinning = false;
+
+        const participantListEl = document.getElementById('participant-list');
+        const badgeCountEl = document.getElementById('participant-count-badge');
+        const rawInputBox = document.getElementById('raw-input-box');
+        const rollingNameEl = document.getElementById('rolling-name');
+        const rollingStatusEl = document.getElementById('rolling-status');
+        const rollingSubEl = document.getElementById('rolling-sub');
+        const winnersContainer = document.getElementById('winners-container');
+        const searchInput = document.getElementById('search-participant');
+
+        // Hàm tạo mã quét F12 Console trên bài viết Facebook
+        function buildFacebookConsoleScannerScript(requireImage, requireThreeTags) {
+            return `(function(){
+  const articles = document.querySelectorAll('div[role="article"]');
+  const results = [];
+  const seenNames = new Set();
+
+  articles.forEach(art => {
+    const label = art.getAttribute('aria-label') || '';
+    if (!label.includes('Bình luận') && !label.includes('Comment') && !label.includes('Phản hồi')) return;
+
+    let authorName = '';
+    const authorLink = art.querySelector('a[role="link"] span[dir="auto"]');
+    if (authorLink && authorLink.innerText.trim()) {
+      authorName = authorLink.innerText.trim();
+    } else {
+      const m = label.match(/(?:dưới tên|by)\\s+([^,]+?)(?:\\s+vào|\\s+khoảng|\\s+lúc|\\s+\\d|$)/i);
+      if (m) authorName = m[1].trim();
+    }
+    if (!authorName || seenNames.has(authorName.toLowerCase())) return;
+
+    let commentImgUrl = '';
+    const imgs = art.querySelectorAll('img');
+    imgs.forEach(img => {
+      const w = img.naturalWidth || img.width || img.clientWidth || 0;
+      const h = img.naturalHeight || img.height || img.clientHeight || 0;
+      const src = img.src || '';
+      if ((w >= 72 || h >= 72) && !src.includes('emoji.php') && !src.includes('rsrc.php')) {
+        if (!commentImgUrl) commentImgUrl = src;
+      }
+    });
+
+    const allLinks = art.querySelectorAll('div[dir="auto"] a[role="link"]');
+    const tagCount = allLinks.length;
+
+    const passImage = ${requireImage ? 'Boolean(commentImgUrl)' : 'true'};
+    const passTags = ${requireThreeTags ? '(tagCount >= 3)' : 'true'};
+
+    if (passImage && passTags) {
+      seenNames.add(authorName.toLowerCase());
+      results.push({
+        name: authorName,
+        img: commentImgUrl,
+        tags: tagCount
+      });
+    }
+  });
+
+  const jsonStr = JSON.stringify(results, null, 2);
+  if (typeof copy === 'function') {
+    copy(jsonStr);
+    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ và tự động COPY vào bộ nhớ tạm!\\n\\nHãy quay sang trang Quay Số DNAPlugin và bấm nút [2. DÁN DỮ LIỆU QUÉT].');
+  } else {
+    navigator.clipboard.writeText(jsonStr);
+    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ!');
+  }
+  console.log('Danh sách hợp lệ DNAPlugin:', results);
+})();`;
+        }
+
+        // 1. Chép lệnh quét Facebook
+        document.getElementById('btn-copy-script').addEventListener('click', async () => {
+            const reqImg = document.getElementById('chk-require-image').checked;
+            const reqTags = document.getElementById('chk-require-tags').checked;
+            const code = buildFacebookConsoleScannerScript(reqImg, reqTags);
+            try {
+                await navigator.clipboard.writeText(code);
+                alert("✅ Đã chép Lệnh Quét Facebook!\n\nCách chạy:\n1. Mở bài viết Facebook (đã bấm Xem thêm hết bình luận).\n2. Nhấn F12 -> chọn tab Console -> cuộn xuống cuối cùng chỗ dấu (>).\n3. Dán (Ctrl+V) và nhấn Enter (nếu trình duyệt hỏi lần đầu thì gõ allow pasting rồi Enter).");
+            } catch (e) {
+                rawInputBox.value = code;
+                rawInputBox.select();
+                alert("Đã hiện lệnh trong ô văn bản, bạn hãy nhấn Ctrl+C để chép nhé!");
+            }
+        });
+
+        // 2. Dán dữ liệu từ bộ nhớ tạm
+        document.getElementById('btn-paste-json').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (!text || !text.trim()) {
+                    alert("Bộ nhớ tạm đang trống! Bạn hãy chạy lệnh quét bên tab Facebook hoặc dán trực tiếp vào ô bên dưới.");
+                    return;
+                }
+                rawInputBox.value = text;
+                parseAndLoadParticipants(text);
+            } catch (e) {
+                rawInputBox.focus();
+                alert("Bạn hãy nhấp vào ô văn bản bên dưới, nhấn Ctrl+V rồi bấm 'CẬP NHẬT VÀO DANH SÁCH QUAY SỐ' nhé!");
+            }
+        });
+
+        // Nạp dữ liệu từ ô nhập
+        document.getElementById('btn-load-manual').addEventListener('click', () => {
+            parseAndLoadParticipants(rawInputBox.value);
+        });
+
+        // Nạp dữ liệu thử nghiệm để test giao diện trước giờ G
+        document.getElementById('btn-sample-data').addEventListener('click', () => {
+            const sample = [
+                { name: "Nguyễn Văn Lâm (Hạt Kiểm Lâm)", img: "VN2000.png", tags: 3 },
+                { name: "Trần Quốc Bảo (BQL Rừng Phòng Hộ)", img: "dodac.jpg", tags: 4 },
+                { name: "Lê Hoàng Nam (Kỹ sư Lâm sinh)", img: "BienDongDT.jpg", tags: 3 },
+                { name: "Phạm Minh Tuấn (Đo đạc Bản đồ)", img: "3D.jpg", tags: 3 },
+                { name: "Hoàng Văn Dũng (Trạm QLBVR Số 2)", img: "sentinel2.jpg", tags: 5 },
+                { name: "Đặng Quốc Khánh (Lâm trường)", img: "offline.jpg", tags: 3 }
+            ];
+            rawInputBox.value = JSON.stringify(sample, null, 2);
+            parseAndLoadParticipants(rawInputBox.value);
+        });
+
+        function parseAndLoadParticipants(rawText) {
+            const trimmed = (rawText || '').trim();
+            if (!trimmed) return;
+
+            let parsedList = [];
+            try {
+                const json = JSON.parse(trimmed);
+                if (Array.isArray(json)) {
+                    const seen = new Set();
+                    json.forEach(item => {
+                        const name = (item.name || '').toString().trim();
+                        if (name && !seen.has(name.toLowerCase())) {
+                            seen.add(name.toLowerCase());
+                            parsedList.push({
+                                name: name,
+                                img: (item.img || '').toString().trim(),
+                                tags: Number(item.tags || 0)
+                            });
+                        }
+                    });
+                }
+            } catch (_) {
+                const lines = trimmed.split(/\r?\n/);
+                const seen = new Set();
+                lines.forEach(line => {
+                    const cleanName = line.trim();
+                    if (cleanName && !seen.has(cleanName.toLowerCase())) {
+                        seen.add(cleanName.toLowerCase());
+                        parsedList.push({ name: cleanName, img: '', tags: 0 });
+                    }
+                });
+            }
+
+            if (parsedList.length === 0) {
+                alert("⚠️ Không tìm thấy tài khoản hợp lệ nào trong dữ liệu vừa nạp!");
+                return;
+            }
+
+            participants = parsedList;
+            winners = [];
+            renderParticipantList();
+            resetWinnerCards();
+        }
+
+        searchInput.addEventListener('input', () => {
+            renderParticipantList(searchInput.value.trim().toLowerCase());
+        });
+
+        function showImageModal(name, imgUrl) {
+            if (!imgUrl) return;
+            document.getElementById('modal-user-name').textContent = name;
+            document.getElementById('modal-img-src').src = imgUrl;
+            document.getElementById('modal-open-newtab').href = imgUrl;
+            const modal = document.getElementById('img-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('img-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function renderParticipantList(filterKeyword = '') {
+            badgeCountEl.textContent = `${participants.length} người`;
+            const filtered = filterKeyword
+                ? participants.filter(p => p.name.toLowerCase().includes(filterKeyword))
+                : participants;
+
+            if (filtered.length === 0) {
+                participantListEl.innerHTML = `<div class="text-center py-8 text-xs text-gray-400 italic">Không tìm thấy tài khoản nào khớp từ khóa.</div>`;
+                return;
+            }
+
+            participantListEl.innerHTML = filtered.map((p, idx) => {
+                const safeName = p.name.replace(/'/g, "\\'");
+                return `
+                <div class="flex items-center justify-between bg-gray-50 hover:bg-[#F0FDF4] border border-gray-200 hover:border-green-400 rounded-xl px-3.5 py-2.5 transition-all">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <span class="w-6 h-6 rounded-full bg-[#0F3823] text-[#FACC15] font-black text-[11px] flex items-center justify-center shrink-0">
+                            ${idx + 1}
+                        </span>
+                        <div class="truncate">
+                            <p class="font-bold text-xs text-[#0F3823] truncate">${p.name}</p>
+                            <p class="text-[10px] text-green-700 font-semibold">
+                                ${p.img ? '📸 Có ảnh Mã thiết bị' : '📝 Danh sách tên'}
+                                ${p.tags > 0 ? ` • Tag ${p.tags} bạn` : ''}
+                            </p>
+                        </div>
+                    </div>
+                    ${p.img ? `
+                        <img src="${p.img}" alt="Ảnh mã" onclick="showImageModal('${safeName}', '${p.img}')"
+                             class="w-10 h-10 rounded-lg object-cover border-2 border-green-600 cursor-pointer shrink-0 hover:scale-105 transition-transform"
+                             title="Bấm để xem ảnh chụp Mã thiết bị">
+                    ` : ''}
+                </div>`;
+            }).join('');
+        }
+
+        function resetWinnerCards() {
+            rollingStatusEl.textContent = "SẴN SÀNG QUAY SỐ";
+            rollingNameEl.textContent = "--- 🌲 DNAPlugin PRO 🌲 ---";
+            rollingSubEl.textContent = `Tổng số ứng viên hợp lệ: ${participants.length} người`;
+            winnersContainer.innerHTML = `
+                <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                    <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #1</span>
+                    <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
+                </div>
+                <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                    <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #2</span>
+                    <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
+                </div>
+            `;
+        }
+
+        function renderWinners() {
+            const slots = [0, 1];
+            winnersContainer.innerHTML = slots.map(slotIdx => {
+                const w = winners[slotIdx];
+                if (!w) {
+                    return `
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                            <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #${slotIdx + 1}</span>
+                            <p class="text-xs text-green-200/50 italic">Bấm nút Quay số để chọn giải #${slotIdx + 1}...</p>
+                        </div>
+                    `;
+                }
+                const safeName = w.name.replace(/'/g, "\\'");
+                return `
+                    <div class="winner-card-anim bg-gradient-to-br from-[#14532D] to-[#0A2317] border-2 border-[#FACC15] rounded-2xl p-4 flex items-center gap-3.5 shadow-xl">
+                        ${w.img ? `
+                            <img src="${w.img}" onclick="showImageModal('${safeName}', '${w.img}')"
+                                 class="w-16 h-16 rounded-xl object-cover border-2 border-[#FACC15] cursor-pointer shrink-0 hover:scale-105 transition-transform"
+                                 title="Bấm để phóng to ảnh Mã thiết bị">
+                        ` : `
+                            <div class="w-16 h-16 rounded-xl bg-[#FACC15] text-[#0F3823] font-black text-2xl flex items-center justify-center shrink-0">
+                                🏆
+                            </div>
+                        `}
+                        <div class="min-w-0 flex-1 text-left">
+                            <span class="inline-block bg-[#FACC15] text-[#0F3823] font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">
+                                🎉 TRÚNG KEY PRO #${slotIdx + 1}
+                            </span>
+                            <h4 class="font-black text-base md:text-lg text-white mt-1 truncate">${w.name}</h4>
+                            ${w.img ? `
+                                <button onclick="showImageModal('${safeName}', '${w.img}')" class="text-[11px] font-bold text-[#FACC15] hover:underline mt-1 flex items-center gap-1">
+                                    <span>🔍 Xem ảnh Mã thiết bị</span>
+                                </button>
+                            ` : `<p class="text-[11px] text-green-300 mt-0.5">Trúng thưởng hợp lệ</p>`}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Hiệu ứng bắn pháo giấy chúc mừng
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            const colors = ['#FACC15', '#34D399', '#10B981', '#FFFFFF', '#F59E0B'];
+            const pieces = Array.from({ length: 70 }, () => ({
+                x: Math.random() * canvas.width,
+                y: -10 - Math.random() * 40,
+                size: 5 + Math.random() * 6,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                vy: 2.5 + Math.random() * 3.5,
+                vx: -2 + Math.random() * 4,
+                angle: Math.random() * 6.28
+            }));
+
+            let frame = 0;
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                pieces.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.angle += 0.1;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.angle);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+                frame++;
+                if (frame < 110) requestAnimationFrame(draw);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            draw();
+        }
+
+        // Nút Quay số ngẫu nhiên
+        document.getElementById('btn-spin').addEventListener('click', () => {
+            if (isSpinning) return;
+            if (participants.length < 2) {
+                alert("⚠️ Danh sách cần tối thiểu 02 người chơi hợp lệ để bắt đầu quay số!");
+                return;
+            }
+            if (winners.length >= 2) {
+                if (!confirm("Đã tìm đủ 02 người trúng giải PRO! Bạn có muốn đặt lại kết quả để quay lượt mới không?")) return;
+                winners = [];
+                renderWinners();
+            }
+
+            isSpinning = true;
+            const prizeNumber = winners.length + 1;
+            rollingStatusEl.textContent = `🎲 ĐANG QUAY TÌM CHỦ NHÂN GIẢI PRO #${prizeNumber}...`;
+            rollingSubEl.textContent = "Hệ thống đang trộn ngẫu nhiên danh sách hợp lệ...";
+
+            const eligiblePool = participants.filter(p => !winners.some(w => w.name === p.name));
+
+            let ticks = 0;
+            const totalTicks = 42;
+            const timer = setInterval(() => {
+                const preview = eligiblePool[Math.floor(Math.random() * eligiblePool.length)];
+                rollingNameEl.textContent = preview.name;
+                ticks++;
+
+                if (ticks >= totalTicks) {
+                    clearInterval(timer);
+                    const randBuffer = new Uint32Array(1);
+                    window.crypto.getRandomValues(randBuffer);
+                    const finalWinner = eligiblePool[randBuffer[0] % eligiblePool.length];
+
+                    rollingNameEl.textContent = `🎉 ${finalWinner.name} 🎉`;
+                    rollingStatusEl.textContent = `CHÚC MỪNG CHỦ NHÂN GIẢI PRO #${prizeNumber}!`;
+                    rollingSubEl.textContent = prizeNumber === 1
+                        ? "Hãy bấm nút Quay số thêm 1 lần nữa để tìm chủ nhân Giải PRO #2!"
+                        : "Đã hoàn tất tìm ra 02 chủ nhân trúng Key DNAPlugin PRO vĩnh viễn!";
+
+                    winners.push(finalWinner);
+                    renderWinners();
+                    launchConfetti();
+                    isSpinning = false;
+                }
+            }, 65);
+        });
+
+        document.getElementById('btn-reset-winners').addEventListener('click', () => {
+            if (isSpinning) return;
+            winners = [];
+            resetWinnerCards();
+        });
+
+        document.getElementById('btn-toggle-scanner').addEventListener('click', () => {
+            const panel = document.getElementById('scanner-panel');
+            panel.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
