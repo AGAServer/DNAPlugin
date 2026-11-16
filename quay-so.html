@@ -13,23 +13,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quay Số Trúng Thưởng | DNAPlugin - Công cụ Kỹ thuật Lâm nghiệp</title>
     <link rel="icon" type="image/png" href="DNAPlugin.png">
-    <!-- Tích hợp Tailwind CSS qua CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; background-color: #F8FAFC; }
-        
-        /* Hiệu ứng bo tròn đặc trưng */
         .leaf-radius { border-radius: 13px 5px 13px 5px; }
-
-        /* Hiệu ứng kính mờ */
         .glass-panel { 
-            background: rgba(15, 56, 35, 0.72); 
+            background: rgba(15, 56, 35, 0.75); 
             backdrop-filter: blur(10px);
             border: 1px solid rgba(52, 211, 153, 0.35);
             transition: all 0.3s ease;
         }
-
-        /* Nền không gian số GIS / Viễn thám */
         .gis-background {
             background-color: #081b12;
             background-image: 
@@ -39,21 +32,15 @@
             background-size: 100% 100%, 40px 40px, 40px 40px;
             background-position: center center;
         }
-
-        /* Hiệu ứng phát sáng nhấp nháy mượt mà cho Logo */
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
             50% { box-shadow: 0 0 22px rgba(52, 211, 153, 0.85); }
         }
         .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
-
-        /* Hiệu ứng ánh kim cho sân khấu quay số */
         .stage-glow {
             box-shadow: 0 20px 60px -10px rgba(16, 185, 129, 0.28),
                         0 0 25px rgba(250, 204, 21, 0.22);
         }
-
-        /* CSS cho dải ruy-băng chạy chữ */
         @keyframes marquee {
             0% { transform: translateX(0%); }
             100% { transform: translateX(-100%); }
@@ -62,8 +49,6 @@
             animation: marquee 60s linear infinite;
             display: inline-flex;
         }
-
-        /* Hiệu ứng xuất hiện thẻ người trúng giải */
         @keyframes winnerPop {
             0% { transform: scale(0.88) translateY(10px); opacity: 0; }
             100% { transform: scale(1) translateY(0); opacity: 1; }
@@ -71,8 +56,6 @@
         .winner-card-anim {
             animation: winnerPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        /* Tùy chỉnh thanh cuộn danh sách người chơi */
         .custom-scroll::-webkit-scrollbar { width: 6px; }
         .custom-scroll::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 8px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #15803D; border-radius: 8px; }
@@ -80,11 +63,9 @@
 </head>
 <body class="text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Thanh Menu Điều hướng (Đồng bộ chuẩn index.html) -->
+    <!-- Thanh Menu Điều hướng -->
     <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
         <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
-            
-            <!-- LOGO VÀ SUBTEXT -->
             <a href="index.html" class="flex items-center gap-3">
                 <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
                 <div class="flex flex-col justify-center">
@@ -93,7 +74,6 @@
                 </div>
             </a>
             
-            <!-- Các liên kết điều hướng & Nút Tải APK -->
             <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-8 text-[#2D5A40] font-bold text-sm md:text-base">
                 <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
                 <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
@@ -105,7 +85,6 @@
                     <span>🎁 Sự kiện Quay số</span>
                 </a>
                 
-                <!-- Nút Tải File APK (Kèm Version động) -->
                 <a href="https://play.google.com/store/apps/details?id=com.DNAPlugin.dnaplugin.app" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] text-[#0F3823] px-4 py-1.5 rounded-lg hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-2 group">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     <div class="flex flex-col items-start leading-tight">
@@ -117,7 +96,7 @@
         </div>
     </nav>
 
-    <!-- Banner Sự Kiện (Hero Header) -->
+    <!-- Banner Sự Kiện -->
     <header class="gis-background text-white py-10 lg:py-12 relative overflow-hidden border-b border-green-900">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-5 text-center md:text-left flex-col md:flex-row">
@@ -129,29 +108,35 @@
                 </div>
                 <div>
                     <div class="inline-block px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest text-[#FACC15] bg-[#FACC15]/10 border border-[#FACC15]/30 mb-2">
-                        SỰ KIỆN TRI ÂN CỘNG ĐỒNG LÂM NGHIỆP • 25 NGÀY
+                        SỰ KIỆN TRI ÂN CỘNG ĐỒNG LÂM NGHIỆP • DANH SÁCH CÔNG KHAI
                     </div>
                     <h1 class="text-2xl md:text-4xl font-extrabold leading-tight drop-shadow-lg">
                         Vòng Quay May Mắn <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FACC15] to-[#34d399]">Tặng 02 Key DNAPlugin PRO</span>
                     </h1>
                     <p class="text-xs md:text-sm text-green-100 mt-1.5 max-w-2xl">
-                        Quay số ngẫu nhiên công khai dành cho các thành viên Like, Chia sẻ bài viết, Tag 03 đồng nghiệp và Bình luận hình ảnh Mã thiết bị.
+                        Danh sách người tham gia hợp lệ và kết quả quay số được lưu trữ & đồng bộ trực tiếp trên máy chủ DNAPlugin để mọi thành viên cùng theo dõi minh bạch.
                     </p>
                 </div>
             </div>
 
-            <!-- Nút bật/tắt nhanh bảng công cụ quét bình luận -->
+            <!-- Cụm nút Quyền Admin & Đồng bộ dữ liệu -->
             <div class="shrink-0 flex flex-col items-center md:items-end gap-2">
-                <button id="btn-toggle-scanner" class="glass-panel hover:border-[#FACC15] text-[#FACC15] font-bold text-xs md:text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <span>Ẩn / Hiện Khung Quét Facebook</span>
-                </button>
-                <span class="text-[11px] text-green-300 font-medium">Thuật toán ngẫu nhiên mật mã học (Web Crypto)</span>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="btn-refresh-cloud" class="glass-panel hover:border-green-400 text-green-200 font-bold text-xs px-3.5 py-2.5 rounded-xl flex items-center gap-1.5 shadow">
+                        <span>🔄 Làm mới dữ liệu</span>
+                    </button>
+                    <button id="btn-admin-login" class="glass-panel hover:border-[#FACC15] text-[#FACC15] font-bold text-xs px-4 py-2.5 rounded-xl flex items-center gap-1.5 shadow">
+                        <span id="admin-btn-label">🔐 Quản trị viên (Admin)</span>
+                    </button>
+                </div>
+                <span id="cloud-sync-time" class="text-[11px] text-green-300 font-medium">
+                    ⏳ Đang tải danh sách công khai từ máy chủ...
+                </span>
             </div>
         </div>
     </header>
 
-    <!-- Dải ruy băng chạy chữ đặc trưng -->
+    <!-- Dải ruy băng chạy chữ -->
     <div class="relative flex overflow-x-hidden bg-green-600 text-white py-2.5 border-y border-green-700 shadow-md z-30">
         <div class="animate-marquee whitespace-nowrap flex items-center gap-6 font-medium text-xs md:text-sm">
             <span class="flex items-center">
@@ -173,36 +158,34 @@
         </div>
     </div>
 
-    <!-- KHU VỰC CHÍNH: QUÉT BÌNH LUẬN & SÂN KHẤU QUAY SỐ -->
+    <!-- KHU VỰC CHÍNH -->
     <main class="max-w-[1400px] w-full mx-auto px-4 lg:px-6 py-10 grid lg:grid-cols-12 gap-8 flex-1">
 
-        <!-- CỘT TRÁI (5/12): CÔNG CỤ QUÉT BÌNH LUẬN FACEBOOK & DANH SÁCH NGƯỜI CHƠI -->
+        <!-- CỘT TRÁI (5/12): DANH SÁCH CÔNG KHAI & BẢNG QUẢN TRỊ ADMIN (ẨN VỚI NGƯỜI XEM THƯỜNG) -->
         <div class="lg:col-span-5 space-y-6">
 
-            <!-- Khung 1: Công cụ Quét Bình Luận Facebook -->
-            <div id="scanner-panel" class="bg-white rounded-2xl shadow-sm border border-green-200 overflow-hidden">
+            <!-- KHUNG QUẢN TRỊ ADMIN (CHỈ HIỆN KHI ĐĂNG NHẬP ĐÚNG MẬT KHẨU ADMIN) -->
+            <div id="scanner-panel" class="hidden bg-white rounded-2xl shadow-md border-2 border-[#FACC15] overflow-hidden">
                 <div class="bg-[#0F3823] px-5 py-3.5 flex items-center justify-between border-b border-green-800">
                     <div class="flex items-center gap-2.5">
-                        <span class="w-7 h-7 rounded-lg bg-[#FACC15] text-[#0F3823] font-black text-xs flex items-center justify-center">1</span>
+                        <span class="px-2 py-0.5 rounded bg-[#FACC15] text-[#0F3823] font-black text-[11px]">ADMIN</span>
                         <h2 class="font-extrabold text-white text-sm uppercase tracking-wider">
-                            Quét Bình Luận Có Ảnh Từ Facebook
+                            Quét & Lưu Danh Sách Lên Máy Chủ
                         </h2>
                     </div>
-                    <span class="text-[11px] bg-green-800 text-[#FACC15] px-2.5 py-0.5 rounded-full font-bold border border-green-600">
-                        Tự động lọc ảnh
-                    </span>
+                    <button id="btn-hide-admin-panel" class="text-xs text-green-300 hover:text-white underline">
+                        Thu gọn
+                    </button>
                 </div>
 
                 <div class="p-5 space-y-4">
-                    <!-- Hướng dẫn 3 bước -->
                     <div class="bg-[#F0FDF4] border border-green-200 rounded-xl p-3.5 text-xs text-gray-700 space-y-1.5 leading-relaxed">
-                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Hướng dẫn lấy danh sách trong 15 giây:</p>
-                        <p><b>Bước 1:</b> Mở bài viết sự kiện trên Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết <b>"Xem thêm bình luận"</b>.</p>
-                        <p><b>Bước 2:</b> Bấm nút <b>"1. Chép Lệnh Quét"</b> bên dưới $\rightarrow$ qua tab Facebook nhấn <b>F12</b> (chọn tab <b>Console</b>), cuộn xuống cuối dấu <code>&gt;</code>, dán lệnh vào và nhấn <b>Enter</b> <i>(nếu trình duyệt hỏi thì gõ <code>allow pasting</code> rồi Enter)</i>.</p>
-                        <p><b>Bước 3:</b> Quay lại trang này và bấm <b>"2. Dán Dữ Liệu Quét"</b> để nạp toàn bộ tên kèm ảnh chụp Mã thiết bị!</p>
+                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Quy trình cập nhật danh sách công khai:</p>
+                        <p><b>1.</b> Mở bài viết Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết bình luận.</p>
+                        <p><b>2.</b> Bấm <b>"1. Chép Lệnh Quét"</b> $\rightarrow$ qua tab Facebook nhấn <b>F12 (Console)</b>, dán lệnh và nhấn <b>Enter</b>.</p>
+                        <p><b>3.</b> Quay lại đây bấm <b>"2. Dán & Lưu Lên Hệ Thống"</b> để công khai danh sách cho mọi người cùng xem!</p>
                     </div>
 
-                    <!-- Tùy chọn điều kiện lọc -->
                     <div class="flex flex-wrap items-center gap-4 text-xs font-bold text-[#0F3823] bg-gray-50 px-3.5 py-2.5 rounded-xl border border-gray-200">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="chk-require-image" checked class="accent-green-700 w-4 h-4 rounded">
@@ -214,59 +197,57 @@
                         </label>
                     </div>
 
-                    <!-- 2 Nút thao tác chính -->
                     <div class="grid grid-cols-2 gap-3">
                         <button id="btn-copy-script" class="bg-[#FACC15] hover:bg-yellow-400 text-[#0F3823] font-black text-xs py-3 px-3 rounded-xl shadow-sm border border-yellow-500 transition-all flex items-center justify-center gap-1.5">
                             📋 1. CHÉP LỆNH QUÉT
                         </button>
                         <button id="btn-paste-json" class="bg-[#15803D] hover:bg-green-700 text-white font-black text-xs py-3 px-3 rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5">
-                            📥 2. DÁN DỮ LIỆU QUÉT
+                            ☁️ 2. DÁN & LƯU HỆ THỐNG
                         </button>
                     </div>
 
-                    <!-- Ô dán dữ liệu hoặc nhập tên thủ công -->
-                    <div class="pt-1 border-t border-gray-100">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <label class="text-xs font-bold text-gray-600">
-                                Dữ liệu JSON hoặc nhập danh sách tên (mỗi dòng 1 người):
-                            </label>
-                            <button id="btn-sample-data" class="text-[11px] font-bold text-green-700 hover:underline">
-                                + Nạp dữ liệu thử nghiệm
+                    <div class="pt-2 border-t border-gray-100">
+                        <label class="block text-xs font-bold text-gray-600 mb-1">
+                            Dữ liệu JSON hoặc danh sách tên (mỗi dòng 1 tên):
+                        </label>
+                        <textarea id="raw-input-box" rows="3" placeholder="Dán dữ liệu từ lệnh quét Facebook (Ctrl+V) hoặc gõ mỗi dòng 1 tên..." class="w-full bg-gray-50 border border-gray-300 rounded-xl p-2.5 text-xs text-gray-800 focus:border-green-600 focus:bg-white outline-none transition-all"></textarea>
+                        
+                        <div class="grid grid-cols-2 gap-2.5 mt-2">
+                            <button id="btn-save-cloud-merge" class="bg-[#0F3823] hover:bg-green-900 text-[#FACC15] text-xs font-extrabold py-2.5 px-2 rounded-xl transition-all">
+                                ☁️ GỘP THÊM VÀO DANH SÁCH
+                            </button>
+                            <button id="btn-save-cloud-replace" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-extrabold py-2.5 px-2 rounded-xl transition-all">
+                                🔄 GHI ĐÈ DANH SÁCH MỚI
                             </button>
                         </div>
-                        <textarea id="raw-input-box" rows="3" placeholder="Dán dữ liệu từ lệnh quét Facebook (Ctrl+V) hoặc gõ mỗi dòng 1 tên tài khoản..." class="w-full bg-gray-50 border border-gray-300 rounded-xl p-2.5 text-xs text-gray-800 focus:border-green-600 focus:bg-white outline-none transition-all"></textarea>
-                        <button id="btn-load-manual" class="mt-2 w-full bg-[#E2F1E8] hover:bg-green-200 text-[#0F3823] text-xs font-extrabold py-2.5 rounded-xl border border-green-300 transition-all">
-                            ✔️ CẬP NHẬT VÀO DANH SÁCH QUAY SỐ
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Khung 2: Danh sách người chơi hợp lệ -->
+            <!-- KHUNG DANH SÁCH CÔNG KHAI (AI VÀO WEB CŨNG XEM ĐƯỢC) -->
             <div class="bg-white rounded-2xl shadow-sm border border-green-200 overflow-hidden">
                 <div class="bg-[#E2F1E8] px-5 py-3.5 flex items-center justify-between border-b border-green-200">
                     <div>
-                        <h3 class="font-extrabold text-[#0F3823] text-sm uppercase">
-                            Danh Sách Hợp Lệ Tham Gia
+                        <h3 class="font-extrabold text-[#0F3823] text-sm uppercase flex items-center gap-1.5">
+                            <span>📋 Danh Sách Hợp Lệ Công Khai</span>
                         </h3>
                         <p class="text-[11px] text-green-800 font-medium">
-                            Đã tự động lọc trùng tài khoản (mỗi người 1 vé)
+                            Người tham gia có thể gõ tên Facebook bên dưới để tra cứu mã vé của mình
                         </p>
                     </div>
-                    <span id="participant-count-badge" class="bg-[#0F3823] text-[#FACC15] font-black text-sm px-3.5 py-1 rounded-full shadow-sm">
+                    <span id="participant-count-badge" class="bg-[#0F3823] text-[#FACC15] font-black text-sm px-3.5 py-1 rounded-full shadow-sm shrink-0">
                         0 người
                     </span>
                 </div>
 
                 <div class="p-4">
-                    <!-- Ô tìm kiếm nhanh tên người chơi -->
                     <div class="mb-3">
-                        <input type="text" id="search-participant" placeholder="🔍 Tìm nhanh tên tài khoản trong danh sách..." class="w-full px-3.5 py-2 text-xs rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-green-600 outline-none">
+                        <input type="text" id="search-participant" placeholder="🔍 Nhập tên Facebook của bạn để kiểm tra trong danh sách..." class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:bg-white focus:border-green-600 outline-none font-medium">
                     </div>
 
-                    <div id="participant-list" class="custom-scroll max-h-[380px] overflow-y-auto space-y-2 pr-1">
+                    <div id="participant-list" class="custom-scroll max-h-[450px] overflow-y-auto space-y-2 pr-1">
                         <div class="text-center py-10 text-xs text-gray-400 italic">
-                            Chưa có dữ liệu người tham gia. Hãy quét bình luận từ bài viết Facebook hoặc bấm "+ Nạp dữ liệu thử nghiệm" để kiểm tra vòng quay.
+                            ⏳ Đang đồng bộ danh sách người tham gia từ máy chủ DNAPlugin...
                         </div>
                     </div>
                 </div>
@@ -278,15 +259,14 @@
         <div class="lg:col-span-7 flex flex-col">
             <div class="gis-background rounded-3xl border-2 border-[#FACC15] p-6 md:p-8 stage-glow text-white relative overflow-hidden flex-1 flex flex-col justify-between">
                 
-                <!-- Canvas bắn pháo giấy khi có người trúng giải -->
                 <canvas id="confetti-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-20"></canvas>
 
-                <!-- Đầu sân khấu: Logo & Tiêu đề -->
+                <!-- Đầu sân khấu -->
                 <div class="relative z-10 text-center">
                     <div class="inline-flex items-center gap-2.5 bg-[#0F3823]/90 border border-green-500/40 px-4 py-1.5 rounded-full mb-3 shadow">
                         <img src="DNAPlugin.png" alt="Logo" class="w-5 h-5 rounded-full bg-white p-0.5">
                         <span class="text-[11px] font-extrabold text-[#FACC15] tracking-wider uppercase">
-                            DNAPLUGIN PRO • KẾT QUẢ NGẪU NHIÊN MINH BẠCH
+                            DNAPLUGIN PRO • KẾT QUẢ LƯU TRỮ TRỰC TUYẾN MINH BẠCH
                         </span>
                     </div>
                     <h2 class="text-2xl md:text-4xl font-black uppercase tracking-wide drop-shadow">
@@ -297,27 +277,35 @@
                     </p>
                 </div>
 
-                <!-- Bảng điện tử nhảy tên người chơi -->
+                <!-- Bảng điện tử nhảy tên -->
                 <div class="relative z-10 my-6 bg-[#05120C]/90 border-2 border-emerald-500/60 rounded-2xl p-6 md:p-8 min-h-[165px] flex flex-col items-center justify-center shadow-inner">
                     <span id="rolling-status" class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 mb-2">
-                        SẴN SÀNG QUAY SỐ
+                        ĐANG ĐỒNG BỘ DỮ LIỆU...
                     </span>
                     <div id="rolling-name" class="text-2xl md:text-4xl font-black text-[#FACC15] tracking-wide text-center break-words max-w-full drop-shadow">
                         --- 🌲 DNAPlugin PRO 🌲 ---
                     </div>
-                    <span id="rolling-sub" class="text-[11px] text-green-300/80 mt-2 font-medium">
-                        Nhấn nút "Bắt đầu quay" bên dưới để tìm ra chủ nhân giải thưởng
+                    <span id="rolling-sub" class="text-[11px] text-green-300/80 mt-2 font-medium text-center">
+                        Danh sách và kết quả được đồng bộ trực tiếp từ hệ thống máy chủ
                     </span>
                 </div>
 
-                <!-- Nút điều khiển quay số -->
-                <div class="relative z-10 flex flex-wrap justify-center gap-4 my-2">
-                    <button id="btn-spin" class="bg-gradient-to-r from-[#FACC15] to-amber-400 hover:from-yellow-300 hover:to-amber-300 text-[#0F3823] font-black text-base md:text-lg px-8 md:px-10 py-4 rounded-2xl shadow-[0_0_25px_rgba(250,204,21,0.45)] border-2 border-white/60 transform active:scale-95 transition-all flex items-center gap-2.5">
-                        <span>🎲 BẮT ĐẦU QUAY GIẢI PRO</span>
-                    </button>
-                    <button id="btn-reset-winners" class="bg-[#0F3823] hover:bg-green-900 text-green-200 font-bold text-xs px-5 py-4 rounded-2xl border border-green-700 transition-all">
-                        🔄 Đặt lại kết quả
-                    </button>
+                <!-- Khu vực Nút điều khiển: Khóa với khách, chỉ mở khi Admin đăng nhập -->
+                <div class="relative z-10 my-2 text-center">
+                    <!-- Thông báo dành cho người xem công khai -->
+                    <div id="public-viewer-notice" class="inline-flex items-center gap-2 bg-[#0F3823]/90 border border-green-600/60 text-green-200 text-xs font-bold px-5 py-3 rounded-2xl shadow">
+                        <span>🔒 Chế độ Xem Công Khai • Chỉ Quản trị viên (Admin) mới có quyền bấm Quay số</span>
+                    </div>
+
+                    <!-- Cụm nút Quay số chỉ hiện khi Admin đã xác thực mật khẩu -->
+                    <div id="admin-spin-controls" class="hidden flex-wrap justify-center gap-4">
+                        <button id="btn-spin" class="bg-gradient-to-r from-[#FACC15] to-amber-400 hover:from-yellow-300 hover:to-amber-300 text-[#0F3823] font-black text-base md:text-lg px-8 md:px-10 py-4 rounded-2xl shadow-[0_0_25px_rgba(250,204,21,0.45)] border-2 border-white/60 transform active:scale-95 transition-all flex items-center gap-2.5">
+                            <span>🎲 BẮT ĐẦU QUAY & LƯU KẾT QUẢ</span>
+                        </button>
+                        <button id="btn-reset-winners" class="bg-red-900/70 hover:bg-red-800 text-red-100 font-bold text-xs px-5 py-4 rounded-2xl border border-red-600/60 transition-all">
+                            🔄 Đặt lại kết quả trên Server
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Khu vực hiển thị 02 Người Trúng Giải -->
@@ -331,15 +319,13 @@
                     </div>
 
                     <div id="winners-container" class="grid sm:grid-cols-2 gap-4">
-                        <!-- Ô Giải #1 -->
                         <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #1</span>
-                            <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
+                            <p class="text-xs text-green-200/50 italic">Đang chờ công bố...</p>
                         </div>
-                        <!-- Ô Giải #2 -->
                         <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #2</span>
-                            <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
+                            <p class="text-xs text-green-200/50 italic">Đang chờ công bố...</p>
                         </div>
                     </div>
                 </div>
@@ -349,7 +335,33 @@
 
     </main>
 
-    <!-- Hộp thoại (Modal) phóng to ảnh chụp Mã thiết bị của người bình luận -->
+    <!-- Hộp thoại Đăng nhập Quyền Admin -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white border-4 border-[#0F3823] rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                    <img src="DNAPlugin.png" alt="Logo" class="w-7 h-7 rounded-full border border-green-600">
+                    <h3 class="font-black text-[#0F3823] text-sm uppercase">Xác thực Quản trị viên</h3>
+                </div>
+                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-red-600 font-bold">✕</button>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+                Nhập mật khẩu Admin để mở khóa công cụ cập nhật danh sách người chơi và nút Quay số chính thức:
+            </p>
+            <input type="password" id="input-admin-pass" placeholder="Nhập mật khẩu Admin..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-green-600 outline-none text-sm font-bold tracking-wider mb-2">
+            <p id="admin-auth-msg" class="text-xs font-bold text-red-600 hidden mb-2"></p>
+            <div class="flex justify-end gap-2 mt-4">
+                <button onclick="closeAdminModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-gray-600 bg-gray-100 hover:bg-gray-200">
+                    Hủy
+                </button>
+                <button id="btn-submit-admin" class="px-5 py-2 rounded-xl text-xs font-black bg-[#0F3823] hover:bg-green-900 text-[#FACC15]">
+                    MỞ KHÓA ADMIN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hộp thoại phóng to ảnh chụp Mã thiết bị -->
     <div id="img-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm" onclick="closeImageModal()">
         <div class="bg-white border-4 border-[#FACC15] rounded-2xl p-5 max-w-lg w-full text-center shadow-2xl relative" onclick="event.stopPropagation();">
             <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-3">
@@ -376,17 +388,14 @@
         </div>
     </div>
 
-    <!-- Chân trang (Đồng bộ chuẩn index.html kèm Thống kê truy cập) -->
+    <!-- Chân trang -->
     <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 mt-auto z-10 relative">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            
-            <!-- 1. BẢN QUYỀN & LIÊN HỆ (Bên trái) -->
             <div class="text-center md:text-left text-sm flex flex-col justify-center">
                 <div class="mb-3">
                     <p class="font-bold text-gray-300 mb-1 text-base">&copy; 2026 DNAPlugin.</p>
                     <p>Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
                 </div>
-                
                 <div class="space-y-1.5 pt-3 border-t border-gray-800">
                     <p>Hỗ trợ kỹ thuật: Zalo <strong class="text-white">085.652.1139</strong></p>
                     <p>Email: <a href="mailto:ngocan.holak@gmail.com" class="text-white hover:text-[#FACC15] transition-colors no-underline">ngocan.holak@gmail.com</a></p>
@@ -395,7 +404,6 @@
                 </div>
             </div>
 
-            <!-- 2. WEBSITE (Ở giữa) -->
             <div class="text-center flex flex-col justify-center items-center">
                 <a href="https://www.dnaplugin.id.vn" target="_blank" class="inline-block text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#FACC15] hover:scale-110 transition-transform duration-300 drop-shadow-md">
                     www.dnaplugin.id.vn
@@ -403,7 +411,6 @@
                 <div class="w-16 h-1 bg-green-600 rounded-full mt-2 opacity-50"></div>
             </div>
 
-            <!-- 3. THỐNG KÊ TRUY CẬP TỪ API (Bên phải) -->
             <div class="flex justify-center md:justify-end">
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg w-full max-w-[280px]">
                     <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-3 flex items-center justify-between border-b border-gray-700 pb-2">
@@ -442,73 +449,54 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </footer>
 
-    <!-- SCRIPT 1: GỌI API LẤY SỐ LƯỢT TRUY CẬP THỰC TẾ -->
+    <!-- SCRIPT 1: THỐNG KÊ TRUY CẬP & PHIÊN BẢN APK -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const API_URL = "https://script.google.com/macros/s/AKfycbzS9CSXfayjRdu0V193p6AOMYWgbbufE6agax7VZBbjsHUbRFfPu5nH_41RGMUehA8M/exec"; 
-
-            const statOnline = document.getElementById('stat-online');
-            const statToday = document.getElementById('stat-today');
-            const statWeek = document.getElementById('stat-week');
-            const statMonth = document.getElementById('stat-month');
-            const statTotal = document.getElementById('stat-total');
-            const statLoading = document.getElementById('stat-loading');
-
+            const STAT_API_URL = "https://script.google.com/macros/s/AKfycbzS9CSXfayjRdu0V193p6AOMYWgbbufE6agax7VZBbjsHUbRFfPu5nH_41RGMUehA8M/exec"; 
             let action = "get"; 
             if (!sessionStorage.getItem("dna_counted")) {
                 action = "add";
                 sessionStorage.setItem("dna_counted", "true");
             }
-
-            fetch(`${API_URL}?action=${action}`)
-                .then(response => response.json())
+            fetch(`${STAT_API_URL}?action=${action}`)
+                .then(r => r.json())
                 .then(data => {
-                    statOnline.textContent = data.online;
-                    statToday.textContent = data.today.toLocaleString('vi-VN');
-                    statWeek.textContent = data.week.toLocaleString('vi-VN');
-                    statMonth.textContent = data.month.toLocaleString('vi-VN');
-                    statTotal.textContent = data.total.toLocaleString('vi-VN');
-                    statLoading.classList.add('hidden');
-                    statTotal.classList.remove('hidden');
+                    document.getElementById('stat-online').textContent = data.online;
+                    document.getElementById('stat-today').textContent = data.today.toLocaleString('vi-VN');
+                    document.getElementById('stat-week').textContent = data.week.toLocaleString('vi-VN');
+                    document.getElementById('stat-month').textContent = data.month.toLocaleString('vi-VN');
+                    document.getElementById('stat-total').textContent = data.total.toLocaleString('vi-VN');
+                    document.getElementById('stat-loading').classList.add('hidden');
+                    document.getElementById('stat-total').classList.remove('hidden');
                 })
                 .catch(() => {
-                    statOnline.textContent = "-";
-                    statToday.textContent = "-";
-                    statWeek.textContent = "-";
-                    statMonth.textContent = "-";
-                    statLoading.classList.add('hidden');
-                    statTotal.classList.remove('hidden');
-                    statTotal.textContent = "Lỗi tải";
+                    document.getElementById('stat-loading').classList.add('hidden');
+                    document.getElementById('stat-total').classList.remove('hidden');
+                    document.getElementById('stat-total').textContent = "-";
                 });
-        });
-    </script>
 
-    <!-- SCRIPT 2: TỰ ĐỘNG LẤY PHIÊN BẢN APK TỪ GITHUB -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
             const versionSpan = document.getElementById('apk-version');
             if (versionSpan) {
                 fetch('https://api.github.com/repos/AGAServer/DNAPlugin/releases/latest')
-                    .then(response => response.json())
-                    .then(data => {
-                        versionSpan.textContent = data.tag_name ? ('Phiên bản ' + data.tag_name) : 'Bản mới nhất';
-                    })
-                    .catch(() => {
-                        versionSpan.textContent = 'Bản mới nhất';
-                    });
+                    .then(r => r.json())
+                    .then(d => { versionSpan.textContent = d.tag_name ? ('Phiên bản ' + d.tag_name) : 'Bản mới nhất'; })
+                    .catch(() => { versionSpan.textContent = 'Bản mới nhất'; });
             }
         });
     </script>
 
-    <!-- SCRIPT 3: XỬ LÝ QUÉT BÌNH LUẬN FACEBOOK & VÒNG QUAY 02 GIẢI PRO -->
+    <!-- SCRIPT 2: ĐỒNG BỘ DANH SÁCH CÔNG KHAI TỪ GOOGLE SHEET & PHÂN QUYỀN ADMIN -->
     <script>
+        // Đường dẫn Google Apps Script quản lý Google Sheet DNAPlugin_App_License
+        const EVENT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQWnUbyGRsjPhaTQjfQkHl2bVKOxJp37MG-Sl6IeJzV-F_2f-3qAlmSuiJE--Sw2l/exec";
+
         let participants = [];
-        let winners = [];
+        let winners = [null, null];
         let isSpinning = false;
+        let verifiedAdminKey = sessionStorage.getItem("dna_event_admin_key") || "";
 
         const participantListEl = document.getElementById('participant-list');
         const badgeCountEl = document.getElementById('participant-count-badge');
@@ -518,8 +506,135 @@
         const rollingSubEl = document.getElementById('rolling-sub');
         const winnersContainer = document.getElementById('winners-container');
         const searchInput = document.getElementById('search-participant');
+        const cloudSyncTimeEl = document.getElementById('cloud-sync-time');
 
-        // Hàm tạo mã quét F12 Console trên bài viết Facebook
+        const scannerPanel = document.getElementById('scanner-panel');
+        const publicViewerNotice = document.getElementById('public-viewer-notice');
+        const adminSpinControls = document.getElementById('admin-spin-controls');
+        const adminBtnLabel = document.getElementById('admin-btn-label');
+
+        // Áp dụng giao diện theo quyền (Khách xem công khai vs Admin)
+        function updateAdminUI(isAdmin) {
+            if (isAdmin) {
+                scannerPanel.classList.remove('hidden');
+                publicViewerNotice.classList.add('hidden');
+                adminSpinControls.classList.remove('hidden');
+                adminSpinControls.classList.add('flex');
+                adminBtnLabel.textContent = "🔓 Đã mở quyền Admin (Bấm để Thoát)";
+            } else {
+                scannerPanel.classList.add('hidden');
+                publicViewerNotice.classList.remove('hidden');
+                adminSpinControls.classList.add('hidden');
+                adminSpinControls.classList.remove('flex');
+                adminBtnLabel.textContent = "🔐 Quản trị viên (Admin)";
+            }
+        }
+
+        // Tải danh sách công khai & kết quả trúng thưởng từ Google Sheet
+        async function fetchPublicEventData() {
+            cloudSyncTimeEl.textContent = "⏳ Đang đồng bộ danh sách từ máy chủ...";
+            try {
+                const resp = await fetch(`${EVENT_SCRIPT_URL}?action=event_get&_t=${Date.now()}`);
+                const data = await resp.json();
+                if (data && data.status === "ok") {
+                    participants = Array.isArray(data.participants) ? data.participants : [];
+                    winners = Array.isArray(data.winners) ? data.winners : [null, null];
+
+                    renderParticipantList(searchInput.value.trim().toLowerCase());
+                    renderWinners();
+
+                    const activeWinnersCount = winners.filter(Boolean).length;
+                    if (activeWinnersCount >= 2) {
+                        rollingStatusEl.textContent = "🏆 SỰ KIỆN ĐÃ TÌM RA 02 CHỦ NHÂN GIẢI PRO 🏆";
+                        rollingNameEl.textContent = `${winners[0].name} & ${winners[1].name}`;
+                        rollingSubEl.textContent = "Chúc mừng 02 tài khoản may mắn nhất đã trúng Key DNAPlugin PRO vĩnh viễn!";
+                    } else if (activeWinnersCount === 1) {
+                        const w1 = winners[0] || winners[1];
+                        rollingStatusEl.textContent = "🎉 ĐÃ TÌM RA CHỦ NHÂN GIẢI PRO #1 🎉";
+                        rollingNameEl.textContent = w1.name;
+                        rollingSubEl.textContent = "Đang chờ quay tiếp Giải PRO #2...";
+                    } else {
+                        rollingStatusEl.textContent = "SẴN SÀNG QUAY SỐ";
+                        rollingNameEl.textContent = "--- 🌲 DNAPlugin PRO 🌲 ---";
+                        rollingSubEl.textContent = `Tổng số ứng viên hợp lệ trên hệ thống: ${participants.length} người`;
+                    }
+
+                    cloudSyncTimeEl.textContent = data.updated_at
+                        ? `✅ Dữ liệu cập nhật lúc: ${data.updated_at}`
+                        : `✅ Đã đồng bộ ${participants.length} người tham gia`;
+                }
+            } catch (err) {
+                cloudSyncTimeEl.textContent = "⚠️ Chưa kết nối được danh sách máy chủ";
+            }
+        }
+
+        // Mở / Đóng Modal đăng nhập Admin
+        document.getElementById('btn-admin-login').addEventListener('click', () => {
+            if (verifiedAdminKey) {
+                if (confirm("Bạn có muốn thoát chế độ Quản trị viên (khóa lại nút Quay số) không?")) {
+                    verifiedAdminKey = "";
+                    sessionStorage.removeItem("dna_event_admin_key");
+                    updateAdminUI(false);
+                }
+                return;
+            }
+            document.getElementById('input-admin-pass').value = "";
+            document.getElementById('admin-auth-msg').classList.add('hidden');
+            const modal = document.getElementById('admin-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('input-admin-pass').focus(), 100);
+        });
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.getElementById('btn-hide-admin-panel').addEventListener('click', () => {
+            scannerPanel.classList.add('hidden');
+        });
+
+        // Xác thực mật khẩu Admin với Google Apps Script
+        document.getElementById('btn-submit-admin').addEventListener('click', async () => {
+            const pass = document.getElementById('input-admin-pass').value.trim();
+            const msgEl = document.getElementById('admin-auth-msg');
+            const btn = document.getElementById('btn-submit-admin');
+            if (!pass) return;
+
+            btn.disabled = true;
+            btn.textContent = "ĐANG KIỂM TRA...";
+            msgEl.classList.add('hidden');
+
+            try {
+                const resp = await fetch(`${EVENT_SCRIPT_URL}?action=event_verify_admin&admin_key=${encodeURIComponent(pass)}`);
+                const data = await resp.json();
+                if (data && data.valid === true) {
+                    verifiedAdminKey = pass;
+                    sessionStorage.setItem("dna_event_admin_key", pass);
+                    updateAdminUI(true);
+                    closeAdminModal();
+                } else {
+                    msgEl.textContent = "❌ Mật khẩu Admin không chính xác!";
+                    msgEl.classList.remove('hidden');
+                }
+            } catch (e) {
+                msgEl.textContent = "⚠️ Lỗi kết nối máy chủ xác thực!";
+                msgEl.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "MỞ KHÓA ADMIN";
+            }
+        });
+
+        document.getElementById('input-admin-pass').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('btn-submit-admin').click();
+        });
+
+        document.getElementById('btn-refresh-cloud').addEventListener('click', fetchPublicEventData);
+
+        // Hàm tạo lệnh F12 Console quét bình luận Facebook
         function buildFacebookConsoleScannerScript(requireImage, requireThreeTags) {
             return `(function(){
   const articles = document.querySelectorAll('div[role="article"]');
@@ -570,7 +685,7 @@
   const jsonStr = JSON.stringify(results, null, 2);
   if (typeof copy === 'function') {
     copy(jsonStr);
-    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ và tự động COPY vào bộ nhớ tạm!\\n\\nHãy quay sang trang Quay Số DNAPlugin và bấm nút [2. DÁN DỮ LIỆU QUÉT].');
+    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ và tự động COPY vào bộ nhớ tạm!\\n\\nHãy quay sang trang Quay Số DNAPlugin và bấm nút [2. DÁN & LƯU HỆ THỐNG].');
   } else {
     navigator.clipboard.writeText(jsonStr);
     alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ!');
@@ -579,60 +694,22 @@
 })();`;
         }
 
-        // 1. Chép lệnh quét Facebook
         document.getElementById('btn-copy-script').addEventListener('click', async () => {
             const reqImg = document.getElementById('chk-require-image').checked;
             const reqTags = document.getElementById('chk-require-tags').checked;
             const code = buildFacebookConsoleScannerScript(reqImg, reqTags);
             try {
                 await navigator.clipboard.writeText(code);
-                alert("✅ Đã chép Lệnh Quét Facebook!\n\nCách chạy:\n1. Mở bài viết Facebook (đã bấm Xem thêm hết bình luận).\n2. Nhấn F12 -> chọn tab Console -> cuộn xuống cuối cùng chỗ dấu (>).\n3. Dán (Ctrl+V) và nhấn Enter (nếu trình duyệt hỏi lần đầu thì gõ allow pasting rồi Enter).");
+                alert("✅ Đã chép Lệnh Quét Facebook!\n\nBây giờ bạn qua tab bài viết Facebook -> nhấn F12 (tab Console) -> dán lệnh vào cuối dấu (>) và nhấn Enter.");
             } catch (e) {
                 rawInputBox.value = code;
                 rawInputBox.select();
-                alert("Đã hiện lệnh trong ô văn bản, bạn hãy nhấn Ctrl+C để chép nhé!");
             }
         });
 
-        // 2. Dán dữ liệu từ bộ nhớ tạm
-        document.getElementById('btn-paste-json').addEventListener('click', async () => {
-            try {
-                const text = await navigator.clipboard.readText();
-                if (!text || !text.trim()) {
-                    alert("Bộ nhớ tạm đang trống! Bạn hãy chạy lệnh quét bên tab Facebook hoặc dán trực tiếp vào ô bên dưới.");
-                    return;
-                }
-                rawInputBox.value = text;
-                parseAndLoadParticipants(text);
-            } catch (e) {
-                rawInputBox.focus();
-                alert("Bạn hãy nhấp vào ô văn bản bên dưới, nhấn Ctrl+V rồi bấm 'CẬP NHẬT VÀO DANH SÁCH QUAY SỐ' nhé!");
-            }
-        });
-
-        // Nạp dữ liệu từ ô nhập
-        document.getElementById('btn-load-manual').addEventListener('click', () => {
-            parseAndLoadParticipants(rawInputBox.value);
-        });
-
-        // Nạp dữ liệu thử nghiệm để test giao diện trước giờ G
-        document.getElementById('btn-sample-data').addEventListener('click', () => {
-            const sample = [
-                { name: "Nguyễn Văn Lâm (Hạt Kiểm Lâm)", img: "VN2000.png", tags: 3 },
-                { name: "Trần Quốc Bảo (BQL Rừng Phòng Hộ)", img: "dodac.jpg", tags: 4 },
-                { name: "Lê Hoàng Nam (Kỹ sư Lâm sinh)", img: "BienDongDT.jpg", tags: 3 },
-                { name: "Phạm Minh Tuấn (Đo đạc Bản đồ)", img: "3D.jpg", tags: 3 },
-                { name: "Hoàng Văn Dũng (Trạm QLBVR Số 2)", img: "sentinel2.jpg", tags: 5 },
-                { name: "Đặng Quốc Khánh (Lâm trường)", img: "offline.jpg", tags: 3 }
-            ];
-            rawInputBox.value = JSON.stringify(sample, null, 2);
-            parseAndLoadParticipants(rawInputBox.value);
-        });
-
-        function parseAndLoadParticipants(rawText) {
+        function parseRawInputToList(rawText) {
             const trimmed = (rawText || '').trim();
-            if (!trimmed) return;
-
+            if (!trimmed) return [];
             let parsedList = [];
             try {
                 const json = JSON.parse(trimmed);
@@ -661,17 +738,70 @@
                     }
                 });
             }
+            return parsedList;
+        }
 
-            if (parsedList.length === 0) {
-                alert("⚠️ Không tìm thấy tài khoản hợp lệ nào trong dữ liệu vừa nạp!");
+        // Gửi danh sách người chơi lên Google Sheet để công khai
+        async function uploadParticipantsToCloud(list, mode = "merge") {
+            if (!verifiedAdminKey) {
+                alert("⚠️ Vui lòng đăng nhập Admin trước khi lưu danh sách!");
+                return;
+            }
+            if (!list || list.length === 0) {
+                alert("⚠️ Không có dữ liệu người chơi hợp lệ để lưu!");
                 return;
             }
 
-            participants = parsedList;
-            winners = [];
-            renderParticipantList();
-            resetWinnerCards();
+            cloudSyncTimeEl.textContent = "⏳ Đang lưu danh sách lên Google Sheet...";
+            try {
+                const resp = await fetch(EVENT_SCRIPT_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "event_save_list",
+                        admin_key: verifiedAdminKey,
+                        mode: mode,
+                        participants: list
+                    })
+                });
+                const resData = await resp.json();
+                if (resData && resData.status === "ok") {
+                    await fetchPublicEventData();
+                    alert(`✅ Đã lưu và công khai thành công ${resData.total} người tham gia lên hệ thống!`);
+                } else {
+                    alert("❌ Lỗi lưu danh sách: " + (resData.message || "Không xác định"));
+                }
+            } catch (e) {
+                alert("⚠️ Không thể kết nối tới máy chủ Google Sheet để lưu danh sách!");
+            }
         }
+
+        document.getElementById('btn-paste-json').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (!text || !text.trim()) {
+                    alert("Bộ nhớ tạm đang trống! Hãy chạy lệnh quét bên Facebook hoặc dán vào ô văn bản bên dưới.");
+                    return;
+                }
+                rawInputBox.value = text;
+                const parsed = parseRawInputToList(text);
+                await uploadParticipantsToCloud(parsed, "merge");
+            } catch (e) {
+                rawInputBox.focus();
+                alert("Bạn hãy dán (Ctrl+V) vào ô văn bản bên dưới rồi bấm 'GỘP THÊM VÀO DANH SÁCH' nhé!");
+            }
+        });
+
+        document.getElementById('btn-save-cloud-merge').addEventListener('click', async () => {
+            const parsed = parseRawInputToList(rawInputBox.value);
+            await uploadParticipantsToCloud(parsed, "merge");
+        });
+
+        document.getElementById('btn-save-cloud-replace').addEventListener('click', async () => {
+            const parsed = parseRawInputToList(rawInputBox.value);
+            if (!confirm(`Bạn có chắc chắn muốn GHI ĐÈ toàn bộ danh sách trên hệ thống bằng ${parsed.length} người mới này không?`)) return;
+            await uploadParticipantsToCloud(parsed, "replace");
+        });
 
         searchInput.addEventListener('input', () => {
             renderParticipantList(searchInput.value.trim().toLowerCase());
@@ -700,22 +830,26 @@
                 : participants;
 
             if (filtered.length === 0) {
-                participantListEl.innerHTML = `<div class="text-center py-8 text-xs text-gray-400 italic">Không tìm thấy tài khoản nào khớp từ khóa.</div>`;
+                participantListEl.innerHTML = `<div class="text-center py-8 text-xs text-gray-400 italic">Chưa có tài khoản nào trong danh sách hoặc không khớp từ khóa tìm kiếm.</div>`;
                 return;
             }
 
             participantListEl.innerHTML = filtered.map((p, idx) => {
                 const safeName = p.name.replace(/'/g, "\\'");
+                const sttNum = p.stt || (idx + 1);
+                const isWinner = (winners[0] && winners[0].name === p.name) || (winners[1] && winners[1].name === p.name);
                 return `
-                <div class="flex items-center justify-between bg-gray-50 hover:bg-[#F0FDF4] border border-gray-200 hover:border-green-400 rounded-xl px-3.5 py-2.5 transition-all">
+                <div class="flex items-center justify-between ${isWinner ? 'bg-yellow-50 border-yellow-400' : 'bg-gray-50 border-gray-200'} hover:bg-[#F0FDF4] border hover:border-green-400 rounded-xl px-3.5 py-2.5 transition-all">
                     <div class="flex items-center gap-3 min-w-0">
-                        <span class="w-6 h-6 rounded-full bg-[#0F3823] text-[#FACC15] font-black text-[11px] flex items-center justify-center shrink-0">
-                            ${idx + 1}
+                        <span class="w-7 h-7 rounded-full bg-[#0F3823] text-[#FACC15] font-black text-[11px] flex items-center justify-center shrink-0">
+                            #${sttNum}
                         </span>
                         <div class="truncate">
-                            <p class="font-bold text-xs text-[#0F3823] truncate">${p.name}</p>
+                            <p class="font-bold text-xs text-[#0F3823] truncate">
+                                ${p.name} ${isWinner ? '🏆' : ''}
+                            </p>
                             <p class="text-[10px] text-green-700 font-semibold">
-                                ${p.img ? '📸 Có ảnh Mã thiết bị' : '📝 Danh sách tên'}
+                                ${p.img ? '📸 Đã nộp ảnh Mã thiết bị' : '✔️ Thành viên hợp lệ'}
                                 ${p.tags > 0 ? ` • Tag ${p.tags} bạn` : ''}
                             </p>
                         </div>
@@ -729,22 +863,6 @@
             }).join('');
         }
 
-        function resetWinnerCards() {
-            rollingStatusEl.textContent = "SẴN SÀNG QUAY SỐ";
-            rollingNameEl.textContent = "--- 🌲 DNAPlugin PRO 🌲 ---";
-            rollingSubEl.textContent = `Tổng số ứng viên hợp lệ: ${participants.length} người`;
-            winnersContainer.innerHTML = `
-                <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
-                    <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #1</span>
-                    <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
-                </div>
-                <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
-                    <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #2</span>
-                    <p class="text-xs text-green-200/50 italic">Đang chờ quay số...</p>
-                </div>
-            `;
-        }
-
         function renderWinners() {
             const slots = [0, 1];
             winnersContainer.innerHTML = slots.map(slotIdx => {
@@ -753,7 +871,7 @@
                     return `
                         <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #${slotIdx + 1}</span>
-                            <p class="text-xs text-green-200/50 italic">Bấm nút Quay số để chọn giải #${slotIdx + 1}...</p>
+                            <p class="text-xs text-green-200/50 italic">Đang chờ công bố kết quả...</p>
                         </div>
                     `;
                 }
@@ -785,7 +903,6 @@
             }).join('');
         }
 
-        // Hiệu ứng bắn pháo giấy chúc mừng
         function launchConfetti() {
             const canvas = document.getElementById('confetti-canvas');
             const ctx = canvas.getContext('2d');
@@ -793,7 +910,7 @@
             canvas.height = canvas.offsetHeight;
 
             const colors = ['#FACC15', '#34D399', '#10B981', '#FFFFFF', '#F59E0B'];
-            const pieces = Array.from({ length: 70 }, () => ({
+            const pieces = Array.from({ length: 75 }, () => ({
                 x: Math.random() * canvas.width,
                 y: -10 - Math.random() * 40,
                 size: 5 + Math.random() * 6,
@@ -818,35 +935,43 @@
                     ctx.restore();
                 });
                 frame++;
-                if (frame < 110) requestAnimationFrame(draw);
+                if (frame < 115) requestAnimationFrame(draw);
                 else ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
             draw();
         }
 
-        // Nút Quay số ngẫu nhiên
-        document.getElementById('btn-spin').addEventListener('click', () => {
+        // NÚT QUAY SỐ (CHỈ ADMIN ĐÃ XÁC THỰC MỚI BẤM ĐƯỢC & LƯU KẾT QUẢ LÊN GOOGLE SHEET)
+        document.getElementById('btn-spin').addEventListener('click', async () => {
             if (isSpinning) return;
-            if (participants.length < 2) {
-                alert("⚠️ Danh sách cần tối thiểu 02 người chơi hợp lệ để bắt đầu quay số!");
+            if (!verifiedAdminKey) {
+                alert("⚠️ Chỉ Quản trị viên (Admin) mới có quyền quay số!");
                 return;
             }
-            if (winners.length >= 2) {
-                if (!confirm("Đã tìm đủ 02 người trúng giải PRO! Bạn có muốn đặt lại kết quả để quay lượt mới không?")) return;
-                winners = [];
-                renderWinners();
+            if (participants.length < 2) {
+                alert("⚠️ Danh sách trên hệ thống cần tối thiểu 02 người chơi hợp lệ để bắt đầu quay số!");
+                return;
             }
 
-            isSpinning = true;
-            const prizeNumber = winners.length + 1;
-            rollingStatusEl.textContent = `🎲 ĐANG QUAY TÌM CHỦ NHÂN GIẢI PRO #${prizeNumber}...`;
-            rollingSubEl.textContent = "Hệ thống đang trộn ngẫu nhiên danh sách hợp lệ...";
+            const targetSlotIdx = !winners[0] ? 0 : (!winners[1] ? 1 : -1);
+            if (targetSlotIdx === -1) {
+                alert("ℹ️ Đã có đủ 02 người trúng giải trên hệ thống! Nếu muốn quay lại, hãy bấm nút 'Đặt lại kết quả trên Server'.");
+                return;
+            }
 
-            const eligiblePool = participants.filter(p => !winners.some(w => w.name === p.name));
+            const prizeNumber = targetSlotIdx + 1;
+            const eligiblePool = participants.filter(p =>
+                (!winners[0] || winners[0].name !== p.name) &&
+                (!winners[1] || winners[1].name !== p.name)
+            );
+
+            isSpinning = true;
+            rollingStatusEl.textContent = `🎲 ĐANG QUAY TÌM CHỦ NHÂN GIẢI PRO #${prizeNumber}...`;
+            rollingSubEl.textContent = "Hệ thống đang chọn ngẫu nhiên và đồng bộ kết quả lên máy chủ...";
 
             let ticks = 0;
             const totalTicks = 42;
-            const timer = setInterval(() => {
+            const timer = setInterval(async () => {
                 const preview = eligiblePool[Math.floor(Math.random() * eligiblePool.length)];
                 rollingNameEl.textContent = preview.name;
                 ticks++;
@@ -859,27 +984,62 @@
 
                     rollingNameEl.textContent = `🎉 ${finalWinner.name} 🎉`;
                     rollingStatusEl.textContent = `CHÚC MỪNG CHỦ NHÂN GIẢI PRO #${prizeNumber}!`;
-                    rollingSubEl.textContent = prizeNumber === 1
-                        ? "Hãy bấm nút Quay số thêm 1 lần nữa để tìm chủ nhân Giải PRO #2!"
-                        : "Đã hoàn tất tìm ra 02 chủ nhân trúng Key DNAPlugin PRO vĩnh viễn!";
 
-                    winners.push(finalWinner);
+                    winners[targetSlotIdx] = finalWinner;
                     renderWinners();
+                    renderParticipantList(searchInput.value.trim().toLowerCase());
                     launchConfetti();
+
+                    // Lưu người trúng giải lên Google Sheet để công khai cho toàn bộ người xem
+                    try {
+                        await fetch(EVENT_SCRIPT_URL, {
+                            method: "POST",
+                            headers: { "Content-Type": "text/plain;charset=utf-8" },
+                            body: JSON.stringify({
+                                action: "event_save_winner",
+                                admin_key: verifiedAdminKey,
+                                slot: prizeNumber,
+                                winner_name: finalWinner.name
+                            })
+                        });
+                        rollingSubEl.textContent = prizeNumber === 1
+                            ? "✅ Đã lưu Giải PRO #1 lên máy chủ! Bấm Quay số thêm 1 lần nữa để chọn Giải PRO #2."
+                            : "✅ Đã lưu chính thức cả 02 chủ nhân Giải PRO lên máy chủ công khai!";
+                    } catch (_) {}
+
                     isSpinning = false;
                 }
             }, 65);
         });
 
-        document.getElementById('btn-reset-winners').addEventListener('click', () => {
-            if (isSpinning) return;
-            winners = [];
-            resetWinnerCards();
+        // Đặt lại kết quả trúng giải trên Google Sheet (Chỉ Admin)
+        document.getElementById('btn-reset-winners').addEventListener('click', async () => {
+            if (isSpinning || !verifiedAdminKey) return;
+            if (!confirm("Bạn có chắc chắn muốn XÓA kết quả 02 người trúng giải hiện tại trên Google Sheet để quay lại từ đầu không?")) return;
+
+            try {
+                const resp = await fetch(EVENT_SCRIPT_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "event_reset_winners",
+                        admin_key: verifiedAdminKey
+                    })
+                });
+                const res = await resp.json();
+                if (res && res.status === "ok") {
+                    winners = [null, null];
+                    await fetchPublicEventData();
+                }
+            } catch (e) {
+                alert("⚠️ Lỗi kết nối máy chủ khi đặt lại kết quả!");
+            }
         });
 
-        document.getElementById('btn-toggle-scanner').addEventListener('click', () => {
-            const panel = document.getElementById('scanner-panel');
-            panel.classList.toggle('hidden');
+        // Khởi chạy khi mở trang
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAdminUI(Boolean(verifiedAdminKey));
+            fetchPublicEventData();
         });
     </script>
 </body>
