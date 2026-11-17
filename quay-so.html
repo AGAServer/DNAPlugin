@@ -218,7 +218,7 @@
                                 Dữ liệu JSON hoặc danh sách tên hợp lệ:
                             </label>
                             <button id="btn-clean-garbage" class="text-[11px] font-extrabold text-red-600 hover:underline">
-                                🧹 Dọn sạch dòng lỗi trên Sheet
+                                🧹 Đồng bộ danh sách sạch lên Sheet
                             </button>
                         </div>
                         <textarea id="raw-input-box" rows="3" placeholder="Dán kết quả JSON từ Facebook (Ctrl+V) hoặc gõ tên người chơi..." class="w-full bg-gray-50 border border-gray-300 rounded-xl p-2.5 text-xs text-gray-800 focus:border-green-600 focus:bg-white outline-none transition-all"></textarea>
@@ -497,7 +497,7 @@
         });
     </script>
 
-    <!-- SCRIPT 2: QUÉT BÌNH LUẬN + LỌC SẠCH DÒNG LỖI + QUAY LẠI TỪNG GIẢI ĐỘC LẬP -->
+    <!-- SCRIPT 2: QUÉT BÌNH LUẬN + LỌC SẠCH DÒNG LỖI + XÓA TỪNG DÒNG & QUAY LẠI TỪNG GIẢI -->
     <script>
         const EVENT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQWnUbyGRsjPhaTQjfQkHl2bVKOxJp37MG-Sl6IeJzV-F_2f-3qAlmSuiJE--Sw2l/exec";
 
@@ -523,36 +523,41 @@
         const adminSpinControls = document.getElementById('admin-spin-controls');
         const adminBtnLabel = document.getElementById('admin-btn-label');
 
-        // Nhận diện và loại bỏ triệt để mọi dòng code JavaScript bị dán nhầm
+        // Nhận diện và chặn tuyệt đối mọi dòng code JavaScript (kể cả các dòng thuộc tính có dấu : hoặc dấu ,)
         function isGarbageOrCodeLine(str) {
             if (!str) return true;
             const s = str.toString().trim();
-            if (s.length < 2 || s.length > 75) return true;
+            if (s.length < 2 || s.length > 65) return true;
+            // Tên người Facebook không bao giờ chứa các ký tự lập trình {:;,=<>[]`"\}
+            if (/[:;,{}[\]=<>`"\\]/.test(s)) return true;
+
             const codePatterns = [
                 /function\s*\(/i,
-                /=>/,
                 /window\./i,
                 /document\./i,
                 /querySelector/i,
                 /_dnaLikedSet/i,
+                /authorName/i,
+                /commentImgUrl/i,
+                /profileUrl/i,
+                /hasLikedPost/i,
+                /tagCount/i,
+                /copiedOk/i,
+                /jsonStr/i,
+                /seenNames/i,
                 /\bconst\s+/i,
                 /\blet\s+/i,
                 /\bvar\s+/i,
                 /\bfor\s*\(/i,
                 /\bif\s*\(/i,
-                /\bwhile\s*\(/i,
                 /\breturn\b/i,
                 /\bawait\b/i,
                 /\basync\b/i,
                 /^\s*\/\//,
                 /^\s*\/\*/,
-                /[{};=<>[\]]/,
                 /console\./i,
                 /navigator\./i,
                 /JSON\./i,
-                /setTimeout/i,
-                /new\s+Set/i,
-                /Array\.from/i,
                 /alert\s*\(/i
             ];
             return codePatterns.some(rx => rx.test(s));
@@ -612,6 +617,7 @@
                 adminSpinControls.classList.remove('flex');
                 adminBtnLabel.textContent = "🔐 Quản trị viên (Admin)";
             }
+            renderParticipantList(searchInput.value.trim().toLowerCase());
             renderWinners();
         }
 
@@ -635,7 +641,7 @@
                     renderParticipantList(searchInput.value.trim().toLowerCase());
                     renderWinners();
 
-                    // Nếu phát hiện trên Sheet có dòng code rác và Admin đang đăng nhập -> Tự động làm sạch Sheet ngay lập tức!
+                    // Tự động ghi đè danh sách sạch lên Google Sheet nếu phát hiện dòng code thừa
                     if (hasCorruptedRowsOnServer && verifiedAdminKey) {
                         await cleanCorruptedRowsOnSheet(true);
                         return;
@@ -668,7 +674,7 @@
             }
         }
 
-        // Dọn sạch các dòng code rác trên Google Sheet, chỉ giữ lại người chơi thật
+        // Ghi đè danh sách sạch hiện tại lên Google Sheet
         async function cleanCorruptedRowsOnSheet(silent = false) {
             if (!verifiedAdminKey) return;
             const cleanPayloadList = participants.map(packParticipantForUpload);
@@ -687,12 +693,25 @@
                 if (res && res.status === "ok") {
                     hasCorruptedRowsOnServer = false;
                     if (!silent) {
-                        alert(`✅ Đã dọn sạch các dòng lỗi trên Google Sheet! Hiện giữ lại đúng ${participants.length} người chơi hợp lệ.`);
+                        alert(`✅ Đã đồng bộ danh sách sạch (${participants.length} người hợp lệ) lên Google Sheet!`);
                     }
                     await fetchPublicEventData();
                 }
             } catch (_) {}
         }
+
+        // Xóa nhanh 1 dòng bất kỳ trong danh sách (Dành cho Admin)
+        window.deleteSingleParticipant = async function(targetName) {
+            if (!verifiedAdminKey || isSpinning) return;
+            if (!confirm(`Bạn có muốn xóa "${targetName}" khỏi danh sách tham gia trên hệ thống không?`)) return;
+
+            participants = participants
+                .filter(p => p.name.toLowerCase() !== targetName.toLowerCase())
+                .map((item, idx) => ({ ...item, stt: idx + 1 }));
+
+            renderParticipantList(searchInput.value.trim().toLowerCase());
+            await cleanCorruptedRowsOnSheet(true);
+        };
 
         document.getElementById('btn-clean-garbage').addEventListener('click', () => {
             cleanCorruptedRowsOnSheet(false);
@@ -765,7 +784,6 @@
 
         document.getElementById('btn-refresh-cloud').addEventListener('click', fetchPublicEventData);
 
-        // LỆNH F12 CONSOLE ĐỒNG BỘ 100% (KHÔNG DÙNG ASYNC/AWAIT ĐỂ HÀM copy() CỦA CONSOLE LUÔN CHẠY THÀNH CÔNG)
         function buildFacebookConsoleScannerScript(requireImage, requireThreeTags, requireLike) {
             return `(function(){
   window._dnaLikedSet = window._dnaLikedSet || new Set();
@@ -840,10 +858,8 @@
   });
 
   const jsonStr = JSON.stringify(results, null, 2);
-  let copiedOk = false;
   if (typeof copy === 'function') {
     copy(jsonStr);
-    copiedOk = true;
   } else {
     try {
       const ta = document.createElement('textarea');
@@ -852,7 +868,6 @@
       ta.select();
       document.execCommand('copy');
       document.body.removeChild(ta);
-      copiedOk = true;
     } catch (_) {}
   }
 
@@ -879,7 +894,6 @@
             const trimmed = (rawText || '').trim();
             if (!trimmed) return [];
 
-            // Chặn ngay nếu người dùng dán nhầm chính đoạn code lệnh quét F12
             if (trimmed.includes('document.querySelectorAll') || trimmed.includes('_dnaLikedSet') || trimmed.startsWith('(function') || trimmed.startsWith('(async')) {
                 alert("⚠️ Bộ nhớ tạm của bạn vẫn đang chứa LỆNH QUÉT (chưa có kết quả từ Facebook)!\n\nHãy qua tab Facebook, dán lệnh vào F12 Console và nhấn Enter trước khi bấm Dán tại đây nhé.");
                 return [];
@@ -927,10 +941,10 @@
                 return;
             }
 
-            // Nếu trên server từng có dòng lỗi, dùng chế độ replace kết hợp danh sách sạch hiện tại để dọn luôn
+            // Luôn gộp trên danh sách sạch đã lọc bỏ hoàn toàn dòng lỗi
             let finalMode = mode;
             let finalPayloadList = list;
-            if (mode === "merge" && hasCorruptedRowsOnServer) {
+            if (mode === "merge") {
                 finalMode = "replace";
                 const mapByName = new Map();
                 participants.forEach(p => mapByName.set(p.name.toLowerCase(), packParticipantForUpload(p)));
@@ -1022,6 +1036,7 @@
 
         function renderParticipantList(filterKeyword = '') {
             badgeCountEl.textContent = `${participants.length} người`;
+            const isAdmin = Boolean(verifiedAdminKey);
             const filtered = filterKeyword
                 ? participants.filter(p => p.name.toLowerCase().includes(filterKeyword))
                 : participants;
@@ -1053,11 +1068,18 @@
                             </div>
                         </div>
                     </div>
-                    ${p.img ? `
-                        <img src="${p.img}" alt="Ảnh mã" onclick="showImageModal('${safeName}', '${p.img}')"
-                             class="w-10 h-10 rounded-lg object-cover border-2 border-green-600 cursor-pointer shrink-0 hover:scale-105 transition-transform"
-                             title="Bấm để xem ảnh chụp Mã thiết bị">
-                    ` : ''}
+                    <div class="flex items-center gap-2 shrink-0">
+                        ${p.img ? `
+                            <img src="${p.img}" alt="Ảnh mã" onclick="showImageModal('${safeName}', '${p.img}')"
+                                 class="w-10 h-10 rounded-lg object-cover border-2 border-green-600 cursor-pointer hover:scale-105 transition-transform"
+                                 title="Bấm để xem ảnh chụp Mã thiết bị">
+                        ` : ''}
+                        ${isAdmin ? `
+                            <button onclick="deleteSingleParticipant('${safeName}')" class="w-7 h-7 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white font-bold text-xs flex items-center justify-center transition-colors" title="Xóa người này khỏi danh sách">
+                                ✕
+                            </button>
+                        ` : ''}
+                    </div>
                 </div>`;
             }).join('');
         }
