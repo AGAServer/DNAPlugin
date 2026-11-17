@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LP46BZQQPX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LP46BZQQPX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNAPlugin - Giải pháp Bản đồ số VN-2000 & Viễn thám Thực địa cho Ngành Lâm nghiệp</title>
+    <meta name="description" content="Ứng dụng bản đồ lâm nghiệp ngoại tuyến DNAPlugin hỗ trợ lực lượng Kiểm lâm, Ban quản lý bảo vệ rừng và Công ty lâm nghiệp tuần tra, đo đạc, đọc file TAB/SHP/DGN và trích lục bản đồ ngay tại hiện trường.">
+    <link rel="icon" type="image/png" href="DNAPlugin.png">
+    <!-- Tích hợp Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+            background-color: #F4F7F5;
+            color: #1E293B;
+        }
+
+        /* Font chữ tiêu đề và nội dung mang phong cách Báo chí chính luận */
+        .editorial-title {
+            font-family: 'Merriweather', 'Georgia', 'Times New Roman', serif;
+        }
+        .editorial-body p {
+            font-size: 1.0625rem;
+            line-height: 1.85;
+            color: #1F2937;
+            margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+
+        /* Hiệu ứng phát sáng nhấp nháy mượt mà cho Logo */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
+        }
+        .logo-glow { animation: pulse-glow 3s infinite; border-radius: 50%; }
+
+        /* Thanh tiến trình đọc báo trên đỉnh màn hình */
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10B981, #FACC15);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Nền không gian số GIS / Viễn thám */
+        .gis-background {
+            background-color: #081b12;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.16) 0%, transparent 65%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+        }
+
+        /* Chữ cái đầu tiên lớn (Dropcap) kiểu tạp chí */
+        .dropcap::first-letter {
+            float: left;
+            font-size: 3.6rem;
+            line-height: 0.85;
+            padding-top: 4px;
+            padding-right: 12px;
+            padding-bottom: 4px;
+            font-weight: 900;
+            color: #0F3823;
+            font-family: 'Georgia', serif;
+        }
+
+        /* Khung chú thích ảnh báo chí */
+        .news-figure {
+            margin: 2rem 0;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+        .news-figcaption {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.85rem;
+            color: #475569;
+            background: #F1F5F9;
+            border-top: 1px solid #E2E8F0;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Dải ruy-băng chạy chữ */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 60s linear infinite;
+            display: inline-flex;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Thanh tiến trình đọc bài báo -->
+    <div id="reading-progress"></div>
+
+    <!-- Thanh Menu Điều hướng (Đồng bộ hệ sinh thái DNAPlugin) -->
+    <nav class="bg-[#E2F1E8] py-4 px-4 lg:px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- LOGO VÀ SUBTEXT -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="DNAPlugin.png" alt="DNAPlugin Logo" class="w-11 h-11 object-contain rounded-full border-2 border-green-400 logo-glow bg-white p-0.5 shrink-0">
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-[#0F3823] text-xl tracking-tight leading-none">DNAPlugin</span>
+                    <span class="text-[9px] md:text-[10px] font-bold text-green-700 mt-1 uppercase tracking-wider">Công cụ tiện ích Kỹ thuật Lâm nghiệp</span>
+                </div>
+            </a>
+            
+            <!-- Các liên kết điều hướng & Nút Tải APK -->
+            <div class="flex flex-wrap justify-center items-center gap-4 lg:gap-7 text-[#2D5A40] font-bold text-sm md:text-base">
+                <a href="index.html" class="hover:text-green-700 transition-colors">Trang chủ</a>
+                <a href="bai-viet.html" class="text-green-800 border-b-2 border-green-800 pb-1">Chuyên đề Lâm nghiệp</a>
+                <a href="tinh-nang.html" class="hover:text-green-700 transition-colors hidden sm:block">Tính năng</a>
+                <a href="hinh-anh.html" class="hover:text-green-700 transition-colors hidden md:block">Hình ảnh</a>
+                <a href="video.html" class="hover:text-green-700 transition-colors hidden lg:block">Video</a>
+                <a href="quay-so.html" class="hover:text-green-700 transition-colors hidden sm:flex items-center gap-1">
+                    <span>🎁 Sự kiện</span>
+                </a>
+                
+                <!-- Nút Tải File APK (Kèm Version động) -->
+                <a href="https://play.google.com/store/apps/details?id=com.DNAPlugin.dnaplugin.app" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] text-[#0F3823] px-4 py-1.5 rounded-lg hover:bg-yellow-400 hover:shadow-md transition-all flex items-center gap-2 border border-yellow-500 ml-1 group">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <div class="flex flex-col items-start leading-tight">
+                        <span class="font-bold text-sm">Tải App DNAPlugin</span>
+                        <span id="apk-version" class="text-[10px] font-semibold text-green-900/70 group-hover:text-green-900 transition-colors">Đang kiểm tra...</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Thanh Chuyên Mục Báo Chí (Sub-header) -->
+    <div class="bg-[#0F3823] text-green-100 border-b border-green-800 text-xs py-2.5 px-4 lg:px-6">
+        <div class="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 font-semibold">
+                <span class="bg-[#FACC15] text-[#0F3823] font-black px-2 py-0.5 rounded uppercase text-[10px]">TIÊU ĐIỂM CHUYỂN ĐỔI SỐ</span>
+                <span class="text-green-400">/</span>
+                <a href="index.html" class="hover:text-white">Trang chủ</a>
+                <span class="text-green-400">›</span>
+                <span class="text-yellow-300">Ứng dụng Bản đồ GIS & Viễn thám Lâm nghiệp</span>
+            </div>
+            <div class="hidden sm:flex items-center gap-4 text-[11px] text-green-300">
+                <span>📍 Chuyên trang Kỹ thuật Bảo vệ rừng & Điều tra Lâm sinh</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHU VỰC NỘI DUNG BÁO CHÍ (2 CỘT: BÀI VIẾT CHÍNH 8/12 + SIDEBAR 4/12) -->
+    <main class="max-w-[1280px] w-full mx-auto px-4 lg:px-6 py-8 lg:py-12 grid lg:grid-cols-12 gap-8 items-start flex-1">
+
+        <!-- CỘT TRÁI (8/12): NỘI DUNG BÀI BÁO CHUYÊN SÂU -->
+        <article class="lg:col-span-8 bg-white rounded-3xl shadow-sm border border-gray-200/90 p-6 sm:p-10 lg:p-12">
+
+            <!-- Nhãn chuyên mục & Thời gian xuất bản -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-gray-100 text-xs text-gray-500">
+                <div class="flex items-center gap-2">
+                    <span class="bg-green-100 text-[#0F3823] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider text-[11px]">
+                        🌲 Công nghệ Lâm nghiệp 4.0
+                    </span>
+                    <span>•</span>
+                    <span>Cập nhật: 17/11/2026</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <!-- Nút nghe bài báo tự động (Text-to-Speech) -->
+                    <button id="btn-tts" class="bg-gray-100 hover:bg-[#E2F1E8] text-[#0F3823] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors">
+                        <span>🔊 Nghe bài viết</span>
+                    </button>
+                    <span class="hidden sm:inline text-gray-400">|</span>
+                    <span class="hidden sm:inline font-medium text-gray-500">⏱️ 6 phút đọc</span>
+                </div>
+            </div>
+
+            <!-- TIÊU ĐỀ LỚN CỦA BÀI BÁO -->
+            <h1 class="editorial-title text-2xl sm:text-3xl lg:text-[36px] font-black text-[#0F3823] leading-[1.28] mt-6 mb-5">
+                DNAPlugin: Biến điện thoại thông minh thành trạm Bản đồ số VN-2000 & Viễn thám chuyên dụng cho lực lượng Kiểm lâm và Bảo vệ rừng
+            </h1>
+
+            <!-- Thông tin Tác giả -->
+            <div class="flex items-center justify-between bg-[#F8FAFC] border border-gray-200/80 rounded-2xl p-3.5 mb-7">
+                <div class="flex items-center gap-3">
+                    <img src="DNAPlugin.png" alt="Đoàn Ngọc Ấn" class="w-11 h-11 rounded-full border-2 border-green-600 bg-white p-0.5 object-contain">
+                    <div>
+                        <p class="text-xs font-extrabold text-[#0F3823] uppercase tracking-wide">
+                            Tác giả & Phát triển: Kỹ sư Đoàn Ngọc Ấn
+                        </p>
+                        <p class="text-[11px] text-gray-500 font-medium">
+                            Hệ sinh thái phần mềm GIS Lâm nghiệp DNAPlugin (Android) & DoanNgocAnPlugin (QGIS Desktop)
+                        </p>
+                    </div>
+                </div>
+                <a href="https://play.google.com/store/apps/details?id=com.DNAPlugin.dnaplugin.app" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 bg-[#0F3823] hover:bg-green-800 text-[#FACC15] text-xs font-bold px-4 py-2 rounded-xl transition-all shrink-0">
+                    <span>📲 Cài đặt ngay</span>
+                </a>
+            </div>
+
+            <!-- ĐOẠN SAPO (DẪN NHẬP ĐẬM CỦA BÁO) -->
+            <div class="bg-[#F0FDF4] border-l-4 border-[#15803D] p-5 rounded-r-2xl mb-8">
+                <p class="font-bold text-[#0F3823] text-base sm:text-[17px] leading-relaxed">
+                    Thay vì phải mang theo máy định vị GPS cầm tay cồng kềnh hay tập bản đồ giấy khổ lớn dễ hư hỏng dưới mưa rừng, lực lượng Kiểm lâm, cán bộ Quản lý bảo vệ rừng và kỹ sư các Công ty Lâm nghiệp hiện nay đã có thể đọc trực tiếp toàn bộ bản đồ giao khoán, hiện trạng rừng (.TAB, .SHP, .DGN), định vị tọa độ VN-2000 ngoại tuyến và lập hồ sơ trích lục hiện trường ngay trên chiếc điện thoại di động với ứng dụng DNAPlugin.
+                </p>
+            </div>
+
+            <!-- NỘI DUNG CHÍNH CỦA BÀI BÁO -->
+            <div class="editorial-body" id="article-content">
+
+                <!-- Mục 1 -->
+                <h2 id="muc-1" class="text-xl sm:text-2xl font-black text-[#0F3823] mt-8 mb-4 flex items-center gap-2.5 scroll-mt-24">
+                    <span class="w-8 h-8 rounded-lg bg-[#0F3823] text-[#FACC15] text-sm font-black flex items-center justify-center shrink-0">1</span>
+                    <span>Thực tế gian nan của công tác tuần tra, kiểm tra rừng ngoài hiện trường</span>
+                </h2>
+
+                <p class="dropcap">
+                    Trong công tác quản lý, bảo vệ rừng và giám sát hoạt động lâm sinh, cán bộ hiện trường luôn phải đối mặt với ba rào cản kỹ thuật lớn: <strong>mất sóng viễn thông hoàn toàn</strong> khi đi sâu vào các tiểu khu vùng lõi, <strong>sự phức tạp của các định dạng tệp bản đồ chuyên ngành</strong> và <strong>sai lệch hệ quy chiếu tọa độ</strong>.
+                </p>
+                <p>
+                    Hầu hết các cơ sở dữ liệu bản đồ ngành Lâm nghiệp tại Việt Nam (như bản đồ diễn biến rừng, bản đồ quy hoạch 3 loại rừng, bản đồ giao khoán bảo vệ rừng hay thiết kế dự án lâm sinh) đều được lưu trữ dưới định dạng <code>.TAB</code> của MapInfo, <code>.SHP</code> của ArcGIS/QGIS hoặc <code>.DGN</code> của MicroStation trên hệ tọa độ phẳng <strong>VN-2000</strong> (với kinh tuyến trục riêng cho từng tỉnh). Khi đưa các tệp này lên các ứng dụng bản đồ đại chúng trên điện thoại, cán bộ kỹ thuật thường xuyên gặp tình trạng lệch vị trí hàng trăm mét, không hiển thị được nhãn phân số (Lô/Khoảnh/Tiểu khu) hoặc toàn bộ tên chủ rừng, trạng thái rừng bị biến thành các ký tự lỗi phông chữ (TCVN3, VNI-Windows) không thể đọc được.
+                </p>
+
+                <!-- Hình minh họa 1 -->
+                <figure class="news-figure">
+                    <div class="grid sm:grid-cols-2 gap-2 p-3 bg-[#0A2317]">
+                        <img src="VN2000.png" alt="Giao diện định vị VN-2000 trên DNAPlugin" class="w-full h-72 object-contain rounded-lg bg-black/40">
+                        <img src="offline.jpg" alt="Hoạt động ngoại tuyến trong rừng sâu" class="w-full h-72 object-contain rounded-lg bg-black/40">
+                    </div>
+                    <figcaption class="news-figcaption">
+                        Giao diện thực địa của DNAPlugin hiển thị chính xác ranh giới lô rừng, nhãn phân số và tọa độ VN-2000 ngay cả khi điện thoại ở chế độ Ngoại tuyến (Offline) không có sóng 4G.
+                    </figcaption>
+                </figure>
+
+                <!-- Mục 2 -->
+                <h2 id="muc-2" class="text-xl sm:text-2xl font-black text-[#0F3823] mt-10 mb-4 flex items-center gap-2.5 scroll-mt-24">
+                    <span class="w-8 h-8 rounded-lg bg-[#0F3823] text-[#FACC15] text-sm font-black flex items-center justify-center shrink-0">2</span>
+                    <span>DNAPlugin – Giải pháp GIS thực địa "May đo" riêng cho ngành Lâm nghiệp Việt Nam</span>
+                </h2>
+
+                <p>
+                    Xuất phát từ chính thực tiễn tuần tra bảo vệ rừng và nghiệp vụ kỹ thuật lâm sinh, tác giả <strong>Đoàn Ngọc Ấn</strong> đã nghiên cứu và phát triển ứng dụng <strong>DNAPlugin</strong> trên nền tảng di động. Không giống các phần mềm xem bản đồ thông thường, DNAPlugin tích hợp nhân giải mã dữ liệu không gian trực tiếp giúp mở tức thì các tệp bản đồ nặng hàng chục nghìn lô rừng mà không cần chuyển đổi định dạng qua máy tính.
+                </p>
+
+                <!-- Hộp điểm nhấn kỹ thuật -->
+                <div class="my-6 bg-gradient-to-br from-[#0F3823] to-[#14532D] text-white rounded-2xl p-6 shadow-md border border-green-600">
+                    <h3 class="text-base font-black text-[#FACC15] uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <span>⚡ 5 Đột phá kỹ thuật cốt lõi trên DNAPlugin</span>
+                    </h3>
+                    <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-black/25 p-3.5 rounded-xl border border-green-500/30">
+                            <p class="font-bold text-yellow-300 mb-1">📂 Đọc trực tiếp đa định dạng GIS</p>
+                            <p class="text-xs text-green-100 leading-relaxed mb-0">Mở trực tiếp <code>.TAB</code>, <code>.SHP</code>, <code>.DGN</code>, <code>.MBTiles</code>, <code>.GeoJSON</code>, <code>.KML/KMZ</code>, <code>.GPX</code>, <code>.TIF</code> ngay trên điện thoại.</p>
+                        </div>
+                        <div class="bg-black/25 p-3.5 rounded-xl border border-green-500/30">
+                            <p class="font-bold text-yellow-300 mb-1">🎯 Chuẩn Hệ tọa độ VN-2000 nội địa</p>
+                            <p class="text-xs text-green-100 leading-relaxed mb-0">Tích hợp đầy đủ thông số 7 tham số chuyển đổi và Kinh tuyến trục VN-2000 của toàn bộ 63 tỉnh, thành phố.</p>
+                        </div>
+                        <div class="bg-black/25 p-3.5 rounded-xl border border-green-500/30">
+                            <p class="font-bold text-yellow-300 mb-1">🔤 Tự động Chuẩn hóa Tiếng Việt</p>
+                            <p class="text-xs text-green-100 leading-relaxed mb-0">Tự động nhận diện và chuyển đổi mọi bảng mã cũ (TCVN3, VNI-Windows, CP1258) sang Unicode dựng sẵn rõ nét.</p>
+                        </div>
+                        <div class="bg-black/25 p-3.5 rounded-xl border border-green-500/30">
+                            <p class="font-bold text-yellow-300 mb-1">➗ Nhãn phân số & Lọc 2 cấp thông minh</p>
+                            <p class="text-xs text-green-100 leading-relaxed mb-0">Hiển thị nhãn phân số truyền thống (Tử số: Lô - Khoảnh - TK / Mẫu số: Trạng thái - Diện tích) và tách lớp nhanh.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p>
+                    Đặc biệt, tính năng <strong>Bộ lọc dữ liệu 2 cấp</strong> và <strong>Chuẩn hóa ngôn ngữ tiếng Việt</strong> cho phép người dùng chỉ với một chạm đã có thể lọc riêng từng Tiểu khu, từng Khoảnh hoặc từng Chủ quản lý để tô màu ranh giới nổi bật trên nền ảnh vệ tinh hoặc bản đồ địa hình.
+                </p>
+
+                <!-- Mục 3 -->
+                <h2 id="muc-3" class="text-xl sm:text-2xl font-black text-[#0F3823] mt-10 mb-4 flex items-center gap-2.5 scroll-mt-24">
+                    <span class="w-8 h-8 rounded-lg bg-[#0F3823] text-[#FACC15] text-sm font-black flex items-center justify-center shrink-0">3</span>
+                    <span>Giám sát biến động rừng bằng Vệ tinh Sentinel-2 và Mô hình Địa hình 3D</span>
+                </h2>
+
+                <p>
+                    Đối với các Ban quản lý rừng diện tích lớn hoặc các Hạt Kiểm lâm phụ trách địa bàn hiểm trở, việc phát hiện sớm các điểm nghi ngờ mất rừng hoặc lấn chiếm đất lâm nghiệp là ưu tiên hàng đầu. DNAPlugin tích hợp công cụ truy xuất ảnh vệ tinh <strong>Sentinel-2</strong> theo chuỗi thời gian thực và thuật toán phân tích chỉ số thực vật, giúp khoanh vùng nhanh các vị trí có biến động độ che phủ rừng giữa hai kỳ ảnh để cán bộ đi kiểm tra đúng trọng tâm.
+                </p>
+
+                <!-- Hình minh họa 2 -->
+                <figure class="news-figure">
+                    <div class="grid sm:grid-cols-3 gap-2 p-3 bg-[#0A2317]">
+                        <img src="BienDongDT.jpg" alt="Phân tích biến động diện tích rừng" class="w-full h-64 object-contain rounded-lg bg-black/40">
+                        <img src="sentinel2.jpg" alt="Ảnh vệ tinh Sentinel-2" class="w-full h-64 object-contain rounded-lg bg-black/40">
+                        <img src="3D.jpg" alt="Mô hình 3D địa hình lâm nghiệp" class="w-full h-64 object-contain rounded-lg bg-black/40">
+                    </div>
+                    <figcaption class="news-figcaption">
+                        Kết hợp phân tích biến động diện tích rừng từ ảnh vệ tinh Sentinel-2 và mô phỏng địa hình 3D giúp lực lượng bảo vệ rừng chủ động lên phương án tiếp cận hiện trường.
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Bên cạnh đó, chế độ <strong>Mô hình 3D địa hình</strong> kết hợp cùng la bàn số và thước đo khoảng cách – góc phương vị giúp tổ tuần tra quan sát trực quan độ dốc, hướng phơi của sườn núi, khe suối trước khi băng rừng, giảm thiểu rủi ro và tiết kiệm tối đa thời gian di chuyển.
+                </p>
+
+                <!-- Mục 4 -->
+                <h2 id="muc-4" class="text-xl sm:text-2xl font-black text-[#0F3823] mt-10 mb-4 flex items-center gap-2.5 scroll-mt-24">
+                    <span class="w-8 h-8 rounded-lg bg-[#0F3823] text-[#FACC15] text-sm font-black flex items-center justify-center shrink-0">4</span>
+                    <span>Thiết kế Dự Án Lâm Sinh, Đo đạc & Xuất bản đồ Trích lục PDF ngay tại rừng</span>
+                </h2>
+
+                <p>
+                    Không chỉ dừng lại ở việc xem bản đồ và dẫn đường, DNAPlugin còn là một công cụ đo vẽ và lập hồ sơ nội nghiệp hoàn chỉnh ngay tại thực địa. Cán bộ kỹ thuật có thể đi vòng quanh lô rừng mới trồng, khu vực khai thác hoặc diện tích bị tác động để <strong>đo đạc diện tích tự động tính bằng Hecta (ha)</strong>, thiết kế <strong>Dự Án Lâm Sinh</strong>, ghi nhận tuyến tuần tra (Tracklog) và chụp ảnh hiện trường đóng dấu sẵn tọa độ VN-2000, độ cao, sai số GPS cùng góc hướng nhìn.
+                </p>
+
+                <!-- Hình minh họa 3 -->
+                <figure class="news-figure">
+                    <div class="grid sm:grid-cols-2 gap-2 p-3 bg-[#0A2317]">
+                        <img src="dodac.jpg" alt="Đo đạc diện tích lô rừng" class="w-full h-64 object-contain rounded-lg bg-black/40">
+                        <img src="chupanh.jpg" alt="Chụp ảnh hiện trường kèm tọa độ VN-2000" class="w-full h-64 object-contain rounded-lg bg-black/40">
+                    </div>
+                    <figcaption class="news-figcaption">
+                        Đo đạc diện tích lô đất lâm nghiệp tự động tính Hecta và chụp ảnh bằng chứng hiện trường đính kèm thông số tọa độ VN-2000 chính xác.
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Ngay sau khi đo vẽ xong ngoài hiện trường, người dùng có thể mở công cụ <strong>Trích lục bản đồ</strong> tích hợp sẵn trong ứng dụng để tự động dàn trang bản đồ khổ giấy A4 (đầy đủ lưới chiếu tọa độ VN-2000, kim chỉ nam, thước tỷ lệ, bảng kê tọa độ các điểm góc ranh giới, khung chú dẫn và ô chữ ký) rồi xuất trực tiếp ra tệp <strong>PDF chất lượng cao</strong> để gửi báo cáo nhanh về đơn vị qua Zalo hoặc in ấn ký duyệt.
+                </p>
+
+                <!-- Hộp Trích dẫn Chuyên gia (Pull Quote) -->
+                <blockquote class="my-8 bg-[#E2F1E8]/70 border-y-2 border-green-700 p-6 rounded-2xl text-center relative">
+                    <p class="editorial-title italic font-bold text-[#0F3823] text-lg sm:text-xl leading-relaxed mb-3">
+                        “Mục tiêu lớn nhất của DNAPlugin là giúp mỗi người lính Kiểm lâm, mỗi cán bộ bảo vệ rừng và kỹ sư lâm sinh làm chủ hoàn toàn dữ liệu bản đồ số ngay trong lòng bàn tay — đơn giản, chính xác và hoạt động bền bỉ ở những cánh rừng sâu không có sóng điện thoại.”
+                    </p>
+                    <footer class="text-xs font-extrabold text-green-800 uppercase tracking-wider">
+                        — Kỹ sư Đoàn Ngọc Ấn • Tác giả ứng dụng DNAPlugin —
+                    </footer>
+                </blockquote>
+
+                <!-- Mục 5: Bảng tổng hợp ứng dụng cho 3 nhóm lực lượng -->
+                <h2 id="muc-5" class="text-xl sm:text-2xl font-black text-[#0F3823] mt-10 mb-4 flex items-center gap-2.5 scroll-mt-24">
+                    <span class="w-8 h-8 rounded-lg bg-[#0F3823] text-[#FACC15] text-sm font-black flex items-center justify-center shrink-0">5</span>
+                    <span>Giải pháp tối ưu cho từng lực lượng trong ngành Lâm nghiệp</span>
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-4 my-6">
+                    <!-- Nhóm 1: Kiểm lâm -->
+                    <div class="bg-[#F8FAFC] border border-green-200 rounded-2xl p-5 hover:shadow-md transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-green-700 text-[#FACC15] font-black flex items-center justify-center text-lg mb-3">
+                            🛡️
+                        </div>
+                        <h3 class="font-extrabold text-[#0F3823] text-base mb-2">Lực lượng Kiểm lâm</h3>
+                        <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                            <li>Xác minh nhanh vị trí vi phạm thuộc Lô, Khoảnh, Tiểu khu, loại rừng và chủ quản lý nào tại hiện trường.</li>
+                            <li>Đo tính ngay diện tích rừng bị thiệt hại và xuất <strong>Bản đồ trích lục PDF</strong> kèm bảng tọa độ VN-2000 phục vụ lập biên bản.</li>
+                            <li>Theo dõi cảnh báo biến động rừng qua ảnh vệ tinh Sentinel-2.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Nhóm 2: Ban QLR & Lực lượng BVR -->
+                    <div class="bg-[#F8FAFC] border border-green-200 rounded-2xl p-5 hover:shadow-md transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-700 text-[#FACC15] font-black flex items-center justify-center text-lg mb-3">
+                            🌲
+                        </div>
+                        <h3 class="font-extrabold text-[#0F3823] text-base mb-2">Ban QLR & Bảo vệ rừng</h3>
+                        <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                            <li>Ghi lại tuyến đường tuần tra (Tracklog) ngoại tuyến và chụp ảnh hiện trường gắn tọa độ làm minh chứng tuần tra.</li>
+                            <li>Quản lý ranh giới giao khoán bảo vệ rừng với cộng đồng thôn/buôn rõ ràng, tránh chồng lấn đất canh tác.</li>
+                            <li>Chia sẻ nhanh điểm nóng hoặc vị trí tuần tra giữa các trạm qua file GPX/KML.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Nhóm 3: Công ty Lâm nghiệp & Tư vấn -->
+                    <div class="bg-[#F8FAFC] border border-green-200 rounded-2xl p-5 hover:shadow-md transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-teal-800 text-[#FACC15] font-black flex items-center justify-center text-lg mb-3">
+                            📐
+                        </div>
+                        <h3 class="font-extrabold text-[#0F3823] text-base mb-2">Công ty Lâm nghiệp & Lâm sinh</h3>
+                        <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                            <li>Thiết kế ngoại nghiệp <strong>Dự Án Lâm Sinh</strong>, đo vẽ nghiệm thu diện tích trồng rừng, chăm sóc và khai thác rừng trồng.</li>
+                            <li>Đồng bộ dữ liệu hai chiều mượt mà với bộ công cụ <strong>DoanNgocAnPlugin</strong> trên phần mềm QGIS máy tính.</li>
+                            <li>Chuẩn hóa đồng bộ phông chữ tiếng Việt cho toàn bộ hồ sơ bản đồ cũ.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- HỘP KÊU GỌI HÀNH ĐỘNG (CTA) CUỐI BÀI BÁO -->
+            <div class="mt-10 gis-background text-white rounded-3xl p-6 sm:p-8 border-2 border-[#FACC15] shadow-xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2 text-center md:text-left">
+                        <span class="inline-block bg-[#FACC15] text-[#0F3823] font-black text-[10px] px-3 py-0.5 rounded-full uppercase">
+                            Sẵn sàng trên Google Play & Windows
+                        </span>
+                        <h3 class="text-xl sm:text-2xl font-black text-white">
+                            Trải nghiệm ngay trợ thủ bản đồ <span class="text-[#FACC15]">DNAPlugin</span>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-green-100 max-w-xl">
+                            Tải miễn phí ứng dụng trên CH Play để nhận ngay <strong>03 ngày dùng thử toàn bộ tính năng PRO</strong> và tham gia sự kiện Vòng quay may mắn tặng Key PRO vĩnh viễn!
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0 w-full sm:w-auto">
+                        <a href="https://play.google.com/store/apps/details?id=com.DNAPlugin.dnaplugin.app" target="_blank" rel="noopener noreferrer" class="bg-[#FACC15] hover:bg-yellow-300 text-[#0F3823] font-black text-sm px-6 py-3.5 rounded-xl shadow-lg text-center flex items-center justify-center gap-2 transition-all">
+                            <span>📲 Tải trên CH Play (Android)</span>
+                        </a>
+                        <a href="quay-so.html" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-5 py-3 rounded-xl border border-emerald-400 text-center flex items-center justify-center gap-1.5 transition-all">
+                            <span>🎁 Tham gia Sự kiện Tặng 02 Key PRO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Từ khóa (Tags) chuẩn SEO Báo chí -->
+            <div class="mt-8 pt-5 border-t border-gray-100 flex flex-wrap items-center gap-2 text-xs">
+                <span class="font-bold text-gray-500 mr-1">🏷️ Từ khóa:</span>
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">#DNAPlugin</span>
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">#BanDoLamNghiep</span>
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">#HeToaDoVN2000</span>
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">#KiemLam</span>
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">#QuanLyBaoVeRung</span>
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">#DoanNgocAnPlugin</span>
+            </div>
+
+        </article>
+
+        <!-- CỘT PHẢI (4/12): SIDEBAR GHIM CỐ ĐỊNH (MỤC LỤC + THẺ TẢI APP + SỰ KIỆN) -->
+        <aside class="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
+
+            <!-- 1. Hộp Mục lục bài viết -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-[#0F3823] px-5 py-3.5 flex items-center gap-2">
+                    <span class="text-[#FACC15]">📑</span>
+                    <h3 class="font-extrabold text-white text-xs uppercase tracking-wider">
+                        Nội dung chính trong bài
+                    </h3>
+                </div>
+                <nav class="p-4 space-y-2 text-xs font-semibold text-gray-700">
+                    <a href="#muc-1" class="block px-3 py-2 rounded-xl hover:bg-[#E2F1E8] hover:text-[#0F3823] transition-colors">
+                        1. Bài toán thực địa của Kiểm lâm & Bảo vệ rừng
+                    </a>
+                    <a href="#muc-2" class="block px-3 py-2 rounded-xl hover:bg-[#E2F1E8] hover:text-[#0F3823] transition-colors">
+                        2. 5 Đột phá kỹ thuật GIS trên DNAPlugin
+                    </a>
+                    <a href="#muc-3" class="block px-3 py-2 rounded-xl hover:bg-[#E2F1E8] hover:text-[#0F3823] transition-colors">
+                        3. Giám sát rừng bằng Vệ tinh Sentinel-2 & 3D
+                    </a>
+                    <a href="#muc-4" class="block px-3 py-2 rounded-xl hover:bg-[#E2F1E8] hover:text-[#0F3823] transition-colors">
+                        4. Dự Án Lâm Sinh & Xuất Trích lục PDF A4
+                    </a>
+                    <a href="#muc-5" class="block px-3 py-2 rounded-xl hover:bg-[#E2F1E8] hover:text-[#0F3823] transition-colors">
+                        5. Ứng dụng cho Kiểm lâm, BQL Rừng & Công ty
+                    </a>
+                </nav>
+            </div>
+
+            <!-- 2. Thẻ Thông số Kỹ thuật & Tải nhanh Ứng dụng -->
+            <div class="bg-white rounded-2xl shadow-sm border border-green-200 overflow-hidden">
+                <div class="bg-[#E2F1E8] p-5 flex items-center gap-3.5 border-b border-green-200">
+                    <img src="DNAPlugin.png" alt="DNAPlugin" class="w-14 h-14 rounded-2xl border-2 border-green-600 bg-white p-1 shrink-0 object-contain">
+                    <div>
+                        <span class="text-[10px] font-extrabold bg-green-700 text-white px-2 py-0.5 rounded uppercase">CHÍNH THỨC</span>
+                        <h3 class="font-black text-[#0F3823] text-lg leading-tight mt-0.5">DNAPlugin Mobile</h3>
+                        <p class="text-xs text-green-800 font-semibold">Bản đồ Kỹ thuật Lâm nghiệp</p>
+                    </div>
+                </div>
+
+                <div class="p-5 space-y-3 text-xs">
+                    <div class="flex justify-between py-1.5 border-b border-gray-100">
+                        <span class="text-gray-500">Nền tảng hỗ trợ:</span>
+                        <span class="font-bold text-[#0F3823]">Android & Windows (QGIS)</span>
+                    </div>
+                    <div class="flex justify-between py-1.5 border-b border-gray-100">
+                        <span class="text-gray-500">Hệ tọa độ:</span>
+                        <span class="font-bold text-[#0F3823]">VN-2000 (63 tỉnh) & WGS-84</span>
+                    </div>
+                    <div class="flex justify-between py-1.5 border-b border-gray-100">
+                        <span class="text-gray-500">Định dạng bản đồ:</span>
+                        <span class="font-bold text-[#0F3823]">TAB, SHP, DGN, MBTiles, TIF...</span>
+                    </div>
+                    <div class="flex justify-between py-1.5 border-b border-gray-100">
+                        <span class="text-gray-500">Chế độ hoạt động:</span>
+                        <span class="font-bold text-green-700">100% Ngoại tuyến (Offline)</span>
+                    </div>
+                    <div class="flex justify-between py-1.5">
+                        <span class="text-gray-500">Hỗ trợ kỹ thuật:</span>
+                        <span class="font-bold text-[#0F3823]">Zalo 085.652.1139</span>
+                    </div>
+
+                    <div class="pt-3 space-y-2.5">
+                        <a href="https://play.google.com/store/apps/details?id=com.DNAPlugin.dnaplugin.app" target="_blank" rel="noopener noreferrer" class="w-full bg-[#0F3823] hover:bg-green-900 text-[#FACC15] font-black text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow transition-all">
+                            <span>📲 TẢI TRÊN GOOGLE PLAY</span>
+                        </a>
+                        <a href="https://gis.vn/DoanNgocAnPlugin-Setup" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all">
+                            <span>💻 Tải Plugin cho QGIS Windows</span>
+                        </a>
+                        <a href="pro.html" class="w-full bg-[#FACC15]/20 hover:bg-[#FACC15]/30 text-[#0F3823] border border-yellow-400 font-extrabold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all">
+                            <span>🔑 Kích hoạt Bản quyền PRO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Thẻ Quảng bá Sự kiện Quay số đang diễn ra -->
+            <div class="gis-background rounded-2xl p-5 text-white border-2 border-[#FACC15] shadow-lg">
+                <span class="inline-block bg-red-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase mb-2">
+                    🔥 Sự kiện đang diễn ra
+                </span>
+                <h4 class="font-black text-base text-[#FACC15] leading-snug">
+                    Vòng Quay May Mắn: Tặng 02 Key DNAPlugin PRO Vĩnh Viễn
+                </h4>
+                <p class="text-xs text-green-100 mt-1.5 leading-relaxed">
+                    Tải ứng dụng, chụp màn hình Mã thiết bị (8 ký tự) bình luận trên Facebook và tra cứu danh sách quay số công khai.
+                </p>
+                <a href="quay-so.html" class="mt-4 w-full bg-[#FACC15] hover:bg-yellow-300 text-[#0F3823] font-black text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                    <span>🎲 Xem Danh sách & Vòng quay</span>
+                </a>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Dải ruy băng chạy chữ -->
+    <div class="relative flex overflow-x-hidden bg-green-600 text-white py-3 border-y border-green-700 shadow-md z-30">
+        <div class="animate-marquee whitespace-nowrap flex items-center gap-6 font-medium text-sm md:text-base">
+            <span class="flex items-center">
+                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
+                <span class="mx-6 text-green-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
+                <span class="mx-6 text-green-300">✦</span>
+            </span>
+            <span class="flex items-center">
+                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
+                <span class="mx-6 text-green-300">✦</span>
+                DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
+                <span class="mx-6 text-green-300">✦</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Chân trang (Đồng bộ chuẩn index.html) -->
+    <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 mt-auto z-10 relative">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            
+            <!-- 1. BẢN QUYỀN & LIÊN HỆ (Bên trái) -->
+            <div class="text-center md:text-left text-sm flex flex-col justify-center">
+                <div class="mb-3">
+                    <p class="font-bold text-gray-300 mb-1 text-base">&copy; 2026 DNAPlugin.</p>
+                    <p>Bản quyền thuộc về tác giả Đoàn Ngọc Ấn.</p>
+                </div>
+                
+                <div class="space-y-1.5 pt-3 border-t border-gray-800">
+                    <p>Hỗ trợ kỹ thuật: Zalo <strong class="text-white">085.652.1139</strong></p>
+                    <p>Email: <a href="mailto:ngocan.holak@gmail.com" class="text-white hover:text-[#FACC15] transition-colors no-underline">ngocan.holak@gmail.com</a></p>
+                    <p>Group Zalo: <a href="https://zalo.me/g/tqpvylgqn23umbnzdles" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#FACC15] transition-colors no-underline">DNAPlugin - DoanNgocAnPlugin</a></p>
+                    <p>Group Facebook: <a href="https://www.facebook.com/groups/197030321506227" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#FACC15] transition-colors no-underline">Ứng dụng Công nghệ trong lĩnh vực Lâm nghiệp</a></p>
+                </div>
+            </div>
+
+            <!-- 2. WEBSITE (Ở giữa) -->
+            <div class="text-center flex flex-col justify-center items-center">
+                <a href="https://www.dnaplugin.id.vn" target="_blank" class="inline-block text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#FACC15] hover:scale-110 transition-transform duration-300 drop-shadow-md">
+                    www.dnaplugin.id.vn
+                </a>
+                <div class="w-16 h-1 bg-green-600 rounded-full mt-2 opacity-50"></div>
+            </div>
+
+            <!-- 3. THỐNG KÊ TRUY CẬP TỪ API (Bên phải) -->
+            <div class="flex justify-center md:justify-end">
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg w-full max-w-[280px]">
+                    <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-3 flex items-center justify-between border-b border-gray-700 pb-2">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            Thống Kê Truy Cập
+                        </span>
+                        <span class="flex h-2.5 w-2.5 relative" title="Hệ thống đang hoạt động">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                        </span>
+                    </h4>
+                    
+                    <div class="grid grid-cols-2 gap-y-3 gap-x-4 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Đang Online:</span>
+                            <span class="font-bold text-green-400" id="stat-online">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Hôm nay:</span>
+                            <span class="font-bold text-white" id="stat-today">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Tuần này:</span>
+                            <span class="font-bold text-white" id="stat-week">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] text-gray-400">Tháng này:</span>
+                            <span class="font-bold text-white" id="stat-month">--</span>
+                        </div>
+                        <div class="col-span-2 flex justify-between items-center bg-gray-900 px-3 py-2 rounded-lg border border-gray-700 mt-1">
+                            <span class="text-xs font-bold text-gray-400">TỔNG TRUY CẬP:</span>
+                            <span id="stat-loading" class="w-4 h-4 border-2 border-[#FACC15] border-t-transparent rounded-full animate-spin"></span>
+                            <span class="font-black text-[#FACC15] text-base tracking-wider hidden" id="stat-total">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- SCRIPT 1: THANH TIẾN TRÌNH ĐỌC BÁO & ĐỌC BÀI VIẾT BẰNG GIỌNG NÓI -->
+    <script>
+        // Cập nhật thanh tiến trình đọc bài trên đỉnh trang
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            document.getElementById('reading-progress').style.width = scrolled + "%";
+        });
+
+        // Tính năng "Nghe bài viết" giống các báo điện tử lớn
+        const ttsBtn = document.getElementById('btn-tts');
+        let isSpeaking = false;
+        if (ttsBtn && 'speechSynthesis' in window) {
+            ttsBtn.addEventListener('click', () => {
+                if (isSpeaking) {
+                    window.speechSynthesis.cancel();
+                    isSpeaking = false;
+                    ttsBtn.innerHTML = '<span>🔊 Nghe bài viết</span>';
+                    return;
+                }
+                const textToRead = document.getElementById('article-content').innerText;
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = 'vi-VN';
+                utterance.rate = 1.05;
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    ttsBtn.innerHTML = '<span>🔊 Nghe bài viết</span>';
+                };
+                window.speechSynthesis.speak(utterance);
+                isSpeaking = true;
+                ttsBtn.innerHTML = '<span class="text-red-600">⏹️ Dừng đọc</span>';
+            });
+        }
+    </script>
+
+    <!-- SCRIPT 2: THỐNG KÊ TRUY CẬP & PHIÊN BẢN APK TỪ GITHUB -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const API_URL = "https://script.google.com/macros/s/AKfycbzS9CSXfayjRdu0V193p6AOMYWgbbufE6agax7VZBbjsHUbRFfPu5nH_41RGMUehA8M/exec"; 
+            let action = "get"; 
+            if (!sessionStorage.getItem("dna_counted")) {
+                action = "add";
+                sessionStorage.setItem("dna_counted", "true");
+            }
+            fetch(`${API_URL}?action=${action}`)
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('stat-online').textContent = data.online;
+                    document.getElementById('stat-today').textContent = data.today.toLocaleString('vi-VN');
+                    document.getElementById('stat-week').textContent = data.week.toLocaleString('vi-VN');
+                    document.getElementById('stat-month').textContent = data.month.toLocaleString('vi-VN');
+                    document.getElementById('stat-total').textContent = data.total.toLocaleString('vi-VN');
+                    document.getElementById('stat-loading').classList.add('hidden');
+                    document.getElementById('stat-total').classList.remove('hidden');
+                })
+                .catch(() => {
+                    document.getElementById('stat-loading').classList.add('hidden');
+                    document.getElementById('stat-total').classList.remove('hidden');
+                    document.getElementById('stat-total').textContent = "-";
+                });
+
+            const versionSpan = document.getElementById('apk-version');
+            if (versionSpan) {
+                fetch('https://api.github.com/repos/AGAServer/DNAPlugin/releases/latest')
+                    .then(r => r.json())
+                    .then(d => { versionSpan.textContent = d.tag_name ? ('Phiên bản ' + d.tag_name) : 'Bản mới nhất'; })
+                    .catch(() => { versionSpan.textContent = 'Bản mới nhất'; });
+            }
+        });
+    </script>
+</body>
+</html>
