@@ -636,7 +636,18 @@
 
         // Hàm tạo lệnh F12 Console quét bình luận Facebook
         function buildFacebookConsoleScannerScript(requireImage, requireThreeTags) {
-            return `(function(){
+    return `(function(){
+  // 1. Nếu bạn đang mở sẵn hộp thoại Danh sách Like hoặc Chia sẻ, quét tên trong hộp thoại trước
+  window._dnaLikedOrShared = window._dnaLikedOrShared || new Set();
+  const dialogLinks = document.querySelectorAll('div[role="dialog"] a[role="link"]');
+  dialogLinks.forEach(a => {
+    const txt = (a.innerText || '').trim();
+    if (txt && txt.length > 2 && !txt.includes('Kết bạn') && !txt.includes('Nhắn tin')) {
+      window._dnaLikedOrShared.add(txt.toLowerCase());
+    }
+  });
+
+  // 2. Quét danh sách Bình luận hợp lệ
   const articles = document.querySelectorAll('div[role="article"]');
   const results = [];
   const seenNames = new Set();
@@ -646,15 +657,27 @@
     if (!label.includes('Bình luận') && !label.includes('Comment') && !label.includes('Phản hồi')) return;
 
     let authorName = '';
-    const authorLink = art.querySelector('a[role="link"] span[dir="auto"]');
-    if (authorLink && authorLink.innerText.trim()) {
-      authorName = authorLink.innerText.trim();
+    let profileUrl = '';
+    const authorAnchor = art.querySelector('a[role="link"]');
+    const authorSpan = art.querySelector('a[role="link"] span[dir="auto"]');
+
+    if (authorSpan && authorSpan.innerText.trim()) {
+      authorName = authorSpan.innerText.trim();
+      if (authorAnchor && authorAnchor.href) {
+        profileUrl = authorAnchor.href.split('?')[0];
+      }
     } else {
       const m = label.match(/(?:dưới tên|by)\\s+([^,]+?)(?:\\s+vào|\\s+khoảng|\\s+lúc|\\s+\\d|$)/i);
       if (m) authorName = m[1].trim();
     }
     if (!authorName || seenNames.has(authorName.toLowerCase())) return;
 
+    // Kiểm tra huy hiệu "Người chia sẻ" của Facebook hoặc nằm trong danh sách hộp thoại đã mở
+    const fullText = art.innerText || '';
+    const isSharerBadge = fullText.includes('Người chia sẻ') || fullText.includes('Sharer');
+    const inPopupList = window._dnaLikedOrShared.has(authorName.toLowerCase());
+
+    // Kiểm tra ảnh chụp Mã thiết bị
     let commentImgUrl = '';
     const imgs = art.querySelectorAll('img');
     imgs.forEach(img => {
@@ -666,6 +689,7 @@
       }
     });
 
+    // Đếm số lượt tag đồng nghiệp
     const allLinks = art.querySelectorAll('div[dir="auto"] a[role="link"]');
     const tagCount = allLinks.length;
 
@@ -677,7 +701,9 @@
       results.push({
         name: authorName,
         img: commentImgUrl,
-        tags: tagCount
+        tags: tagCount,
+        profile: profileUrl,
+        shared: (isSharerBadge || inPopupList)
       });
     }
   });
@@ -685,14 +711,13 @@
   const jsonStr = JSON.stringify(results, null, 2);
   if (typeof copy === 'function') {
     copy(jsonStr);
-    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ và tự động COPY vào bộ nhớ tạm!\\n\\nHãy quay sang trang Quay Số DNAPlugin và bấm nút [2. DÁN & LƯU HỆ THỐNG].');
+    alert('✅ Đã quét ' + results.length + ' người hợp lệ (kèm Link FB cá nhân để kiểm tra Share) và COPY vào bộ nhớ tạm!');
   } else {
     navigator.clipboard.writeText(jsonStr);
-    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ!');
+    alert('✅ Đã quét ' + results.length + ' người hợp lệ!');
   }
-  console.log('Danh sách hợp lệ DNAPlugin:', results);
 })();`;
-        }
+}
 
         document.getElementById('btn-copy-script').addEventListener('click', async () => {
             const reqImg = document.getElementById('chk-require-image').checked;
