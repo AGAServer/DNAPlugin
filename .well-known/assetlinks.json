@@ -1,0 +1,17 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.DNAPlugin.dnaplugin.app",
+      "sha256_cert_fingerprints": [
+        "9F:78:59:DC:5E:AD:63:BF:38:6A:72:74:2F:C2:A1:3E:FF:59:2E:DC:70:8A:E2:2B:4F:43:9A:98:C9:BF:46:C0",
+        "49:A5:BC:00:96:37:84:BE:68:DA:C1:15:6B:36:95:D0:77:AD:1C:C7:EA:78:33:95:0A:6B:6D:8B:36:27:B9:1B",
+        "AA:C5:A1:B2:45:C4:D7:6F:09:0C:F7:CE:73:68:73:B5:EC:9E:6E:3C:47:54:C9:59:2E:BE:69:29:53:F8:3C:7F"
+      ]
+    }
+  }
+]
