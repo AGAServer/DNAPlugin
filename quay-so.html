@@ -114,7 +114,7 @@
                         Vòng Quay May Mắn <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FACC15] to-[#34d399]">Tặng 02 Key DNAPlugin PRO</span>
                     </h1>
                     <p class="text-xs md:text-sm text-green-100 mt-1.5 max-w-2xl">
-                        Danh sách người tham gia hợp lệ và kết quả quay số được lưu trữ & đồng bộ trực tiếp trên máy chủ DNAPlugin để mọi thành viên cùng theo dõi minh bạch.
+                        Danh sách người tham gia hợp lệ (Like + Chia sẻ + Ảnh chụp Mã thiết bị + Tag 03 đồng nghiệp) được lưu trữ & đồng bộ trực tiếp trên máy chủ DNAPlugin.
                     </p>
                 </div>
             </div>
@@ -142,7 +142,7 @@
             <span class="flex items-center">
                 🎁 Sự kiện Tặng 02 Key kích hoạt DNAPlugin PRO vĩnh viễn theo máy
                 <span class="mx-6 text-yellow-300">✦</span>
-                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
+                Thể lệ: Like & Chia sẻ công khai + Bình luận ảnh Mã thiết bị + Tag 03 đồng nghiệp
                 <span class="mx-6 text-yellow-300">✦</span>
                 DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
                 <span class="mx-6 text-yellow-300">✦</span>
@@ -150,7 +150,7 @@
             <span class="flex items-center">
                 🎁 Sự kiện Tặng 02 Key kích hoạt DNAPlugin PRO vĩnh viễn theo máy
                 <span class="mx-6 text-yellow-300">✦</span>
-                DNAPlugin - Công cụ tiện ích Kỹ thuật Lâm nghiệp trên thiết bị Android
+                Thể lệ: Like & Chia sẻ công khai + Bình luận ảnh Mã thiết bị + Tag 03 đồng nghiệp
                 <span class="mx-6 text-yellow-300">✦</span>
                 DoanNgocAnPlugin - Phần mềm tiện ích Kỹ thuật Lâm nghiệp trên Desktop
                 <span class="mx-6 text-yellow-300">✦</span>
@@ -170,7 +170,7 @@
                     <div class="flex items-center gap-2.5">
                         <span class="px-2 py-0.5 rounded bg-[#FACC15] text-[#0F3823] font-black text-[11px]">ADMIN</span>
                         <h2 class="font-extrabold text-white text-sm uppercase tracking-wider">
-                            Quét & Lưu Danh Sách Lên Máy Chủ
+                            Quét Like & Bình Luận Lên Máy Chủ
                         </h2>
                     </div>
                     <button id="btn-hide-admin-panel" class="text-xs text-green-300 hover:text-white underline">
@@ -180,20 +180,27 @@
 
                 <div class="p-5 space-y-4">
                     <div class="bg-[#F0FDF4] border border-green-200 rounded-xl p-3.5 text-xs text-gray-700 space-y-1.5 leading-relaxed">
-                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Quy trình quét kèm Link Facebook cá nhân:</p>
-                        <p><b>1.</b> Mở bài viết Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết các bình luận.</p>
-                        <p><b>2.</b> Bấm <b>"1. Chép Lệnh Quét"</b> $\rightarrow$ qua tab Facebook nhấn <b>F12 (Console)</b>, dán lệnh và nhấn <b>Enter</b> (tự động lấy Tên + Ảnh Mã thiết bị + Link FB cá nhân để kiểm tra Share).</p>
-                        <p><b>3.</b> Quay lại đây bấm <b>"2. Dán & Lưu Hệ Thống"</b> để đồng bộ lên Google Sheet!</p>
+                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Quy trình quét đủ cả Like + Ảnh Mã TB + Tag 3 bạn:</p>
+                        <p><b>Bước 1:</b> Mở bài viết Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết bình luận.</p>
+                        <p><b>Bước 2 (Quét Like):</b> Bấm vào biểu tượng <b>👍❤️ (Số lượt thích bài viết)</b> để bảng danh sách người Like hiện lên trên màn hình.</p>
+                        <p><b>Bước 3:</b> Bấm <b>"1. Chép Lệnh Quét"</b> bên dưới $\rightarrow$ qua tab Facebook nhấn <b>F12 (Console)</b>, dán lệnh và nhấn <b>Enter</b> (Lệnh sẽ tự động cuộn bảng Like để ghi nhớ 100% người đã Like, sau đó quét toàn bộ Bình luận và đối chiếu!).</p>
+                        <p><b>Bước 4:</b> Quay lại đây bấm <b>"2. Dán & Lưu Hệ Thống"</b> để đồng bộ lên Google Sheet.</p>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-4 text-xs font-bold text-[#0F3823] bg-gray-50 px-3.5 py-2.5 rounded-xl border border-gray-200">
+                    <!-- Tùy chọn điều kiện lọc -->
+                    <div class="space-y-2 text-xs font-bold text-[#0F3823] bg-gray-50 px-3.5 py-3 rounded-xl border border-gray-200">
+                        <p class="text-[11px] text-gray-500 uppercase tracking-wider mb-1">Điều kiện tự động lọc khi quét:</p>
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="chk-require-image" checked class="accent-green-700 w-4 h-4 rounded">
-                            <span>Bắt buộc có ảnh Mã thiết bị</span>
+                            <span>📸 Bắt buộc có ảnh chụp Mã thiết bị</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="chk-require-tags" class="accent-green-700 w-4 h-4 rounded">
-                            <span>Bắt buộc tag đủ 3 đồng nghiệp</span>
+                            <input type="checkbox" id="chk-require-tags" checked class="accent-green-700 w-4 h-4 rounded">
+                            <span>🏷️ Bắt buộc tag đủ từ 03 đồng nghiệp trở lên</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="chk-require-like" class="accent-green-700 w-4 h-4 rounded">
+                            <span>👍 Bắt buộc có tên trong danh sách đã Like bài viết</span>
                         </label>
                     </div>
 
@@ -306,7 +313,7 @@
                     </div>
                 </div>
 
-                <!-- Khu vực hiển thị 02 Người Trúng Giải (Có nút Quay lại từng giải độc lập cho Admin) -->
+                <!-- Khu vực hiển thị 02 Người Trúng Giải -->
                 <div class="relative z-10 mt-6 pt-5 border-t border-green-800/80">
                     <div class="flex items-center justify-center gap-2 mb-4">
                         <span class="text-lg">🏆</span>
@@ -317,11 +324,11 @@
                     </div>
 
                     <div id="winners-container" class="grid sm:grid-cols-2 gap-4">
-                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[150px] text-center">
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[160px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #1</span>
                             <p class="text-xs text-green-200/50 italic">Đang chờ công bố...</p>
                         </div>
-                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[150px] text-center">
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[160px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #2</span>
                             <p class="text-xs text-green-200/50 italic">Đang chờ công bố...</p>
                         </div>
@@ -486,13 +493,13 @@
         });
     </script>
 
-    <!-- SCRIPT 2: ĐỒNG BỘ DANH SÁCH CÔNG KHAI, KIỂM TRA FB & QUAY LẠI TỪNG GIẢI ĐỘC LẬP -->
+    <!-- SCRIPT 2: QUÉT LIKE + BÌNH LUẬN, LƯU GOOGLE SHEET & QUAY LẠI TỪNG GIẢI ĐỘC LẬP -->
     <script>
         const EVENT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQWnUbyGRsjPhaTQjfQkHl2bVKOxJp37MG-Sl6IeJzV-F_2f-3qAlmSuiJE--Sw2l/exec";
 
         let participants = [];
         let winners = [null, null];
-        let disqualifiedNames = new Set(); // Lưu danh sách người bị loại do thiếu Like/Share trong phiên quay
+        let disqualifiedNames = new Set();
         let isSpinning = false;
         let verifiedAdminKey = sessionStorage.getItem("dna_event_admin_key") || "";
 
@@ -511,27 +518,38 @@
         const adminSpinControls = document.getElementById('admin-spin-controls');
         const adminBtnLabel = document.getElementById('admin-btn-label');
 
-        // Tách chuỗi img + profile (được đóng gói chung vào cột Link Ảnh trên Google Sheet để không cần sửa Mã.gs)
+        // Giải nén dữ liệu Ảnh + Link FB + Trạng thái Đã Like từ trường img trên Google Sheet
         function unpackParticipantItem(rawItem) {
             if (!rawItem) return null;
-            const rawImgField = (rawItem.img || "").toString().trim();
-            const parts = rawImgField.split("#FB#");
+            let rawStr = (rawItem.img || "").toString().trim();
+            let likedFlag = (rawItem.liked === true || rawItem.liked === 1);
+
+            if (rawStr.includes("#LK#")) {
+                const lkSplit = rawStr.split("#LK#");
+                rawStr = lkSplit[0];
+                if (lkSplit[1] === "1") likedFlag = true;
+            }
+
+            const fbSplit = rawStr.split("#FB#");
             return {
                 stt: rawItem.stt,
                 name: (rawItem.name || "").toString().trim(),
-                img: (parts[0] || "").trim(),
-                profile: (rawItem.profile || parts[1] || "").trim(),
+                img: (fbSplit[0] || "").trim(),
+                profile: (rawItem.profile || fbSplit[1] || "").trim(),
+                liked: likedFlag,
                 tags: Number(rawItem.tags || 0),
                 win_slot: Number(rawItem.win_slot || 0)
             };
         }
 
+        // Đóng gói Ảnh + Link FB + Trạng thái Đã Like vào trường img để lưu lên Google Sheet mà không cần sửa Mã.gs
         function packParticipantForUpload(item) {
-            const cleanImg = (item.img || "").toString().split("#FB#")[0].trim();
-            const cleanProfile = (item.profile || "").toString().trim();
+            const cleanImg = (item.img || "").toString().split("#FB#")[0].split("#LK#")[0].trim();
+            const cleanProfile = (item.profile || "").toString().split("#LK#")[0].trim();
+            const lkVal = item.liked ? "1" : "0";
             return {
                 name: (item.name || "").toString().trim(),
-                img: cleanProfile ? `${cleanImg}#FB#${cleanProfile}` : cleanImg,
+                img: `${cleanImg}#FB#${cleanProfile}#LK#${lkVal}`,
                 tags: Number(item.tags || 0)
             };
         }
@@ -660,9 +678,35 @@
 
         document.getElementById('btn-refresh-cloud').addEventListener('click', fetchPublicEventData);
 
-        // Lệnh F12 Console quét Tên + Ảnh Mã thiết bị + Link FB cá nhân (để kiểm tra Like/Share)
-        function buildFacebookConsoleScannerScript(requireImage, requireThreeTags) {
-            return `(function(){
+        // Lệnh F12 Console: Tự động cuộn bảng Like (nếu đang mở) + Quét Bình luận + Đối chiếu điều kiện Like
+        function buildFacebookConsoleScannerScript(requireImage, requireThreeTags, requireLike) {
+            return `(async function(){
+  window._dnaLikedSet = window._dnaLikedSet || new Set();
+
+  // BƯỚC 1: NẾU ĐANG MỞ BẢNG DANH SÁCH NGƯỜI LIKE / BÀY TỎ CẢM XÚC -> TỰ ĐỘNG CUỘN & QUÉT TÊN NGƯỜI ĐÃ LIKE
+  const dialogs = Array.from(document.querySelectorAll('div[role="dialog"]'));
+  for (const dlg of dialogs) {
+    // Tìm khung cuộn bên trong hộp thoại Cảm xúc
+    const scrollables = Array.from(dlg.querySelectorAll('div')).filter(el => {
+      const st = window.getComputedStyle(el);
+      return (st.overflowY === 'auto' || st.overflowY === 'scroll') && el.scrollHeight > el.clientHeight;
+    });
+    for (const sc of scrollables) {
+      for (let step = 0; step < 15; step++) {
+        sc.scrollTop = sc.scrollHeight;
+        await new Promise(r => setTimeout(r, 250));
+      }
+    }
+    const dlgLinks = dlg.querySelectorAll('a[role="link"]');
+    dlgLinks.forEach(a => {
+      const txt = (a.innerText || '').trim();
+      if (txt && txt.length >= 2 && !txt.includes('Kết bạn') && !txt.includes('Nhắn tin') && !txt.includes('Theo dõi')) {
+        window._dnaLikedSet.add(txt.toLowerCase());
+      }
+    });
+  }
+
+  // BƯỚC 2: QUÉT DANH SÁCH BÌNH LUẬN VÀ ĐỐI CHIẾU VỚI DANH SÁCH ĐÃ LIKE
   const articles = document.querySelectorAll('div[role="article"]');
   const results = [];
   const seenNames = new Set();
@@ -678,7 +722,7 @@
       const sp = authorLinks[i].querySelector('span[dir="auto"]');
       if (sp && sp.innerText.trim()) {
         authorName = sp.innerText.trim();
-        if (authorLinks[i].href && !authorLinks[i].href.includes(' comment_id=')) {
+        if (authorLinks[i].href && !authorLinks[i].href.includes('comment_id=')) {
           profileUrl = authorLinks[i].href.split('?')[0];
         }
         break;
@@ -689,6 +733,8 @@
       if (m) authorName = m[1].trim();
     }
     if (!authorName || seenNames.has(authorName.toLowerCase())) return;
+
+    const hasLikedPost = window._dnaLikedSet.has(authorName.toLowerCase());
 
     let commentImgUrl = '';
     const imgs = art.querySelectorAll('img');
@@ -706,36 +752,38 @@
 
     const passImage = ${requireImage ? 'Boolean(commentImgUrl)' : 'true'};
     const passTags = ${requireThreeTags ? '(tagCount >= 3)' : 'true'};
+    const passLike = ${requireLike ? 'hasLikedPost' : 'true'};
 
-    if (passImage && passTags) {
+    if (passImage && passTags && passLike) {
       seenNames.add(authorName.toLowerCase());
       results.push({
         name: authorName,
         img: commentImgUrl,
         profile: profileUrl,
+        liked: hasLikedPost,
         tags: tagCount
       });
     }
   });
 
   const jsonStr = JSON.stringify(results, null, 2);
-  if (typeof copy === 'function') {
-    copy(jsonStr);
-    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ (kèm Link FB cá nhân) và COPY vào bộ nhớ tạm!\\n\\nHãy quay sang trang Quay Số DNAPlugin và bấm nút [2. DÁN & LƯU HỆ THỐNG].');
-  } else {
-    navigator.clipboard.writeText(jsonStr);
-    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ!');
+  try {
+    await navigator.clipboard.writeText(jsonStr);
+  } catch (_) {
+    if (typeof copy === 'function') copy(jsonStr);
   }
+  alert('✅ Đã ghi nhận ' + window._dnaLikedSet.size + ' người Like bài viết và lọc ra ' + results.length + ' người chơi hợp lệ!\\n\\nDữ liệu đã tự động COPY, bạn hãy quay sang trang Quay Số và bấm [2. DÁN & LƯU HỆ THỐNG].');
 })();`;
         }
 
         document.getElementById('btn-copy-script').addEventListener('click', async () => {
             const reqImg = document.getElementById('chk-require-image').checked;
             const reqTags = document.getElementById('chk-require-tags').checked;
-            const code = buildFacebookConsoleScannerScript(reqImg, reqTags);
+            const reqLike = document.getElementById('chk-require-like').checked;
+            const code = buildFacebookConsoleScannerScript(reqImg, reqTags, reqLike);
             try {
                 await navigator.clipboard.writeText(code);
-                alert("✅ Đã chép Lệnh Quét Facebook!\n\nBây giờ bạn qua tab bài viết Facebook -> nhấn F12 (tab Console) -> dán lệnh vào cuối dấu (>) và nhấn Enter.");
+                alert("✅ Đã chép Lệnh Quét (Like + Ảnh Mã TB + Tag 3 bạn)!\n\nBây giờ bạn qua tab bài viết Facebook:\n1. Mở hết bình luận VÀ bấm vào số lượt Like (👍❤️) để mở bảng người Like.\n2. Nhấn F12 (tab Console) -> dán lệnh vào cuối dấu (>) và nhấn Enter.");
             } catch (e) {
                 rawInputBox.value = code;
                 rawInputBox.select();
@@ -758,6 +806,7 @@
                                 name: name,
                                 img: (item.img || '').toString().trim(),
                                 profile: (item.profile || '').toString().trim(),
+                                liked: Boolean(item.liked),
                                 tags: Number(item.tags || 0)
                             }));
                         }
@@ -884,8 +933,9 @@
                             <p class="font-bold text-xs ${isDisqualified ? 'line-through text-red-700' : 'text-[#0F3823]'} truncate">
                                 ${p.name} ${isWinner ? '🏆' : ''} ${isDisqualified ? '(Thiếu ĐK)' : ''}
                             </p>
-                            <div class="flex items-center gap-2 text-[10px] text-green-700 font-semibold">
-                                <span>${p.img ? '📸 Có ảnh Mã TB' : '✔️ Hợp lệ'}${p.tags > 0 ? ` • Tag ${p.tags} bạn` : ''}</span>
+                            <div class="flex flex-wrap items-center gap-1.5 text-[10px] text-green-700 font-semibold mt-0.5">
+                                ${p.liked ? `<span class="bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-bold">👍 Đã Like</span>` : ''}
+                                <span>${p.img ? '📸 Ảnh Mã TB' : '✔️ Hợp lệ'}${p.tags > 0 ? ` • Tag ${p.tags} bạn` : ''}</span>
                                 ${p.profile ? `<a href="${p.profile}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">🔗 Xem FB</a>` : ''}
                             </div>
                         </div>
@@ -906,7 +956,7 @@
                 const w = winners[slotIdx];
                 if (!w) {
                     return `
-                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[155px] text-center">
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[160px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #${slotIdx + 1}</span>
                             <p class="text-xs text-green-200/50 italic">Đang chờ quay số Giải #${slotIdx + 1}...</p>
                         </div>
@@ -927,9 +977,12 @@
                                 </div>
                             `}
                             <div class="min-w-0 flex-1 text-left">
-                                <span class="inline-block bg-[#FACC15] text-[#0F3823] font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">
-                                    🎉 TRÚNG KEY PRO #${slotIdx + 1}
-                                </span>
+                                <div class="flex flex-wrap items-center gap-1.5">
+                                    <span class="inline-block bg-[#FACC15] text-[#0F3823] font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">
+                                        🎉 TRÚNG KEY PRO #${slotIdx + 1}
+                                    </span>
+                                    ${w.liked ? `<span class="bg-blue-500/30 border border-blue-400 text-blue-200 text-[10px] font-bold px-2 py-0.5 rounded-full">👍 Đã Like</span>` : ''}
+                                </div>
                                 <h4 class="font-black text-base md:text-lg text-white mt-1 truncate" title="${w.name}">${w.name}</h4>
                                 <div class="flex flex-wrap items-center gap-2.5 mt-1">
                                     ${w.img ? `
@@ -938,7 +991,7 @@
                                         </button>
                                     ` : ''}
                                     <a href="${fbSearchUrl}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-emerald-300 hover:text-white underline flex items-center gap-1" title="Mở trang cá nhân kiểm tra đã Like & Chia sẻ công khai chưa">
-                                        <span>🔗 Kiểm tra FB</span>
+                                        <span>🔗 Kiểm tra FB (Share/Like)</span>
                                     </a>
                                 </div>
                             </div>
@@ -947,7 +1000,7 @@
                         ${isAdmin ? `
                             <div class="pt-2 border-t border-green-700/70 flex justify-end">
                                 <button onclick="redrawSingleSlot(${slotIdx})" class="w-full bg-red-900/70 hover:bg-red-700 text-red-100 border border-red-500/60 font-bold text-[11px] py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5" title="Giữ nguyên giải kia, chỉ hủy người này và quay lại riêng Giải #${slotIdx + 1}">
-                                    <span>🔄 Thiếu ĐK (Chưa Share) • Quay lại riêng Giải #${slotIdx + 1}</span>
+                                    <span>🔄 Thiếu ĐK (Chưa Like/Share) • Quay lại riêng Giải #${slotIdx + 1}</span>
                                 </button>
                             </div>
                         ` : ''}
@@ -994,7 +1047,6 @@
             draw();
         }
 
-        // Hàm quay số cho 1 vị trí giải cụ thể (slotIdx = 0 là Giải #1, slotIdx = 1 là Giải #2)
         function spinForSpecificSlot(targetSlotIdx) {
             if (isSpinning) return;
             if (!verifiedAdminKey) {
@@ -1039,7 +1091,6 @@
                     renderParticipantList(searchInput.value.trim().toLowerCase());
                     launchConfetti();
 
-                    // Lưu duy nhất vị trí Giải #1 hoặc #2 vừa quay lên Google Sheet (giữ nguyên giải còn lại)
                     try {
                         await fetch(EVENT_SCRIPT_URL, {
                             method: "POST",
@@ -1070,7 +1121,7 @@
 
             const prizeNum = slotIdx + 1;
             const otherPrizeNum = slotIdx === 0 ? 2 : 1;
-            const confirmMsg = `Xác nhận tài khoản "${currentWinner.name}" thiếu điều kiện (chưa Like / Chia sẻ công khai)?\n\n` +
+            const confirmMsg = `Xác nhận tài khoản "${currentWinner.name}" thiếu điều kiện (chưa Like hoặc chưa Chia sẻ công khai)?\n\n` +
                                `👉 Hệ thống sẽ GIỮ NGUYÊN Giải #${otherPrizeNum}, loại "${currentWinner.name}" khỏi vòng quay và QUAY LẠI RIÊNG GIẢI #${prizeNum}!`;
 
             if (!confirm(confirmMsg)) return;
@@ -1080,11 +1131,9 @@
             renderWinners();
             renderParticipantList(searchInput.value.trim().toLowerCase());
 
-            // Tự động quay ngay người mới thay thế vào đúng vị trí giải vừa hủy
             spinForSpecificSlot(slotIdx);
         };
 
-        // Nút Quay số chính
         document.getElementById('btn-spin').addEventListener('click', () => {
             if (isSpinning) return;
             if (!verifiedAdminKey) {
@@ -1098,14 +1147,13 @@
 
             const targetSlotIdx = !winners[0] ? 0 : (!winners[1] ? 1 : -1);
             if (targetSlotIdx === -1) {
-                alert("ℹ️ Đã có đủ 02 người trúng giải! Nếu 1 trong 2 người thiếu điều kiện Like/Share, bạn hãy bấm nút [🔄 Thiếu ĐK • Quay lại riêng Giải #1 (hoặc #2)] ngay trên thẻ của người đó.");
+                alert("ℹ️ Đã có đủ 02 người trúng giải! Nếu 1 trong 2 người thiếu điều kiện Like/Share, bạn hãy bấm nút [🔄 Thiếu ĐK (Chưa Like/Share) • Quay lại riêng Giải #...] ngay trên thẻ của người đó.");
                 return;
             }
 
             spinForSpecificSlot(targetSlotIdx);
         });
 
-        // Đặt lại toàn bộ 2 giải trên Google Sheet (Chỉ Admin)
         document.getElementById('btn-reset-winners').addEventListener('click', async () => {
             if (isSpinning || !verifiedAdminKey) return;
             if (!confirm("Bạn có chắc chắn muốn XÓA CẢ 02 kết quả trúng giải hiện tại trên Google Sheet để quay lại từ đầu không?")) return;
