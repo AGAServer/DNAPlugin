@@ -161,7 +161,7 @@
     <!-- KHU VỰC CHÍNH -->
     <main class="max-w-[1400px] w-full mx-auto px-4 lg:px-6 py-10 grid lg:grid-cols-12 gap-8 flex-1">
 
-        <!-- CỘT TRÁI (5/12): DANH SÁCH CÔNG KHAI & BẢNG QUẢN TRỊ ADMIN (ẨN VỚI NGƯỜI XEM THƯỜNG) -->
+        <!-- CỘT TRÁI (5/12): DANH SÁCH CÔNG KHAI & BẢNG QUẢN TRỊ ADMIN -->
         <div class="lg:col-span-5 space-y-6">
 
             <!-- KHUNG QUẢN TRỊ ADMIN (CHỈ HIỆN KHI ĐĂNG NHẬP ĐÚNG MẬT KHẨU ADMIN) -->
@@ -180,10 +180,10 @@
 
                 <div class="p-5 space-y-4">
                     <div class="bg-[#F0FDF4] border border-green-200 rounded-xl p-3.5 text-xs text-gray-700 space-y-1.5 leading-relaxed">
-                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Quy trình cập nhật danh sách công khai:</p>
-                        <p><b>1.</b> Mở bài viết Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết bình luận.</p>
-                        <p><b>2.</b> Bấm <b>"1. Chép Lệnh Quét"</b> $\rightarrow$ qua tab Facebook nhấn <b>F12 (Console)</b>, dán lệnh và nhấn <b>Enter</b>.</p>
-                        <p><b>3.</b> Quay lại đây bấm <b>"2. Dán & Lưu Lên Hệ Thống"</b> để công khai danh sách cho mọi người cùng xem!</p>
+                        <p class="font-extrabold text-[#0F3823] text-sm mb-1">⚡ Quy trình quét kèm Link Facebook cá nhân:</p>
+                        <p><b>1.</b> Mở bài viết Facebook, chọn <b>"Tất cả bình luận"</b> và bấm mở hết các bình luận.</p>
+                        <p><b>2.</b> Bấm <b>"1. Chép Lệnh Quét"</b> $\rightarrow$ qua tab Facebook nhấn <b>F12 (Console)</b>, dán lệnh và nhấn <b>Enter</b> (tự động lấy Tên + Ảnh Mã thiết bị + Link FB cá nhân để kiểm tra Share).</p>
+                        <p><b>3.</b> Quay lại đây bấm <b>"2. Dán & Lưu Hệ Thống"</b> để đồng bộ lên Google Sheet!</p>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-4 text-xs font-bold text-[#0F3823] bg-gray-50 px-3.5 py-2.5 rounded-xl border border-gray-200">
@@ -224,7 +224,7 @@
                 </div>
             </div>
 
-            <!-- KHUNG DANH SÁCH CÔNG KHAI (AI VÀO WEB CŨNG XEM ĐƯỢC) -->
+            <!-- KHUNG DANH SÁCH CÔNG KHAI -->
             <div class="bg-white rounded-2xl shadow-sm border border-green-200 overflow-hidden">
                 <div class="bg-[#E2F1E8] px-5 py-3.5 flex items-center justify-between border-b border-green-200">
                     <div>
@@ -292,23 +292,21 @@
 
                 <!-- Khu vực Nút điều khiển: Khóa với khách, chỉ mở khi Admin đăng nhập -->
                 <div class="relative z-10 my-2 text-center">
-                    <!-- Thông báo dành cho người xem công khai -->
                     <div id="public-viewer-notice" class="inline-flex items-center gap-2 bg-[#0F3823]/90 border border-green-600/60 text-green-200 text-xs font-bold px-5 py-3 rounded-2xl shadow">
                         <span>🔒 Chế độ Xem Công Khai • Chỉ Quản trị viên (Admin) mới có quyền bấm Quay số</span>
                     </div>
 
-                    <!-- Cụm nút Quay số chỉ hiện khi Admin đã xác thực mật khẩu -->
                     <div id="admin-spin-controls" class="hidden flex-wrap justify-center gap-4">
                         <button id="btn-spin" class="bg-gradient-to-r from-[#FACC15] to-amber-400 hover:from-yellow-300 hover:to-amber-300 text-[#0F3823] font-black text-base md:text-lg px-8 md:px-10 py-4 rounded-2xl shadow-[0_0_25px_rgba(250,204,21,0.45)] border-2 border-white/60 transform active:scale-95 transition-all flex items-center gap-2.5">
                             <span>🎲 BẮT ĐẦU QUAY & LƯU KẾT QUẢ</span>
                         </button>
                         <button id="btn-reset-winners" class="bg-red-900/70 hover:bg-red-800 text-red-100 font-bold text-xs px-5 py-4 rounded-2xl border border-red-600/60 transition-all">
-                            🔄 Đặt lại kết quả trên Server
+                            🔄 Đặt lại toàn bộ 2 giải
                         </button>
                     </div>
                 </div>
 
-                <!-- Khu vực hiển thị 02 Người Trúng Giải -->
+                <!-- Khu vực hiển thị 02 Người Trúng Giải (Có nút Quay lại từng giải độc lập cho Admin) -->
                 <div class="relative z-10 mt-6 pt-5 border-t border-green-800/80">
                     <div class="flex items-center justify-center gap-2 mb-4">
                         <span class="text-lg">🏆</span>
@@ -319,11 +317,11 @@
                     </div>
 
                     <div id="winners-container" class="grid sm:grid-cols-2 gap-4">
-                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[150px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #1</span>
                             <p class="text-xs text-green-200/50 italic">Đang chờ công bố...</p>
                         </div>
-                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[150px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #2</span>
                             <p class="text-xs text-green-200/50 italic">Đang chờ công bố...</p>
                         </div>
@@ -488,13 +486,13 @@
         });
     </script>
 
-    <!-- SCRIPT 2: ĐỒNG BỘ DANH SÁCH CÔNG KHAI TỪ GOOGLE SHEET & PHÂN QUYỀN ADMIN -->
+    <!-- SCRIPT 2: ĐỒNG BỘ DANH SÁCH CÔNG KHAI, KIỂM TRA FB & QUAY LẠI TỪNG GIẢI ĐỘC LẬP -->
     <script>
-        // Đường dẫn Google Apps Script quản lý Google Sheet DNAPlugin_App_License
         const EVENT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDQWnUbyGRsjPhaTQjfQkHl2bVKOxJp37MG-Sl6IeJzV-F_2f-3qAlmSuiJE--Sw2l/exec";
 
         let participants = [];
         let winners = [null, null];
+        let disqualifiedNames = new Set(); // Lưu danh sách người bị loại do thiếu Like/Share trong phiên quay
         let isSpinning = false;
         let verifiedAdminKey = sessionStorage.getItem("dna_event_admin_key") || "";
 
@@ -513,7 +511,31 @@
         const adminSpinControls = document.getElementById('admin-spin-controls');
         const adminBtnLabel = document.getElementById('admin-btn-label');
 
-        // Áp dụng giao diện theo quyền (Khách xem công khai vs Admin)
+        // Tách chuỗi img + profile (được đóng gói chung vào cột Link Ảnh trên Google Sheet để không cần sửa Mã.gs)
+        function unpackParticipantItem(rawItem) {
+            if (!rawItem) return null;
+            const rawImgField = (rawItem.img || "").toString().trim();
+            const parts = rawImgField.split("#FB#");
+            return {
+                stt: rawItem.stt,
+                name: (rawItem.name || "").toString().trim(),
+                img: (parts[0] || "").trim(),
+                profile: (rawItem.profile || parts[1] || "").trim(),
+                tags: Number(rawItem.tags || 0),
+                win_slot: Number(rawItem.win_slot || 0)
+            };
+        }
+
+        function packParticipantForUpload(item) {
+            const cleanImg = (item.img || "").toString().split("#FB#")[0].trim();
+            const cleanProfile = (item.profile || "").toString().trim();
+            return {
+                name: (item.name || "").toString().trim(),
+                img: cleanProfile ? `${cleanImg}#FB#${cleanProfile}` : cleanImg,
+                tags: Number(item.tags || 0)
+            };
+        }
+
         function updateAdminUI(isAdmin) {
             if (isAdmin) {
                 scannerPanel.classList.remove('hidden');
@@ -528,17 +550,21 @@
                 adminSpinControls.classList.remove('flex');
                 adminBtnLabel.textContent = "🔐 Quản trị viên (Admin)";
             }
+            renderWinners();
         }
 
-        // Tải danh sách công khai & kết quả trúng thưởng từ Google Sheet
         async function fetchPublicEventData() {
             cloudSyncTimeEl.textContent = "⏳ Đang đồng bộ danh sách từ máy chủ...";
             try {
                 const resp = await fetch(`${EVENT_SCRIPT_URL}?action=event_get&_t=${Date.now()}`);
                 const data = await resp.json();
                 if (data && data.status === "ok") {
-                    participants = Array.isArray(data.participants) ? data.participants : [];
-                    winners = Array.isArray(data.winners) ? data.winners : [null, null];
+                    participants = Array.isArray(data.participants)
+                        ? data.participants.map(unpackParticipantItem).filter(Boolean)
+                        : [];
+                    winners = Array.isArray(data.winners)
+                        ? [unpackParticipantItem(data.winners[0]), unpackParticipantItem(data.winners[1])]
+                        : [null, null];
 
                     renderParticipantList(searchInput.value.trim().toLowerCase());
                     renderWinners();
@@ -550,9 +576,11 @@
                         rollingSubEl.textContent = "Chúc mừng 02 tài khoản may mắn nhất đã trúng Key DNAPlugin PRO vĩnh viễn!";
                     } else if (activeWinnersCount === 1) {
                         const w1 = winners[0] || winners[1];
-                        rollingStatusEl.textContent = "🎉 ĐÃ TÌM RA CHỦ NHÂN GIẢI PRO #1 🎉";
+                        const slotHas = winners[0] ? 1 : 2;
+                        const slotMissing = winners[0] ? 2 : 1;
+                        rollingStatusEl.textContent = `🎉 ĐÃ TÌM RA CHỦ NHÂN GIẢI PRO #${slotHas} 🎉`;
                         rollingNameEl.textContent = w1.name;
-                        rollingSubEl.textContent = "Đang chờ quay tiếp Giải PRO #2...";
+                        rollingSubEl.textContent = `Đang chờ quay tiếp Giải PRO #${slotMissing}...`;
                     } else {
                         rollingStatusEl.textContent = "SẴN SÀNG QUAY SỐ";
                         rollingNameEl.textContent = "--- 🌲 DNAPlugin PRO 🌲 ---";
@@ -568,7 +596,6 @@
             }
         }
 
-        // Mở / Đóng Modal đăng nhập Admin
         document.getElementById('btn-admin-login').addEventListener('click', () => {
             if (verifiedAdminKey) {
                 if (confirm("Bạn có muốn thoát chế độ Quản trị viên (khóa lại nút Quay số) không?")) {
@@ -596,7 +623,6 @@
             scannerPanel.classList.add('hidden');
         });
 
-        // Xác thực mật khẩu Admin với Google Apps Script
         document.getElementById('btn-submit-admin').addEventListener('click', async () => {
             const pass = document.getElementById('input-admin-pass').value.trim();
             const msgEl = document.getElementById('admin-auth-msg');
@@ -634,20 +660,9 @@
 
         document.getElementById('btn-refresh-cloud').addEventListener('click', fetchPublicEventData);
 
-        // Hàm tạo lệnh F12 Console quét bình luận Facebook
+        // Lệnh F12 Console quét Tên + Ảnh Mã thiết bị + Link FB cá nhân (để kiểm tra Like/Share)
         function buildFacebookConsoleScannerScript(requireImage, requireThreeTags) {
-    return `(function(){
-  // 1. Nếu bạn đang mở sẵn hộp thoại Danh sách Like hoặc Chia sẻ, quét tên trong hộp thoại trước
-  window._dnaLikedOrShared = window._dnaLikedOrShared || new Set();
-  const dialogLinks = document.querySelectorAll('div[role="dialog"] a[role="link"]');
-  dialogLinks.forEach(a => {
-    const txt = (a.innerText || '').trim();
-    if (txt && txt.length > 2 && !txt.includes('Kết bạn') && !txt.includes('Nhắn tin')) {
-      window._dnaLikedOrShared.add(txt.toLowerCase());
-    }
-  });
-
-  // 2. Quét danh sách Bình luận hợp lệ
+            return `(function(){
   const articles = document.querySelectorAll('div[role="article"]');
   const results = [];
   const seenNames = new Set();
@@ -658,26 +673,23 @@
 
     let authorName = '';
     let profileUrl = '';
-    const authorAnchor = art.querySelector('a[role="link"]');
-    const authorSpan = art.querySelector('a[role="link"] span[dir="auto"]');
-
-    if (authorSpan && authorSpan.innerText.trim()) {
-      authorName = authorSpan.innerText.trim();
-      if (authorAnchor && authorAnchor.href) {
-        profileUrl = authorAnchor.href.split('?')[0];
+    const authorLinks = art.querySelectorAll('a[role="link"]');
+    for (let i = 0; i < authorLinks.length; i++) {
+      const sp = authorLinks[i].querySelector('span[dir="auto"]');
+      if (sp && sp.innerText.trim()) {
+        authorName = sp.innerText.trim();
+        if (authorLinks[i].href && !authorLinks[i].href.includes(' comment_id=')) {
+          profileUrl = authorLinks[i].href.split('?')[0];
+        }
+        break;
       }
-    } else {
+    }
+    if (!authorName) {
       const m = label.match(/(?:dưới tên|by)\\s+([^,]+?)(?:\\s+vào|\\s+khoảng|\\s+lúc|\\s+\\d|$)/i);
       if (m) authorName = m[1].trim();
     }
     if (!authorName || seenNames.has(authorName.toLowerCase())) return;
 
-    // Kiểm tra huy hiệu "Người chia sẻ" của Facebook hoặc nằm trong danh sách hộp thoại đã mở
-    const fullText = art.innerText || '';
-    const isSharerBadge = fullText.includes('Người chia sẻ') || fullText.includes('Sharer');
-    const inPopupList = window._dnaLikedOrShared.has(authorName.toLowerCase());
-
-    // Kiểm tra ảnh chụp Mã thiết bị
     let commentImgUrl = '';
     const imgs = art.querySelectorAll('img');
     imgs.forEach(img => {
@@ -689,7 +701,6 @@
       }
     });
 
-    // Đếm số lượt tag đồng nghiệp
     const allLinks = art.querySelectorAll('div[dir="auto"] a[role="link"]');
     const tagCount = allLinks.length;
 
@@ -701,9 +712,8 @@
       results.push({
         name: authorName,
         img: commentImgUrl,
-        tags: tagCount,
         profile: profileUrl,
-        shared: (isSharerBadge || inPopupList)
+        tags: tagCount
       });
     }
   });
@@ -711,13 +721,13 @@
   const jsonStr = JSON.stringify(results, null, 2);
   if (typeof copy === 'function') {
     copy(jsonStr);
-    alert('✅ Đã quét ' + results.length + ' người hợp lệ (kèm Link FB cá nhân để kiểm tra Share) và COPY vào bộ nhớ tạm!');
+    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ (kèm Link FB cá nhân) và COPY vào bộ nhớ tạm!\\n\\nHãy quay sang trang Quay Số DNAPlugin và bấm nút [2. DÁN & LƯU HỆ THỐNG].');
   } else {
     navigator.clipboard.writeText(jsonStr);
-    alert('✅ Đã quét ' + results.length + ' người hợp lệ!');
+    alert('✅ Đã quét được ' + results.length + ' tài khoản hợp lệ!');
   }
 })();`;
-}
+        }
 
         document.getElementById('btn-copy-script').addEventListener('click', async () => {
             const reqImg = document.getElementById('chk-require-image').checked;
@@ -744,11 +754,12 @@
                         const name = (item.name || '').toString().trim();
                         if (name && !seen.has(name.toLowerCase())) {
                             seen.add(name.toLowerCase());
-                            parsedList.push({
+                            parsedList.push(packParticipantForUpload({
                                 name: name,
                                 img: (item.img || '').toString().trim(),
+                                profile: (item.profile || '').toString().trim(),
                                 tags: Number(item.tags || 0)
-                            });
+                            }));
                         }
                     });
                 }
@@ -766,7 +777,6 @@
             return parsedList;
         }
 
-        // Gửi danh sách người chơi lên Google Sheet để công khai
         async function uploadParticipantsToCloud(list, mode = "merge") {
             if (!verifiedAdminKey) {
                 alert("⚠️ Vui lòng đăng nhập Admin trước khi lưu danh sách!");
@@ -863,20 +873,21 @@
                 const safeName = p.name.replace(/'/g, "\\'");
                 const sttNum = p.stt || (idx + 1);
                 const isWinner = (winners[0] && winners[0].name === p.name) || (winners[1] && winners[1].name === p.name);
+                const isDisqualified = disqualifiedNames.has(p.name.toLowerCase());
                 return `
-                <div class="flex items-center justify-between ${isWinner ? 'bg-yellow-50 border-yellow-400' : 'bg-gray-50 border-gray-200'} hover:bg-[#F0FDF4] border hover:border-green-400 rounded-xl px-3.5 py-2.5 transition-all">
+                <div class="flex items-center justify-between ${isDisqualified ? 'bg-red-50 border-red-300 opacity-60' : (isWinner ? 'bg-yellow-50 border-yellow-400' : 'bg-gray-50 border-gray-200')} hover:bg-[#F0FDF4] border hover:border-green-400 rounded-xl px-3.5 py-2.5 transition-all">
                     <div class="flex items-center gap-3 min-w-0">
-                        <span class="w-7 h-7 rounded-full bg-[#0F3823] text-[#FACC15] font-black text-[11px] flex items-center justify-center shrink-0">
+                        <span class="w-7 h-7 rounded-full ${isDisqualified ? 'bg-red-700 text-white' : 'bg-[#0F3823] text-[#FACC15]'} font-black text-[11px] flex items-center justify-center shrink-0">
                             #${sttNum}
                         </span>
                         <div class="truncate">
-                            <p class="font-bold text-xs text-[#0F3823] truncate">
-                                ${p.name} ${isWinner ? '🏆' : ''}
+                            <p class="font-bold text-xs ${isDisqualified ? 'line-through text-red-700' : 'text-[#0F3823]'} truncate">
+                                ${p.name} ${isWinner ? '🏆' : ''} ${isDisqualified ? '(Thiếu ĐK)' : ''}
                             </p>
-                            <p class="text-[10px] text-green-700 font-semibold">
-                                ${p.img ? '📸 Đã nộp ảnh Mã thiết bị' : '✔️ Thành viên hợp lệ'}
-                                ${p.tags > 0 ? ` • Tag ${p.tags} bạn` : ''}
-                            </p>
+                            <div class="flex items-center gap-2 text-[10px] text-green-700 font-semibold">
+                                <span>${p.img ? '📸 Có ảnh Mã TB' : '✔️ Hợp lệ'}${p.tags > 0 ? ` • Tag ${p.tags} bạn` : ''}</span>
+                                ${p.profile ? `<a href="${p.profile}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">🔗 Xem FB</a>` : ''}
+                            </div>
                         </div>
                     </div>
                     ${p.img ? `
@@ -890,39 +901,56 @@
 
         function renderWinners() {
             const slots = [0, 1];
+            const isAdmin = Boolean(verifiedAdminKey);
             winnersContainer.innerHTML = slots.map(slotIdx => {
                 const w = winners[slotIdx];
                 if (!w) {
                     return `
-                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[140px] text-center">
+                        <div class="bg-[#0A2317]/90 border border-green-700/80 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[155px] text-center">
                             <span class="text-xs font-extrabold text-green-400 uppercase tracking-wider mb-1">Giải May Mắn #${slotIdx + 1}</span>
-                            <p class="text-xs text-green-200/50 italic">Đang chờ công bố kết quả...</p>
+                            <p class="text-xs text-green-200/50 italic">Đang chờ quay số Giải #${slotIdx + 1}...</p>
                         </div>
                     `;
                 }
                 const safeName = w.name.replace(/'/g, "\\'");
+                const fbSearchUrl = w.profile || `https://www.facebook.com/search/top?q=${encodeURIComponent(w.name)}`;
                 return `
-                    <div class="winner-card-anim bg-gradient-to-br from-[#14532D] to-[#0A2317] border-2 border-[#FACC15] rounded-2xl p-4 flex items-center gap-3.5 shadow-xl">
-                        ${w.img ? `
-                            <img src="${w.img}" onclick="showImageModal('${safeName}', '${w.img}')"
-                                 class="w-16 h-16 rounded-xl object-cover border-2 border-[#FACC15] cursor-pointer shrink-0 hover:scale-105 transition-transform"
-                                 title="Bấm để phóng to ảnh Mã thiết bị">
-                        ` : `
-                            <div class="w-16 h-16 rounded-xl bg-[#FACC15] text-[#0F3823] font-black text-2xl flex items-center justify-center shrink-0">
-                                🏆
-                            </div>
-                        `}
-                        <div class="min-w-0 flex-1 text-left">
-                            <span class="inline-block bg-[#FACC15] text-[#0F3823] font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">
-                                🎉 TRÚNG KEY PRO #${slotIdx + 1}
-                            </span>
-                            <h4 class="font-black text-base md:text-lg text-white mt-1 truncate">${w.name}</h4>
+                    <div class="winner-card-anim bg-gradient-to-br from-[#14532D] to-[#0A2317] border-2 border-[#FACC15] rounded-2xl p-4 flex flex-col justify-between gap-3 shadow-xl">
+                        <div class="flex items-center gap-3.5">
                             ${w.img ? `
-                                <button onclick="showImageModal('${safeName}', '${w.img}')" class="text-[11px] font-bold text-[#FACC15] hover:underline mt-1 flex items-center gap-1">
-                                    <span>🔍 Xem ảnh Mã thiết bị</span>
-                                </button>
-                            ` : `<p class="text-[11px] text-green-300 mt-0.5">Trúng thưởng hợp lệ</p>`}
+                                <img src="${w.img}" onclick="showImageModal('${safeName}', '${w.img}')"
+                                     class="w-16 h-16 rounded-xl object-cover border-2 border-[#FACC15] cursor-pointer shrink-0 hover:scale-105 transition-transform"
+                                     title="Bấm để phóng to ảnh Mã thiết bị">
+                            ` : `
+                                <div class="w-16 h-16 rounded-xl bg-[#FACC15] text-[#0F3823] font-black text-2xl flex items-center justify-center shrink-0">
+                                    🏆
+                                </div>
+                            `}
+                            <div class="min-w-0 flex-1 text-left">
+                                <span class="inline-block bg-[#FACC15] text-[#0F3823] font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">
+                                    🎉 TRÚNG KEY PRO #${slotIdx + 1}
+                                </span>
+                                <h4 class="font-black text-base md:text-lg text-white mt-1 truncate" title="${w.name}">${w.name}</h4>
+                                <div class="flex flex-wrap items-center gap-2.5 mt-1">
+                                    ${w.img ? `
+                                        <button onclick="showImageModal('${safeName}', '${w.img}')" class="text-[11px] font-bold text-[#FACC15] hover:underline flex items-center gap-1">
+                                            <span>🔍 Ảnh Mã TB</span>
+                                        </button>
+                                    ` : ''}
+                                    <a href="${fbSearchUrl}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-emerald-300 hover:text-white underline flex items-center gap-1" title="Mở trang cá nhân kiểm tra đã Like & Chia sẻ công khai chưa">
+                                        <span>🔗 Kiểm tra FB</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
+                        ${isAdmin ? `
+                            <div class="pt-2 border-t border-green-700/70 flex justify-end">
+                                <button onclick="redrawSingleSlot(${slotIdx})" class="w-full bg-red-900/70 hover:bg-red-700 text-red-100 border border-red-500/60 font-bold text-[11px] py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5" title="Giữ nguyên giải kia, chỉ hủy người này và quay lại riêng Giải #${slotIdx + 1}">
+                                    <span>🔄 Thiếu ĐK (Chưa Share) • Quay lại riêng Giải #${slotIdx + 1}</span>
+                                </button>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             }).join('');
@@ -966,29 +994,25 @@
             draw();
         }
 
-        // NÚT QUAY SỐ (CHỈ ADMIN ĐÃ XÁC THỰC MỚI BẤM ĐƯỢC & LƯU KẾT QUẢ LÊN GOOGLE SHEET)
-        document.getElementById('btn-spin').addEventListener('click', async () => {
+        // Hàm quay số cho 1 vị trí giải cụ thể (slotIdx = 0 là Giải #1, slotIdx = 1 là Giải #2)
+        function spinForSpecificSlot(targetSlotIdx) {
             if (isSpinning) return;
             if (!verifiedAdminKey) {
                 alert("⚠️ Chỉ Quản trị viên (Admin) mới có quyền quay số!");
                 return;
             }
-            if (participants.length < 2) {
-                alert("⚠️ Danh sách trên hệ thống cần tối thiểu 02 người chơi hợp lệ để bắt đầu quay số!");
-                return;
-            }
-
-            const targetSlotIdx = !winners[0] ? 0 : (!winners[1] ? 1 : -1);
-            if (targetSlotIdx === -1) {
-                alert("ℹ️ Đã có đủ 02 người trúng giải trên hệ thống! Nếu muốn quay lại, hãy bấm nút 'Đặt lại kết quả trên Server'.");
-                return;
-            }
 
             const prizeNumber = targetSlotIdx + 1;
             const eligiblePool = participants.filter(p =>
+                !disqualifiedNames.has(p.name.toLowerCase()) &&
                 (!winners[0] || winners[0].name !== p.name) &&
                 (!winners[1] || winners[1].name !== p.name)
             );
+
+            if (eligiblePool.length === 0) {
+                alert("⚠️ Không còn ứng viên hợp lệ nào trong danh sách để quay tiếp!");
+                return;
+            }
 
             isSpinning = true;
             rollingStatusEl.textContent = `🎲 ĐANG QUAY TÌM CHỦ NHÂN GIẢI PRO #${prizeNumber}...`;
@@ -1015,7 +1039,7 @@
                     renderParticipantList(searchInput.value.trim().toLowerCase());
                     launchConfetti();
 
-                    // Lưu người trúng giải lên Google Sheet để công khai cho toàn bộ người xem
+                    // Lưu duy nhất vị trí Giải #1 hoặc #2 vừa quay lên Google Sheet (giữ nguyên giải còn lại)
                     try {
                         await fetch(EVENT_SCRIPT_URL, {
                             method: "POST",
@@ -1027,20 +1051,64 @@
                                 winner_name: finalWinner.name
                             })
                         });
-                        rollingSubEl.textContent = prizeNumber === 1
-                            ? "✅ Đã lưu Giải PRO #1 lên máy chủ! Bấm Quay số thêm 1 lần nữa để chọn Giải PRO #2."
-                            : "✅ Đã lưu chính thức cả 02 chủ nhân Giải PRO lên máy chủ công khai!";
+                        const bothDone = Boolean(winners[0] && winners[1]);
+                        rollingSubEl.textContent = bothDone
+                            ? "✅ Đã lưu đủ 02 chủ nhân Giải PRO lên máy chủ! Bạn có thể bấm [🔗 Kiểm tra FB] trên từng giải."
+                            : `✅ Đã lưu Giải PRO #${prizeNumber}! Bấm Quay số thêm 1 lần nữa để chọn giải còn lại.`;
                     } catch (_) {}
 
                     isSpinning = false;
                 }
             }, 65);
+        }
+
+        // Hủy & Quay lại riêng 1 giải khi phát hiện người đó chưa Like/Share (Giữ nguyên người trúng giải còn lại)
+        window.redrawSingleSlot = function(slotIdx) {
+            if (isSpinning || !verifiedAdminKey) return;
+            const currentWinner = winners[slotIdx];
+            if (!currentWinner) return;
+
+            const prizeNum = slotIdx + 1;
+            const otherPrizeNum = slotIdx === 0 ? 2 : 1;
+            const confirmMsg = `Xác nhận tài khoản "${currentWinner.name}" thiếu điều kiện (chưa Like / Chia sẻ công khai)?\n\n` +
+                               `👉 Hệ thống sẽ GIỮ NGUYÊN Giải #${otherPrizeNum}, loại "${currentWinner.name}" khỏi vòng quay và QUAY LẠI RIÊNG GIẢI #${prizeNum}!`;
+
+            if (!confirm(confirmMsg)) return;
+
+            disqualifiedNames.add(currentWinner.name.toLowerCase());
+            winners[slotIdx] = null;
+            renderWinners();
+            renderParticipantList(searchInput.value.trim().toLowerCase());
+
+            // Tự động quay ngay người mới thay thế vào đúng vị trí giải vừa hủy
+            spinForSpecificSlot(slotIdx);
+        };
+
+        // Nút Quay số chính
+        document.getElementById('btn-spin').addEventListener('click', () => {
+            if (isSpinning) return;
+            if (!verifiedAdminKey) {
+                alert("⚠️ Chỉ Quản trị viên (Admin) mới có quyền quay số!");
+                return;
+            }
+            if (participants.length < 2) {
+                alert("⚠️ Danh sách trên hệ thống cần tối thiểu 02 người chơi hợp lệ để bắt đầu quay số!");
+                return;
+            }
+
+            const targetSlotIdx = !winners[0] ? 0 : (!winners[1] ? 1 : -1);
+            if (targetSlotIdx === -1) {
+                alert("ℹ️ Đã có đủ 02 người trúng giải! Nếu 1 trong 2 người thiếu điều kiện Like/Share, bạn hãy bấm nút [🔄 Thiếu ĐK • Quay lại riêng Giải #1 (hoặc #2)] ngay trên thẻ của người đó.");
+                return;
+            }
+
+            spinForSpecificSlot(targetSlotIdx);
         });
 
-        // Đặt lại kết quả trúng giải trên Google Sheet (Chỉ Admin)
+        // Đặt lại toàn bộ 2 giải trên Google Sheet (Chỉ Admin)
         document.getElementById('btn-reset-winners').addEventListener('click', async () => {
             if (isSpinning || !verifiedAdminKey) return;
-            if (!confirm("Bạn có chắc chắn muốn XÓA kết quả 02 người trúng giải hiện tại trên Google Sheet để quay lại từ đầu không?")) return;
+            if (!confirm("Bạn có chắc chắn muốn XÓA CẢ 02 kết quả trúng giải hiện tại trên Google Sheet để quay lại từ đầu không?")) return;
 
             try {
                 const resp = await fetch(EVENT_SCRIPT_URL, {
@@ -1053,6 +1121,7 @@
                 });
                 const res = await resp.json();
                 if (res && res.status === "ok") {
+                    disqualifiedNames.clear();
                     winners = [null, null];
                     await fetchPublicEventData();
                 }
@@ -1061,7 +1130,6 @@
             }
         });
 
-        // Khởi chạy khi mở trang
         document.addEventListener('DOMContentLoaded', () => {
             updateAdminUI(Boolean(verifiedAdminKey));
             fetchPublicEventData();
